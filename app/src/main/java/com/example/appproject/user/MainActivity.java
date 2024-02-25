@@ -1,4 +1,4 @@
-package com.example.appproject;
+package com.example.appproject.user;
 
 
 import android.os.Bundle;
@@ -22,6 +22,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.appproject.R;
 import com.example.appproject.adapter.DanhMucAdapter;
 import com.example.appproject.adapter.ItemSearchAdapter;
 import com.example.appproject.adapter.TruyenTranhAdapter;

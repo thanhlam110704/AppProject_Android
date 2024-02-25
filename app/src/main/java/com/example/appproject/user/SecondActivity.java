@@ -1,9 +1,11 @@
-package com.example.appproject;
+package com.example.appproject.user;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+
+import com.example.appproject.R;
 
 public class SecondActivity extends AppCompatActivity {
 

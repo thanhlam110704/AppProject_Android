@@ -1,8 +1,10 @@
-package com.example.appproject;
+package com.example.appproject.user;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.appproject.R;
 
 public class FavoriteActivity extends AppCompatActivity {
 

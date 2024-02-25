@@ -15,22 +15,23 @@
         android:theme="@style/Theme.AppProject"
         tools:targetApi="31">
         <activity
-            android:name=".HomeActivity"
+            android:name=".admin.AddDataActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".user.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".user.NewComicActivity"
             android:exported="false" />
         <activity
-            android:name=".NewComicActivity"
+            android:name=".user.FavoriteActivity"
             android:exported="false" />
         <activity
-            android:name=".FavoriteActivity"
+            android:name=".user.SecondActivity"
             android:exported="false" />
         <activity
-            android:name=".SecondActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
+            android:name=".user.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
