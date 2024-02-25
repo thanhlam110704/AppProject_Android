@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+<group android:checkableBehavior="single">
+    <item
+        android:id="@+id/nav_home"
+        android:title="@string/nav_home"
+        android:icon="@drawable/icon_home"
+       />
+    <item
+        android:id="@+id/nav_New"
+        android:title="@string/nav_new"
+        android:icon="@drawable/icon_new"
+        />
+    <item
+        android:id="@+id/nav_popular"
+        android:title="@string/nav_popular"
+        android:icon="@drawable/icons_popular"
+        />
+    <item
+        android:id="@+id/nav_Favor"
+        android:title="@string/nav_favor"
+        android:icon="@drawable/icon_heart"
+        />
+</group>
+    <group >
+      <item
+          android:title="Tài khoản">
+          <menu>
+              <group android:checkableBehavior="single">
+              <item
+                  android:id="@+id/nav_Login"
+                  android:title="@string/nav_login"
+                  android:icon="@drawable/icon_login"
+                  />
+              <item
+                  android:id="@+id/nav_Profile"
+                  android:title="@string/nav_profile"
+                  android:icon="@drawable/icon_info"
+
+                  />
+              <item
+                  android:id="@+id/nav_Logout"
+                  android:title="@string/nav_logout"
+                  android:icon="@drawable/icon_logout"
+
+                  />
+              </group>
+          </menu>
+      </item>
+    </group>
+    <item android:title="Liên hệ">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_rate"
+                    android:title="Rating"
+                    android:icon="@drawable/icons_rate"
+                    />
+            <item
+                android:id="@+id/nav_fanpage"
+                android:title="Fanpage"
+                android:icon="@drawable/icon_page"
+                />
+            </group>
+        </menu>
+    </item>
+
+
+
+
+
+</menu>

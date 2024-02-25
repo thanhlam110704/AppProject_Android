@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayoutCompat"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:padding="2dp"
+    android:paddingTop="4dp"
+    >
+
+    <LinearLayout
+        android:layout_width="130dp"
+        android:layout_height="210dp"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:background="@drawable/border_background"
+
+        >
+        <RelativeLayout
+            android:layout_width="130dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+
+            >
+            <ImageView
+                android:id="@+id/imgAnhTruyen"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/hinh_conantruyen" />
+
+            <TextView
+                android:id="@+id/txtTen"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_alignParentBottom="true"
+                android:background="#A8000000"
+                android:gravity="center"
+                android:text="Truyen tranh"
+                android:textColor="@color/white"
+                android:textSize="10dp"
+                tools:ignore="TextSizeCheck" />
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/txtTenTruyen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:paddingLeft="5dp"
+            android:text="Ten truyen tranh"
+            android:textColor="#000"
+            android:layout_gravity="center"
+            android:textSize="12dp"
+            android:textStyle="bold"
+            tools:ignore="TextSizeCheck" />
+        <TextView
+            android:id="@+id/txtTenChap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:paddingLeft="5dp"
+            android:text="Chapter 13"
+            android:textColor="@color/black"
+            android:textSize="10dp"
+            android:layout_gravity="center"
+            tools:ignore="TextSizeCheck" />
+        <TextView
+            android:id="@+id/txtTenChap3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:paddingLeft="5dp"
+            android:text="Chapter 12"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:textSize="10dp"
+            tools:ignore="TextSizeCheck" />
+        <TextView
+            android:id="@+id/txtTenChap2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:paddingLeft="5dp"
+            android:text="Chapter 12"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:textSize="10dp"
+            tools:ignore="TextSizeCheck" />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

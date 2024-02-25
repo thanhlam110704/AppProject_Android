@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">TruyenTranhApp</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_home">Trang chủ</string>
+    <string name="nav_favor">Truyện yêu thích</string>
+    <string name="nav_popular">Truyện phổ biến</string>
+    <string name="nav_profile">Thông tin</string>
+    <string name="nav_login">Đăng nhập</string>
+    <string name="nav_logout">Đăng xuất</string>
+    <string name="nav_new">Truyện mới</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

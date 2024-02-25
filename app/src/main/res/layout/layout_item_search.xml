@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:background="@color/white"
+    >
+
+    <ImageView
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:id="@+id/imgTruyen_search"
+        android:scaleType="centerCrop"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="Ten Truyen"
+        android:paddingLeft="5dp"
+        android:textSize="20sp"
+        android:textColor="@color/red"
+        android:textStyle="bold"
+        android:layout_toRightOf="@+id/imgTruyen_search"
+        android:id="@+id/txtTenTruyen_search"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:id="@+id/txtTenChap_search"
+        android:paddingLeft="5dp"
+        android:text="Ten Chap"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        android:textColor="@color/black"
+        android:layout_toRightOf="@+id/imgTruyen_search"
+        android:layout_below="@+id/txtTenTruyen_search"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:id="@+id/txtTheLoai_search"
+        android:paddingLeft="5dp"
+        android:text="The Loai"
+        android:textSize="18sp"
+        android:textStyle="italic"
+        android:textColor="@color/black"
+        android:layout_toRightOf="@+id/imgTruyen_search"
+        android:layout_below="@+id/txtTenChap_search"/>
+
+</RelativeLayout>
