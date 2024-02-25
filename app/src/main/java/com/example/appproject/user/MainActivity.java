@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ArrayList<TruyenTranh> truyenTranhArrayList;
     RecyclerView rcvCategory;
 
+
     DanhMucAdapter categoryAdapter;
     public boolean isSearching = false;
     private View includedLayout;
@@ -71,7 +72,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         addEventProduct();
         addEventBanner();
         addMenuSearch();
+
     }
+
+
+
 
     /*Xử lý danh sách truyện tranh để cử */
     private void addEventBanner() {

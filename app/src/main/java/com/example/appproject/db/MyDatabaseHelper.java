@@ -1,7 +1,9 @@
 package com.example.appproject.db;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -82,6 +84,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     public MyDatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.context=context;
     }
 
 
@@ -95,7 +98,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 + DESCRIPTION + " TEXT, "
                 + AUTHOR + " TEXT, "
                 + DATE_UPDATE + " TEXT, "
-                + STATUS + " INTEGER);";
+                + STATUS + " TEXT);";
         db.execSQL(createTableComic);
 
         // Tạo bảng Chapter
@@ -172,6 +175,24 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
         // Gọi lại phương thức onCreate() để tạo lại cấu trúc cơ sở dữ liệu mới
         onCreate(db);
+    }
+    public void addComic(String name, String description, String date_update, String author, String status ){
+        SQLiteDatabase db=this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(NAME_COMIC,name);
+        cv.put(DESCRIPTION,description);
+        cv.put(DATE_UPDATE,date_update);
+        cv.put(STATUS,status);
+        cv.put(AUTHOR,author);
+        long result= db.insert(TABLE_NAME1,null,cv);
+        if(result == -1)
+        {
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(context, "Added Successfully!", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 }
