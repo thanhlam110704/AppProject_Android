@@ -7,5 +7,4 @@
 
     <!-- TODO: Update blank fragment layout -->
     <include layout="@layout/activity_login"/>
-
 </FrameLayout>

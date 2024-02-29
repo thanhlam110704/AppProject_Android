@@ -88,6 +88,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     }
 
 
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         // Tạo bảng Comic

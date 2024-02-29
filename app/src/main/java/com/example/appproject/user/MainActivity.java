@@ -6,13 +6,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -26,8 +29,12 @@ import com.example.appproject.R;
 import com.example.appproject.adapter.DanhMucAdapter;
 import com.example.appproject.adapter.ItemSearchAdapter;
 import com.example.appproject.adapter.TruyenTranhAdapter;
+import com.example.appproject.fragment.FanpageFragment;
 import com.example.appproject.fragment.FavoriteFragment;
 import com.example.appproject.fragment.LoginFragment;
+import com.example.appproject.fragment.ProfileFragment;
+import com.example.appproject.fragment.RatingFragment;
+import com.example.appproject.fragment.RegisterFragment;
 import com.example.appproject.object.DanhMuc;
 import com.example.appproject.object.ItemSearch;
 import com.example.appproject.object.TruyenTranh;
@@ -42,9 +49,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static final int FragMent_Home=1;
     private static final int FragMent_Login=2;
     private static final int FragMent_Favor=3;
+    private static final int FragMent_Rating=4;
+    private static final int FragMent_Fanpage=5;
+    private static final int FragMent_Profile=6;
+    private static final int FragMent_Register=7;
+
+
     private int currentFrageMent;
-
-
     TextView textView;
     DrawerLayout drawerLayout;
     ListView listView;
@@ -72,7 +83,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         addEventProduct();
         addEventBanner();
         addMenuSearch();
-
+        final AppCompatButton btnrateNow=findViewById(R.id.btnrateNow);
+        final AppCompatButton btnlater=findViewById(R.id.btnlater);
+        final RatingBar ratingBar= findViewById(R.id.Ratingbar);
+        final ImageView imgRating=findViewById(R.id.imgRating);
     }
 
 
@@ -279,6 +293,38 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             if(currentFrageMent!=FragMent_Favor) {
                 replaceFragMent(new FavoriteFragment());
                 currentFrageMent=FragMent_Favor;
+                setTitle(item.getTitle());
+
+            }
+        }
+        else if (item.getItemId()==R.id.nav_rate){
+            if(currentFrageMent!=FragMent_Rating) {
+                replaceFragMent(new RatingFragment());
+                currentFrageMent=FragMent_Rating;
+                setTitle(item.getTitle());
+
+            }
+        }
+        else if (item.getItemId()==R.id.nav_fanpage){
+            if(currentFrageMent!=FragMent_Fanpage) {
+                replaceFragMent(new FanpageFragment());
+                currentFrageMent=FragMent_Fanpage;
+                setTitle(item.getTitle());
+
+            }
+        }
+        else if (item.getItemId()==R.id.nav_Profile){
+            if(currentFrageMent!=FragMent_Profile) {
+                replaceFragMent(new ProfileFragment());
+                currentFrageMent=FragMent_Profile;
+                setTitle(item.getTitle());
+
+            }
+        }
+        else if (item.getItemId()==R.id.nav_Register){
+            if(currentFrageMent!=FragMent_Register) {
+                replaceFragMent(new RegisterFragment());
+                currentFrageMent=FragMent_Register;
                 setTitle(item.getTitle());
 
             }

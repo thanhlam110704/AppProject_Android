@@ -35,6 +35,11 @@
                   android:title="@string/nav_login"
                   android:icon="@drawable/icon_login"
                   />
+                  <item
+                      android:id="@+id/nav_Register"
+                      android:title="Đăng ký"
+                      android:icon="@drawable/icon_register"
+                      />
               <item
                   android:id="@+id/nav_Profile"
                   android:title="@string/nav_profile"
@@ -45,7 +50,6 @@
                   android:id="@+id/nav_Logout"
                   android:title="@string/nav_logout"
                   android:icon="@drawable/icon_logout"
-
                   />
               </group>
           </menu>
@@ -67,9 +71,4 @@
             </group>
         </menu>
     </item>
-
-
-
-
-
 </menu>
