@@ -29,10 +29,13 @@ public class AddDataActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 MyDatabaseHelper mydb= new MyDatabaseHelper(AddDataActivity.this);
-                mydb.addComic(edtTruyen.getText().toString().trim(),edtDescription.getText().toString().trim(),
+                mydb.addComic(edtTruyen.getText().toString().trim(),
                         edtDescription.getText().toString().trim(),
                         edtNgayCapNhat.getText().toString().trim(),
-                        edtStatus.getText().toString().trim());
+                        edtTacgia.getText().toString().trim(),
+                        edtStatus.getText().toString().trim()
+                     );
+
             }
         });
     }
