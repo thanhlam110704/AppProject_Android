@@ -1,6 +1,7 @@
 package com.example.appproject.user;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -260,11 +261,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         if (item.getItemId()==R.id.nav_home){
-           if(currentFrageMent!=FragMent_Home) {
-               navigateToContentFrame();
-               currentFrageMent=FragMent_Home;
-               setTitle(item.getTitle());
-           }
+            Intent intent= new Intent(this,MainActivity.class);
         }
         else if (item.getItemId()==R.id.nav_Login){
             if(currentFrageMent!=FragMent_Login) {
