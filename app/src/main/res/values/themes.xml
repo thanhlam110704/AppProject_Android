@@ -12,4 +12,10 @@
         <item name="colorPrimaryDark">@color/design_default_color_primary_dark</item>
 
     </style>
+    <style name="MyRatingBar" parent="Widget.AppCompat.RatingBar">
+        <!-- khong chon mau sao-->
+        <item name="colorControlNormal">#4D000000</item>
+        <!--Chon mau sao-->
+        <item name="colorControlActivated">@color/dialog_color1</item>
+    </style>
 </resources>

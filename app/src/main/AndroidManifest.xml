@@ -11,7 +11,6 @@
         android:maxSdkVersion="32"
         tools:ignore="ScopedStorage" />
 
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -23,26 +22,32 @@
         android:theme="@style/Theme.AppProject"
         tools:targetApi="31">
         <activity
+            android:name=".user.FanpageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".user.RatingActivity"
+            android:exported="false" />
+        <activity
             android:name=".admin.UpdateChapterActivity"
-            android:label="Update Chapter"
             android:exported="false"
+            android:label="Update Chapter"
             android:parentActivityName=".db.ChapterDataActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
-            />
+            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
         <activity
             android:name=".db.ChapterDataActivity"
-            android:label="Chapter Data"
             android:exported="false"
+            android:label="Chapter Data"
             android:parentActivityName=".admin.AdminActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
-            />
+            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
         <activity
             android:name=".admin.AddChapterActivity"
-            android:label="Add Chapter"
             android:exported="false"
+            android:label="Add Chapter"
             android:parentActivityName=".db.ChapterDataActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
-            />
+            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
         <activity
             android:name=".user.RegisterActivity"
             android:exported="true"
@@ -71,7 +76,7 @@
             android:name=".admin.AdminActivity"
             android:exported="true"
             android:label="Admin"
-            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" >
+            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -96,9 +101,7 @@
         <activity
             android:name=".user.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppProject">
-
-        </activity>
+            android:theme="@style/Theme.AppProject" />
 
         <meta-data
             android:name="preloaded_fonts"
