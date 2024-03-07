@@ -41,6 +41,7 @@ dependencies {
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation ("androidx.sqlite:sqlite:2.2.0")
     implementation ("androidx.sqlite:sqlite-ktx:2.2.0")
+    implementation("androidx.activity:activity:1.8.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

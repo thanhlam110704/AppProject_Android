@@ -3,11 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="32"
         tools:ignore="ScopedStorage" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -19,23 +22,26 @@
         android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".user.RegisterActivity"
+            android:exported="false" />
+        <activity
             android:name=".admin.UpdateComicActivity"
-            android:label="Update Comic"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
-            android:parentActivityName=".db.ComicDataActivity"/>
+            android:label="Update Comic"
+            android:parentActivityName=".db.ComicDataActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
         <activity
             android:name=".admin.AddComicActivity"
-            android:label="Add Comic"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
-            android:parentActivityName=".db.ComicDataActivity"/>
+            android:label="Add Comic"
+            android:parentActivityName=".db.ComicDataActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
         <activity
             android:name=".db.ComicDataActivity"
             android:exported="false"
             android:label="ComicData"
-            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
-            android:parentActivityName=".admin.AdminActivity"/>
+            android:parentActivityName=".admin.AdminActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
         <activity
             android:name=".admin.AdminActivity"
             android:exported="true"
@@ -47,7 +53,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".user.LoginActivity"
             android:exported="false" />
@@ -62,8 +67,7 @@
             android:exported="false" />
         <activity
             android:name=".user.MainActivity"
-            android:exported="true"
-           />
+            android:exported="true" />
 
         <meta-data
             android:name="preloaded_fonts"
