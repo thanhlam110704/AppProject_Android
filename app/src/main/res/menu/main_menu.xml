@@ -20,6 +20,11 @@
           android:title="Tài khoản">
           <menu>
               <group android:checkableBehavior="single">
+                 <item
+                      android:id="@+id/nav_Register"
+                      android:title="Đăng ký"
+                      android:icon="@drawable/icon_login"
+                   />
               <item
                   android:id="@+id/nav_Login"
                   android:title="@string/nav_login"

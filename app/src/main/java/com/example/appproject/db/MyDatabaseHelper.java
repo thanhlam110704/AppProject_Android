@@ -1,6 +1,5 @@
 package com.example.appproject.db;
 
-import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -11,12 +10,14 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import java.util.List;
+
 
 public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     private final Context context;
     private static final String DATABASE_NAME = "Comic.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
 
 
@@ -35,9 +36,13 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_NAME2 = "chapter";
     private static final String ID_CHAPTER = "id_chapter";
     private static final String NAME_CHAPTER= "name_chapter";
-    private static final String DATE_PUBLISH = "date_publish";
-    //private static final String FILE="file";
     private static final String VIEWER = "viewer";
+    private static final String DATE_PUBLISH = "date_publish";
+    private static final String IMG1="img1";
+    private static final String IMG2="img2";
+    private static final String IMG3="img3";
+    private static final String IMG4="img4";
+    private static final String IMG5="img5";
     private static final String ID_COMIC_FOREGIN_CHAPTER="id_comic";
 
 
@@ -62,7 +67,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     //Bảng 5
     private static final String TABLE_NAME5 = "comic_Genre";
     private static final String ID_Comic_Genre ="id_comicgenre";
-    private static final String ID_GENRE_FOREGIN = "id_genre_comic_genre";
+    private static final String ID_GENRE_FOREGIN_COMIC_GENRE = "id_genre_comic_genre";
     private static final String ID_COMIC_FOREGIN_COMIC_GENRE = "id_comic_comic_genre";
 
 
@@ -103,10 +108,14 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         // Tạo bảng Chapter
         String createTableChapter = "CREATE TABLE " + TABLE_NAME2 + " ("
                 + ID_CHAPTER + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + NAME_CHAPTER + " INTEGER, "
-                + DATE_PUBLISH + " TEXT, "
-                //+ FILE + " BLOB, "
+                + NAME_CHAPTER + " TEXT, "
                 + VIEWER + " INTEGER, "
+                + DATE_PUBLISH + " TEXT, "
+                + IMG1+ " BLOB,"
+                + IMG2+ " BLOB,"
+                + IMG3+ " BLOB,"
+                + IMG4+ " BLOB,"
+                + IMG5+ " BLOB,"
                 + ID_COMIC_FOREGIN_CHAPTER + " INTEGER, "
                 + "FOREIGN KEY(" + ID_COMIC_FOREGIN_CHAPTER + ") REFERENCES "
                 + TABLE_NAME + "(" + ID_COMIC + "));";
@@ -130,9 +139,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         // Tạo bảng Comic_Gender
         String createTableComicGender = "CREATE TABLE " + TABLE_NAME5 + " ("
                 + ID_Comic_Genre + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + ID_GENRE_FOREGIN + " INTEGER, "
+                + ID_GENRE_FOREGIN_COMIC_GENRE + " INTEGER, "
                 + ID_COMIC_FOREGIN_COMIC_GENRE + " INTEGER, "
-                + "FOREIGN KEY(" + ID_GENRE_FOREGIN + ") REFERENCES "
+                + "FOREIGN KEY(" + ID_GENRE_FOREGIN_COMIC_GENRE + ") REFERENCES "
                 + TABLE_NAME4 + "(" + ID_GENRE + "), "
                 + "FOREIGN KEY(" + ID_COMIC_FOREGIN_COMIC_GENRE + ") REFERENCES "
                 + TABLE_NAME + "(" + ID_COMIC + "));";
@@ -198,62 +207,6 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void addChapter(String name,String viewer, String date_publish,String idcomic) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues cv = new ContentValues();
-
-        cv.put(NAME_CHAPTER, name);
-        cv.put(DATE_PUBLISH, date_publish);
-        //cv.put(FILE, file);
-        cv.put(VIEWER, viewer);
-        cv.put(ID_COMIC_FOREGIN_CHAPTER,idcomic);
-
-
-        long result = db.insert(TABLE_NAME2, null, cv);
-
-        if (result == -1) {
-            Toast.makeText(context, "Failed to add chapter", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(context, "Chapter added successfully!", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    @SuppressLint("Range")
-    public String getComicNameForChapter(int chapterId) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        String comicName = null;
-
-        String query = "SELECT " + TABLE_NAME + "." + NAME_COMIC +
-                " FROM " + TABLE_NAME2 +
-                " INNER JOIN " + TABLE_NAME +
-                " ON " + TABLE_NAME2 + "." + ID_COMIC_FOREGIN_CHAPTER + " = " +
-                TABLE_NAME + "." + ID_COMIC +
-                " WHERE " + TABLE_NAME2 + "." + ID_CHAPTER + " = " + chapterId;
-
-        Cursor cursor = db.rawQuery(query, null);
-
-        if (cursor.moveToFirst()) {
-            comicName = cursor.getString(cursor.getColumnIndex(NAME_COMIC));
-        }
-
-        cursor.close();
-        db.close();
-
-        return comicName;
-    }
-    public void addGen(String name) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues cv = new ContentValues();
-
-        cv.put(NAME_GENRE, name);
-        long result = db.insert(TABLE_NAME3, null, cv);
-
-        if (result == -1) {
-            Toast.makeText(context, "Failed to add genre", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(context, "Genre added successfully!", Toast.LENGTH_SHORT).show();
-        }
-    }
     Cursor readAllData(){
         String query = "SELECT * FROM " + TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
@@ -294,8 +247,173 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    void deleteAllData(){
+    public void deleteAllData(){
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + TABLE_NAME);
+    }
+    public void addChapter(String chapter, String viewer, String date_publish, List<byte[]> imageList , String idcomic) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(NAME_CHAPTER, chapter);
+        cv.put(DATE_PUBLISH, date_publish);
+        cv.put(VIEWER, viewer);
+        // Ensure the imageList has at least 5 elements
+        for (int i = 0; i < 5; i++) {
+            String imgColumnName = "IMG" + (i + 1);
+            if (i < imageList.size()) {
+                cv.put(imgColumnName, imageList.get(i));
+            } else {
+                cv.putNull(imgColumnName); // Set to NULL if no image is provided
+            }
+        }
+        cv.put(ID_COMIC_FOREGIN_CHAPTER, Integer.parseInt(idcomic));
+
+        long result = db.insert(TABLE_NAME2, null, cv);
+
+        if (result == -1) {
+            Toast.makeText(context, "Failed to add chapter", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Chapter added successfully!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    public void updateData_chapter(String row_id,String chapter, String viewer, String date_publish,List<byte[]> imageList,String idcomic){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(NAME_CHAPTER,chapter);
+        cv.put(VIEWER, viewer);
+        cv.put(DATE_PUBLISH, date_publish);
+        // Ensure the imageList has at least 5 elements
+        for (int i = 0; i < 5; i++) {
+            String imgColumnName = "IMG" + (i + 1);
+            if (i < imageList.size()) {
+                cv.put(imgColumnName, imageList.get(i));
+            } else {
+                cv.putNull(imgColumnName); // Set to NULL if no image is provided
+            }
+        }
+        cv.put(ID_COMIC_FOREGIN_CHAPTER,Integer.parseInt(idcomic));
+
+        long result = db.update(TABLE_NAME, cv, "id_chapter=?", new String[]{row_id});
+        if(result == -1){
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(context, "Updated Successfully!", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+    Cursor readAllDataChapter(){
+        String query = "SELECT * FROM " + TABLE_NAME2;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = null;
+        if(db != null){
+            cursor = db.rawQuery(query, null);
+        }
+        return cursor;
+    }
+    public void deleteOneRow_chapter(String row_id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        long result = db.delete(TABLE_NAME2, "id_chapter=?", new String[]{row_id});
+        if(result == -1){
+            Toast.makeText(context, "Failed to Delete.", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(context, "Successfully Deleted.", Toast.LENGTH_SHORT).show();
+        }
+    }
+    public void addGen(String name) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(NAME_GENRE, name);
+        long result = db.insert(TABLE_NAME4, null, cv);
+
+        if (result == -1) {
+            Toast.makeText(context, "Failed to add genre", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Genre added successfully!", Toast.LENGTH_SHORT).show();
+        }
+    }
+    public void updateData_genre(String row_id,String name){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(NAME_GENRE, name);
+
+        long result = db.update(TABLE_NAME4, cv, "id_genre=?", new String[]{row_id});
+        if(result == -1){
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(context, "Updated Successfully!", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+    Cursor readAllDataGenre(){
+        String query = "SELECT * FROM " + TABLE_NAME4;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = null;
+        if(db != null){
+            cursor = db.rawQuery(query, null);
+        }
+        return cursor;
+    }
+    public void deleteOneRow_genre(String row_id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        long result = db.delete(TABLE_NAME4, "id_genre=?", new String[]{row_id});
+        if(result == -1){
+            Toast.makeText(context, "Failed to Delete.", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(context, "Successfully Deleted.", Toast.LENGTH_SHORT).show();
+        }
+    }
+    public void addComic_Gen(String idcomic, String idgen) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(ID_COMIC_FOREGIN_COMIC_GENRE,idcomic);
+        cv.put(ID_GENRE_FOREGIN_COMIC_GENRE, idgen);
+        long result = db.insert(TABLE_NAME4, null, cv);
+
+        if (result == -1) {
+            Toast.makeText(context, "Failed to add genre", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Genre added successfully!", Toast.LENGTH_SHORT).show();
+        }
+    }
+    public void updateDatacomic_genre(String row_id,String name){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(NAME_GENRE, name);
+
+        long result = db.update(TABLE_NAME4, cv, "id_genre=?", new String[]{row_id});
+        if(result == -1){
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(context, "Updated Successfully!", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+    Cursor readAllDataComic_Genre(){
+        String query = "SELECT * FROM " + TABLE_NAME4;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = null;
+        if(db != null){
+            cursor = db.rawQuery(query, null);
+        }
+        return cursor;
+    }
+    public void deleteOneRowcomic_genre(String row_id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        long result = db.delete(TABLE_NAME4, "id_genre=?", new String[]{row_id});
+        if(result == -1){
+            Toast.makeText(context, "Failed to Delete.", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(context, "Successfully Deleted.", Toast.LENGTH_SHORT).show();
+        }
     }
 }

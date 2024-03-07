@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".admin.AddChapterActivity"
+    android:padding="30dp"
+    >
+
+
+    <LinearLayout
+        android:id="@+id/imgview"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="100dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/img1_input"
+            android:layout_width="70dp"
+            android:layout_height="80dp"
+            android:src="@drawable/upload_img" />
+        <ImageView
+            android:id="@+id/img2_input"
+            android:layout_width="70dp"
+            android:layout_height="80dp"
+            android:src="@drawable/upload_img" />
+
+        <ImageView
+            android:id="@+id/img3_input"
+            android:layout_width="70dp"
+            android:layout_height="80dp"
+            android:src="@drawable/upload_img" />
+
+        <ImageView
+            android:id="@+id/img4_input"
+            android:layout_width="70dp"
+            android:layout_height="80dp"
+            android:src="@drawable/upload_img" />
+
+        <ImageView
+            android:id="@+id/img5_input"
+            android:layout_width="70dp"
+            android:layout_height="80dp"
+            android:src="@drawable/upload_img" />
+
+
+
+    </LinearLayout>
+    <Button
+        android:id="@+id/button_uploadfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="Upload"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgview"/>
+    <EditText
+        android:id="@+id/chapter_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="Tên Chapter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_uploadfile" />
+
+    <EditText
+        android:id="@+id/date_publish_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="Ngày xuất bản"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chapter_input" />
+
+    <EditText
+        android:id="@+id/viewer_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="Số lượng người xem"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/date_publish_input" />
+    <EditText
+        android:id="@+id/idcomic_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="Id Comic"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewer_input" />
+
+    <Button
+        android:id="@+id/add_button1"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginTop="40dp"
+        android:text="Add"
+        android:textSize="20sp"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idcomic_input" />
+</androidx.constraintlayout.widget.ConstraintLayout>

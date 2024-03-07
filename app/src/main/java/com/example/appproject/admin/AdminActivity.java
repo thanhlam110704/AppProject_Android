@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.example.appproject.R;
+import com.example.appproject.db.ChapterDataActivity;
 import com.example.appproject.db.ComicDataActivity;
 
 public class AdminActivity extends AppCompatActivity {
@@ -35,7 +36,8 @@ public class AdminActivity extends AppCompatActivity {
         cardChapter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(AdminActivity.this, ChapterDataActivity.class);
+                startActivity(intent);
             }
         });
         cardAccount.setOnClickListener(new View.OnClickListener() {

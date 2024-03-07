@@ -11,8 +11,5 @@
         <item name="android:statusBarColor">#00000000</item>
     </style>
 
-    <style name="ThemeOverlay.AppProject.FullscreenContainer" parent="">
-        <item name="fullscreenBackgroundColor">@color/light_blue_900</item>
-        <item name="fullscreenTextColor">@color/light_blue_A400</item>
-    </style>
+
 </resources>

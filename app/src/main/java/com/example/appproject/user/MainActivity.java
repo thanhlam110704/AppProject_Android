@@ -27,8 +27,6 @@ import com.example.appproject.R;
 import com.example.appproject.adapter.DanhMucAdapter;
 import com.example.appproject.adapter.ItemSearchAdapter;
 import com.example.appproject.adapter.TruyenTranhAdapter;
-import com.example.appproject.fragment.FavoriteFragment;
-import com.example.appproject.fragment.LoginFragment;
 import com.example.appproject.object.DanhMuc;
 import com.example.appproject.object.ItemSearch;
 import com.example.appproject.object.TruyenTranh;
@@ -262,23 +260,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (item.getItemId()==R.id.nav_home){
             Intent intent= new Intent(this,MainActivity.class);
+            startActivity(intent);
         }
         else if (item.getItemId()==R.id.nav_Login){
-            if(currentFrageMent!=FragMent_Login) {
-                replaceFragMent(new LoginFragment());
-                currentFrageMent=FragMent_Login;
-                setTitle(item.getTitle());
 
-            }
-
+//  if(currentFrageMent!=FragMent_Login) {
+//                replaceFragMent(new LoginFragment());
+//                currentFrageMent=FragMent_Login;
+//                setTitle(item.getTitle());
+//
+//            }
+            Intent intent= new Intent(this,LoginActivity.class);
+            startActivity(intent);
         }
-        else if (item.getItemId()==R.id.nav_Favor){
-            if(currentFrageMent!=FragMent_Favor) {
-                replaceFragMent(new FavoriteFragment());
-                currentFrageMent=FragMent_Favor;
-                setTitle(item.getTitle());
-
-            }
+        else if (item.getItemId()==R.id.nav_Register){
+            Intent intent= new Intent(this,RegisterActivity.class);
+            startActivity(intent);
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
