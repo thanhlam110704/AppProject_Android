@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setTitle("Trang chủ");
+        setTitle("Home");
         addEventMenu();
         addEventProduct();
         addEventBanner();
@@ -167,7 +167,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         getMenuInflater().inflate(R.menu.main_menu, toolbar.getMenu());
-        currentFrageMent= FragMent_Home;
         navigationView.setCheckedItem(R.id.nav_home);
 
     }
@@ -286,37 +285,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(intent);
         }
         else if (item.getItemId()==R.id.nav_rate){
-            if(currentFrageMent!=FragMent_Rating) {
-                replaceFragMent(new RatingFragment());
-                currentFrageMent=FragMent_Rating;
-                setTitle(item.getTitle());
-
-            }
+            Intent intent= new Intent(this,RatingActivity.class);
+            startActivity(intent);
         }
         else if (item.getItemId()==R.id.nav_fanpage){
-            if(currentFrageMent!=FragMent_Fanpage) {
-                replaceFragMent(new FanpageFragment());
-                currentFrageMent=FragMent_Fanpage;
-                setTitle(item.getTitle());
-
-            }
+            Intent intent= new Intent(this,FanpageActivity.class);
+            startActivity(intent);
         }
         else if (item.getItemId()==R.id.nav_Profile){
-            if(currentFrageMent!=FragMent_Profile) {
-                replaceFragMent(new ProfileFragment());
-                currentFrageMent=FragMent_Profile;
-                setTitle(item.getTitle());
 
-            }
         }
-        else if (item.getItemId()==R.id.nav_Register){
-            if(currentFrageMent!=FragMent_Register) {
-                replaceFragMent(new RegisterFragment());
-                currentFrageMent=FragMent_Register;
-                setTitle(item.getTitle());
 
-            }
-        }
 
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;

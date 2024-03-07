@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Base.Theme.AppProject" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/design_default_color_primary</item>
+        <item name="colorPrimaryDark">@color/design_default_color_primary_dark</item>
+        <item name="android:textColorPrimary">@color/text_design_default_color_primary</item>
+        <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
+        <item name="titleTextColor">@color/black</item>
+        <item name="colorButtonNormal">@color/black</item>
+        <item name="android:backdropColor">@color/black</item>
+
+    </style>
+</resources>

@@ -51,12 +51,12 @@
             <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/nav_rate"
-                    android:title="Rating"
+                    android:title="@string/nav_rate"
                     android:icon="@drawable/icons_rate"
                     />
             <item
                 android:id="@+id/nav_fanpage"
-                android:title="Fanpage"
+                android:title="@string/nav_rate"
                 android:icon="@drawable/icon_page"
                 />
             </group>

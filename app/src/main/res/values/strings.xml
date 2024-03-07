@@ -7,8 +7,9 @@
     <string name="nav_popular">Truyện phổ biến</string>
     <string name="nav_profile">Thông tin</string>
     <string name="nav_login">Đăng nhập</string>
+    <string name="nav_fanpage">Fanpage</string>
+    <string name="nav_rate">Trang đánh giá</string>
     <string name="nav_logout">Đăng xuất</string>
-    <string name="nav_new">Truyện mới</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add">action_add</string>
 
