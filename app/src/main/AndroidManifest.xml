@@ -65,7 +65,9 @@
             android:exported="true"
             android:label="Đăng ký"
             android:parentActivityName=".user.MainActivity"
-            android:theme="@style/Base.Theme.AppProject" />
+            android:theme="@style/Base.Theme.AppProject" >
+
+        </activity>
         <activity
             android:name=".admin.UpdateComicActivity"
             android:exported="false"

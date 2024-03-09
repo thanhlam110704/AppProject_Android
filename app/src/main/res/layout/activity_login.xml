@@ -39,14 +39,14 @@
                 android:textColor="@color/purple"/>
 
             <EditText
-                android:id="@+id/edtEmail"
+                android:id="@+id/edtUsername"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="40dp"
                 android:background="@drawable/custom_edittext"
-                android:drawableLeft="@drawable/baseline_mail_24"
+                android:drawableLeft="@drawable/baseline_person_24"
                 android:drawablePadding="8dp"
-                android:hint="Email"
+                android:hint="Tên đăng nhập"
                 android:padding="8dp"
                 android:textColor="@color/black"
                 android:textColorHighlight="@color/cardview_dark_background" />
@@ -75,16 +75,19 @@
 
             <CheckBox
                 android:id="@+id/checkBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
                 android:buttonTint="@color/purple"
-                android:text="Hiển thị mật khẩu" />
+                android:padding="8dp"
+                android:text="Hiển thị mật khẩu"
+                android:textColor="@color/black"
+                android:textColorHighlight="@color/cardview_dark_background" />
 
             <Button
                 android:id="@+id/btnLogin"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:backgroundTint="@color/purple"
                 android:text="Đăng nhập"
                 android:textSize="18sp"
@@ -110,7 +113,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
                 android:padding="8dp"
-                android:text="Gặp vấn đề khi đăng nhập ? Đăng ký ngay"
+                android:text="Chưa có tài khoản ? Đăng ký ngay"
                 android:textAlignment="center"
                 android:textColor="@color/purple"
                 android:textSize="14sp"

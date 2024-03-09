@@ -99,17 +99,27 @@
                 android:textColor="@color/black"
                 android:textColorHighlight="@color/cardview_dark_background" />
 
-
+            <CheckBox
+                android:id="@+id/checkBox2"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:buttonTint="@color/purple"
+                android:padding="8dp"
+                android:text="Hiển thị mật khẩu"
+                android:textColor="@color/black"
+                android:textColorHighlight="@color/cardview_dark_background" />
 
             <Button
                 android:id="@+id/btnRegister"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:backgroundTint="@color/purple"
                 android:text="Đăng ký"
                 android:textSize="18sp"
                 app:cornerRadius="20dp" />
+
+
 
 
         </LinearLayout>

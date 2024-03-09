@@ -86,14 +86,30 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public static final String ID_ACCOUNT_FOREGIN_SAVE = "id_account_save";
     public static final String ID_COMIC_FOREGIN_SAVE = "id_comic_save";
 
+    //Bảng 8
+    public static final String TABLE_NAME8 ="register";
+    public static final String ID_USERNAME ="id_username";
+    private static final String ID_PASSWORD ="id_password";
+    public static final String ID_EMAIL ="id_email";
+    private static final String ID_ROLE ="id_role";
 
     public MyDatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
+        SQLiteDatabase db = this.getWritableDatabase();
+        String insertDefaultAccount = "INSERT INTO " + TABLE_NAME8 + " (" + ID_USERNAME + ", " + ID_PASSWORD + ", " + ID_EMAIL + ", " + ID_ROLE + ") VALUES (?, ?, ?, ?)";
+        db.execSQL(insertDefaultAccount, new String[]{"Thanh", "admin123", "thanh@gmail.com", "1"});
+        db.close();
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        String createTableRegister = "CREATE TABLE " + TABLE_NAME8 + " ("
+                + ID_USERNAME + " TEXT, "
+                + ID_PASSWORD + " TEXT, "
+                + ID_EMAIL + " TEXT, "
+                + ID_ROLE + " TEXT)";
+        db.execSQL(createTableRegister);
         String createTableComic = "CREATE TABLE " + TABLE_NAME + " ("
                 + ID_COMIC + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + NAME_COMIC + " TEXT, "
@@ -179,9 +195,30 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME5);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME6);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME7);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME8);
         onCreate(db);
     }
+    public void addRegister(String uname, String pword, String email){
+        SQLiteDatabase db = this.getWritableDatabase();
+        if (isUsernameExists(uname)) {
+            Toast.makeText(context, "Tên đăng nhập đã tồn tại", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
+        if (isEmailExists(email)) {
+            Toast.makeText(context, "Email đã được đăng ký", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        ContentValues cv = new ContentValues();
+        cv.put(ID_USERNAME, uname);
+        cv.put(ID_PASSWORD, pword);
+        cv.put(ID_EMAIL, email);
+        cv.put(ID_ROLE, "0");
+
+        db.insert(TABLE_NAME8, null, cv);
+
+        db.close();
+    }
     public void addComic(String name, String description, String author, String status, String dateupdate, byte[] avatar) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -420,6 +457,49 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             Toast.makeText(context, "Failed to Delete.", Toast.LENGTH_SHORT).show();
         }else{
             Toast.makeText(context, "Successfully Deleted.", Toast.LENGTH_SHORT).show();
+        }
+    }
+    public boolean isUsernameExists(String username) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME8 + " WHERE " + ID_USERNAME + " = ?", new String[]{username});
+        boolean exists = cursor.getCount() > 0;
+        cursor.close();
+
+        return exists;
+    }
+
+    public boolean isEmailExists(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME8 + " WHERE " + ID_EMAIL + " = ?", new String[]{email});
+        boolean exists = cursor.getCount() > 0;
+        cursor.close();
+
+        return exists;
+    }
+    public boolean checkLogin(String uname, String pword, String[] roleHolder) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {ID_USERNAME,ID_ROLE};
+        String selection = ID_USERNAME + " = ?" + " AND " + ID_PASSWORD + " = ?";
+        String[] selectionArgs = {uname, pword};
+        Cursor cursor = db.query(TABLE_NAME8, columns, selection, selectionArgs, null, null, null);
+        if (cursor.moveToFirst()) {
+            // User exists, retrieve the role
+            int roleIndex = cursor.getColumnIndex(ID_ROLE);
+
+            if (roleIndex != -1) {
+                String role = cursor.getString(roleIndex);
+                cursor.close();
+                roleHolder[0] = role;
+                return true;
+            } else {
+                // ID_ROLE column not found
+                cursor.close();
+                return false;
+            }
+        } else {
+            // User not found or other issues
+            cursor.close();
+            return false; // Return a value that indicates failure
         }
     }
 }
