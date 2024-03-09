@@ -17,11 +17,11 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     public final Context context;
     public static final String DATABASE_NAME = "Comic.db";
-    public static final int DATABASE_VERSION = 5;
+    public static final int DATABASE_VERSION = 8;
 
 
 
-    // Bảng 1
+    // Bảng 1-
     public static final String TABLE_NAME = "comic";
     public static final String ID_COMIC = "id_comic";
     public static final String AVATAR="avatar";
