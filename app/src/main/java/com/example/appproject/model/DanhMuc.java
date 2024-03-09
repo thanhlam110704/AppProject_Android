@@ -1,14 +1,16 @@
-package com.example.appproject.object;
+package com.example.appproject.model;
+
+import com.example.appproject.db.ComicDataActivity;
 
 import java.util.List;
 
 public class DanhMuc {
     private String nameCategory;
-    private List<TruyenTranh> comics;
+    List<Comic> comics;
 
-    public DanhMuc(String nameCategory, List<TruyenTranh> books) {
+    public DanhMuc(String nameCategory, List<Comic> comics) {
         this.nameCategory = nameCategory;
-        this.comics = books;
+        this.comics = comics;
     }
 
     public String getNameCategory() {
@@ -19,11 +21,11 @@ public class DanhMuc {
         this.nameCategory = nameCategory;
     }
 
-    public List<TruyenTranh> getBooks() {
+    public  List<Comic> comics() {
         return comics;
     }
 
-    public void setBooks(List<TruyenTranh> books) {
-        this.comics = books;
+    public void setComics(  List<Comic> comics) {
+        this.comics = comics;
     }
 }

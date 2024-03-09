@@ -63,7 +63,7 @@ public class ComicDataActivity extends AppCompatActivity {
         comic_avatar= new ArrayList<byte[]>();
         storeDataInArrays();
 
-        customAdapter = new CustomComicAdapter(ComicDataActivity.this,this, comic_id, comic_name, comic_author, comic_description, comic_status, comic_dateupdate,comic_avatar);
+        customAdapter = new CustomComicAdapter(ComicDataActivity.this,this, comic_id, comic_name, comic_description, comic_author, comic_status, comic_dateupdate,comic_avatar);
         recyclerView.setAdapter(customAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(ComicDataActivity.this));
     }
@@ -86,12 +86,14 @@ public class ComicDataActivity extends AppCompatActivity {
             while (cursor.moveToNext()) {
                 comic_id.add((cursor.getString(0)));
                 comic_name.add(cursor.getString(1));
-                comic_author.add(cursor.getString(2));
-                comic_description.add(cursor.getString(3));
+                comic_description.add(cursor.getString(2));
+                comic_author.add(cursor.getString(3));
                 comic_status.add(cursor.getString(4));
                 comic_dateupdate.add(cursor.getString(5));
                 comic_avatar.add(cursor.getBlob(6));
             }
+            cursor.close();
+
             empty_imageview.setVisibility(View.GONE);
             no_data.setVisibility(View.GONE);
         }

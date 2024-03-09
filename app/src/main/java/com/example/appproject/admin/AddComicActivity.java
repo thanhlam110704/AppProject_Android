@@ -41,7 +41,6 @@ public class AddComicActivity extends AppCompatActivity {
         description_input = findViewById(R.id.description_input);
         button_upload = findViewById(R.id.button_upload);
         avatar_input = findViewById(R.id.avatar_input);
-
         add_button.setOnClickListener(view -> {
             MyDatabaseHelper myDB = new MyDatabaseHelper(AddComicActivity.this);
             if (selectedImageUri!= null) {

@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.appproject.R;
-import com.example.appproject.object.TruyenTranh;
+import com.example.appproject.model.TruyenTranh;
 
 import java.util.List;
 
@@ -61,7 +61,7 @@ public class TruyenTranhDeCuAdapter extends RecyclerView.Adapter<TruyenTranhDeCu
 
         public BookViewHolder(@NonNull View itemView) {
             super(itemView);
-            imgComic = itemView.findViewById(R.id.img_book);
+
             tenTruyen = itemView.findViewById(R.id.txtTenTruyen);
             tenChap = itemView.findViewById(R.id.txtTenChap);
         }

@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.appproject.R;
-import com.example.appproject.object.ItemSearch;
+import com.example.appproject.model.ItemSearch;
 
 import java.util.ArrayList;
 import java.util.List;

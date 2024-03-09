@@ -15,76 +15,76 @@ import java.util.List;
 
 public class MyDatabaseHelper extends SQLiteOpenHelper {
 
-    private final Context context;
-    private static final String DATABASE_NAME = "Comic.db";
-    private static final int DATABASE_VERSION = 2;
+    public final Context context;
+    public static final String DATABASE_NAME = "Comic.db";
+    public static final int DATABASE_VERSION = 4;
 
 
 
     // Bảng 1
-    private static final String TABLE_NAME = "my_comic";
-    private static final String ID_COMIC = "id_comic";
-    private static final String AVATAR="avatar";
-    private static final String NAME_COMIC= "name_comic";
-    private static final String DESCRIPTION = "description";
-    private static final String AUTHOR="author";
-    private static final String DATE_UPDATE="date_update";
-    private static final String STATUS= "status";
+    public static final String TABLE_NAME = "comic";
+    public static final String ID_COMIC = "id_comic";
+    public static final String AVATAR="avatar";
+    public static final String NAME_COMIC= "name_comic";
+    public static final String DESCRIPTION = "description";
+    public static final String AUTHOR="author";
+    public static final String DATE_UPDATE="date_update";
+    public static final String STATUS= "status";
 
 
     // Bảng 2
-    private static final String TABLE_NAME2 = "chapter";
-    private static final String ID_CHAPTER = "id_chapter";
-    private static final String NAME_CHAPTER= "name_chapter";
-    private static final String VIEWER = "viewer";
-    private static final String DATE_PUBLISH = "date_publish";
-    private static final String IMG1="img1";
-    private static final String IMG2="img2";
-    private static final String IMG3="img3";
-    private static final String IMG4="img4";
-    private static final String IMG5="img5";
-    private static final String ID_COMIC_FOREGIN_CHAPTER="id_comic";
+    public static final String TABLE_NAME2 = "chapter";
+    public static final String ID_CHAPTER = "id_chapter";
+    public static final String NAME_CHAPTER= "name_chapter";
+    public static final String VIEWER = "viewer";
+    public static final String DATE_PUBLISH = "date_publish";
+    public static final String IMG1="img1";
+    public static final String IMG2="img2";
+    public static final String IMG3="img3";
+    public static final String IMG4="img4";
+    public static final String IMG5="img5";
+    public static final String ID_COMIC_FOREGIN_CHAPTER="id_comic";
 
 
 
     //Bảng 3
-    private static final String TABLE_NAME3 = "account";
-    private static final String ID_ACCOUNT = "id_account";
-    private static final String NAME_ACCOUNT= "name_account";
-    private static final String EMAIL="email";
-    private static final String PASSWORD="pass";
-    private static final String ROLE="role";
+    public static final String TABLE_NAME3 = "account";
+    public static final String ID_ACCOUNT = "id_account";
+    public static final String NAME_ACCOUNT= "name_account";
+    public static final String EMAIL="email";
+    public static final String PASSWORD="pass";
+    public static final String ROLE="role";
 
 
 
     //Bảng 4
-    private static final String TABLE_NAME4 = "genre";
-    private static final String ID_GENRE = "id_genre";
-    private static final String NAME_GENRE= "name_genre";
+    public static final String TABLE_NAME4 = "genre";
+    public static final String ID_GENRE = "id_genre";
+    public static final String NAME_GENRE= "name_genre";
 
 
 
     //Bảng 5
-    private static final String TABLE_NAME5 = "comic_Genre";
-    private static final String ID_Comic_Genre ="id_comicgenre";
-    private static final String ID_GENRE_FOREGIN_COMIC_GENRE = "id_genre_comic_genre";
-    private static final String ID_COMIC_FOREGIN_COMIC_GENRE = "id_comic_comic_genre";
+    public static final String TABLE_NAME5 = "comic_Genre";
+    public static final String ID_Comic_Genre ="id_comicgenre";
+    public static final String ID_GENRE_FOREGIN_COMIC_GENRE = "id_genre_comic_genre";
+    public static final String ID_COMIC_FOREGIN_COMIC_GENRE = "id_comic_comic_genre";
 
 
 
     //Bảng 6
-    private static final String TABLE_NAME6 = "comment";
-    private static final String ID_COMMENT = "id_comment";
-    private static final String ID_ACCOUNT_FOREGIN_COMENT = "id_account_comment";
-    private static final String ID_COMIC_FOREGIN_COMMENT = "id_comic_comment";
+    public static final String TABLE_NAME6 = "comment";
+    public static final String ID_COMMENT = "id_comment";
+    public static final String ID_ACCOUNT_FOREGIN_COMENT = "id_account_comment";
+    public static final String ID_COMIC_FOREGIN_COMMENT = "id_comic_comment";
 
 
 
     //Bảng 7
-    private static final String TABLE_NAME7 = "save";
-    private static final String ID_SAVE = "id_save";
-    private static final String ID_ACCOUNT_FOREGIN_SAVE = "id_account_save";
-    private static final String ID_COMIC_FOREGIN_SAVE = "id_comic_save";
+    public static final String TABLE_NAME7 = "save";
+    public static final String ID_SAVE = "id_save";
+    public static final String ID_ACCOUNT_FOREGIN_SAVE = "id_account_save";
+    public static final String ID_COMIC_FOREGIN_SAVE = "id_comic_save";
 
 
     public MyDatabaseHelper(@Nullable Context context) {
@@ -207,7 +207,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    Cursor readAllData(){
+    public Cursor readAllData(){
         String query = "SELECT * FROM " + TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -323,6 +323,12 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             Toast.makeText(context, "Successfully Deleted.", Toast.LENGTH_SHORT).show();
         }
     }
+    public Cursor getChaptersByComicId(int comicId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + TABLE_NAME2 + " WHERE " + ID_COMIC_FOREGIN_CHAPTER + " = " + comicId;
+        return db.rawQuery(query, null);
+    }
+
     public void addGen(String name) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();

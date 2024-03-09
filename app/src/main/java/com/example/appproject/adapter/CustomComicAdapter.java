@@ -28,7 +28,7 @@ public class CustomComicAdapter extends RecyclerView.Adapter<CustomComicAdapter.
     private ArrayList comic_id, comic_name, comic_author, comic_description, comic_status, comic_dateupdate;
     private ArrayList<byte[]> comic_avatar;
     public CustomComicAdapter(Activity activity, Context context,
-                              ArrayList comic_id, ArrayList comic_name, ArrayList comic_author, ArrayList comic_description,
+                              ArrayList comic_id, ArrayList comic_name, ArrayList comic_description, ArrayList comic_author,
                               ArrayList comic_status, ArrayList comic_dateupdate, ArrayList<byte[]> comic_avatar){
         this.activity=activity;
         this.context=context;
@@ -59,6 +59,7 @@ public class CustomComicAdapter extends RecyclerView.Adapter<CustomComicAdapter.
         holder.comic_description_txt.setText(String.valueOf(comic_description.get(position)));
         holder.comic_status_txt.setText(String.valueOf(comic_status.get(position)));
         holder.comic_dateupdate_txt.setText(String.valueOf(comic_dateupdate.get(position)));
+
         byte[] avatarBytes = comic_avatar.get(position);
         if (avatarBytes != null) {
             Bitmap avatarBitmap = BitmapFactory.decodeByteArray(avatarBytes, 0, avatarBytes.length);
@@ -101,6 +102,7 @@ public class CustomComicAdapter extends RecyclerView.Adapter<CustomComicAdapter.
             comic_status_txt=itemView.findViewById(R.id.comic_status_txt);
             comic_dateupdate_txt=itemView.findViewById(R.id.comic_dateupdate_txt);
             comic_avatar_img=itemView.findViewById(R.id.comic_avatar_img);
+            comic_description_txt=itemView.findViewById(R.id.comic_description_txt);
             mainLayout=itemView.findViewById(R.id.mainLayout);
         }
     }

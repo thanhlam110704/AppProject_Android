@@ -2,6 +2,7 @@ package com.example.appproject.user;
 
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,6 +13,7 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -24,16 +26,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appproject.R;
+import com.example.appproject.adapter.ComicAdapter;
 import com.example.appproject.adapter.DanhMucAdapter;
 import com.example.appproject.adapter.ItemSearchAdapter;
 import com.example.appproject.adapter.TruyenTranhAdapter;
-import com.example.appproject.fragment.FanpageFragment;
-import com.example.appproject.fragment.ProfileFragment;
-import com.example.appproject.fragment.RatingFragment;
-import com.example.appproject.fragment.RegisterFragment;
-import com.example.appproject.object.DanhMuc;
-import com.example.appproject.object.ItemSearch;
-import com.example.appproject.object.TruyenTranh;
+import com.example.appproject.db.ComicDataHelper;
+import com.example.appproject.db.MyDatabaseHelper;
+import com.example.appproject.model.Comic;
+import com.example.appproject.model.ItemSearch;
+import com.example.appproject.model.TruyenTranh;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
@@ -41,17 +42,9 @@ import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
-    private static final int FragMent_Home=1;
-    private static final int FragMent_Login=2;
-    private static final int FragMent_Favor=3;
-    private static final int FragMent_Rating=4;
-    private static final int FragMent_Fanpage=5;
-    private static final int FragMent_Profile=6;
-    private static final int FragMent_Register=7;
-    private int currentFrageMent;
-
-
+    ComicAdapter comicAdapter;
+    List<Comic> comicList;
+    ComicDataHelper comic_helper;
     TextView textView;
     DrawerLayout drawerLayout;
     ListView listView;
@@ -63,11 +56,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     TruyenTranhAdapter adapter;
     ArrayList<TruyenTranh> truyenTranhArrayList;
     RecyclerView rcvCategory;
-
-
-    DanhMucAdapter categoryAdapter;
     public boolean isSearching = false;
-    private View includedLayout;
+
 
 
     @Override
@@ -75,41 +65,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setTitle("Home");
+        addEventBanner();
         addEventMenu();
         addEventProduct();
-        addEventBanner();
         addMenuSearch();
-
     }
 
-
-
-
-    /*Xử lý danh sách truyện tranh để cử */
     private void addEventBanner() {
+        comic_helper= new ComicDataHelper(MainActivity.this);
         rcvCategory = findViewById(R.id.rcv_category);
-        categoryAdapter = new DanhMucAdapter(this);
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+        comicList= comic_helper.getAllComics();
+        comicAdapter = new ComicAdapter(comicList,MainActivity.this);
+        rcvCategory.setAdapter(comicAdapter);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
         rcvCategory.setLayoutManager((linearLayoutManager));
-
-        List<DanhMuc> data = getListCategory();
-        categoryAdapter.setData(data);
-        rcvCategory.setAdapter(categoryAdapter);
     }
 
-    public List<DanhMuc> getListCategory() {
-        List<DanhMuc> listCategory = new ArrayList<>();
-
-        List<TruyenTranh> listBook = new ArrayList<>();
-        listBook.add(new TruyenTranh("Ta Ở Tu Tiên Giới Chỉ Làm Giờ Hành Chính", "Chapter 12", "https://st.nettruyenclub.com/data/comics/222/chuyen-sinh-thanh-lieu-dot-bien-4917.jpg"));
-        listBook.add(new TruyenTranh("Book 2", "Chapter 12", "https://st.nettruyenclub.com/data/comics/222/chuyen-sinh-thanh-lieu-dot-bien-4917.jpg"));
-        listBook.add(new TruyenTranh("Book 3", "Chapter 12", "https://st.nettruyenclub.com/data/comics/222/chuyen-sinh-thanh-lieu-dot-bien-4917.jpg"));
-        listBook.add(new TruyenTranh("Book 4", "Chapter 12", "https://st.nettruyenclub.com/data/comics/222/chuyen-sinh-thanh-lieu-dot-bien-4917.jpg"));
 
 
-        listCategory.add(new DanhMuc("Truyện mới", listBook));
-        return listCategory;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==1){
+            recreate();
+        }
     }
 
     /*Xử lý danh sách truyện tranh để cử */
@@ -133,10 +113,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void inittruyentranh() {
         truyenTranhArrayList = new ArrayList<>();
-        truyenTranhArrayList.add(new TruyenTranh("Ta Ở Tu Tiên Giới Chỉ Làm Giờ Hành Chính", "Chapter 51.5", "https://st.nettruyenclub.com/data/comics/222/chuyen-sinh-thanh-lieu-dot-bien-4917.jpg"));
+        truyenTranhArrayList.add(new TruyenTranh("Ta Ở Tu Tiên Giới Chỉ Làm Giờ Hành Chính", "Chapter 51.5", "https://metruyenqq.net/img/2299/190x247-de-tu-tu-luyen-con-ta-thi-luoi-bieng.jpeg"));
         truyenTranhArrayList.add(new TruyenTranh("Chuyển Sinh Thành Liễu Đột Biến", "Chapter 166", "https://st.nettruyenclub.com/data/comics/222/chuyen-sinh-thanh-lieu-dot-bien-4917.jpg"));
-        truyenTranhArrayList.add(new TruyenTranh("Nhân Sinh Thâm Tiềm", "Chapter 4", "https://st.nettruyenclub.com/data/comics/222/chuyen-sinh-thanh-lieu-dot-bien-4917.jpg"));
-        truyenTranhArrayList.add(new TruyenTranh("Kết Hôn Với Người Quyền Lực Nhất Hành Tinh", "Chapter 35", "https://st.nettruyenclub.com/data/comics/222/chuyen-sinh-thanh-lieu-dot-bien-4917.jpg"));
+        truyenTranhArrayList.add(new TruyenTranh("Nhân Sinh Thâm Tiềm", "Chapter 4", "https://metruyenqq.net/img/2115/190x247-1001-cach-chinh-phuc-chong-yeu.jpeg"));
+        truyenTranhArrayList.add(new TruyenTranh("Kết Hôn Với Người Quyền Lực Nhất Hành Tinh", "Chapter 35", "https://metruyenqq.net/img/2300/190x247-shounen-no-abyss.jpeg"));
         adapter = new TruyenTranhAdapter(this, 0, truyenTranhArrayList);
     }
 
@@ -158,8 +138,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
         Menu menu= navigationView.getMenu();
-        menu.findItem(R.id.nav_Logout).setVisible(false);
-        menu.findItem(R.id.nav_Profile).setVisible(false);
+
 
         navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -293,7 +272,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(intent);
         }
         else if (item.getItemId()==R.id.nav_Profile){
-
+            Intent intent= new Intent(this,ProfileActivity.class);
+            startActivity(intent);
         }
 
 

@@ -1,4 +1,4 @@
-package com.example.appproject.object;
+package com.example.appproject.model;
 
 public class TruyenTranh {
     private String tenTruyen,tenChap,LinkAnh,TheLoai;

@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
 import com.example.appproject.R;
-import com.example.appproject.object.TruyenTranh;
+import com.example.appproject.model.TruyenTranh;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.appproject.object;
+package com.example.appproject.model;
 
 
 

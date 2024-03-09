@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appproject.R;
-import com.example.appproject.object.DanhMuc;
+import com.example.appproject.model.DanhMuc;
 
 import java.util.List;
 
@@ -43,9 +43,9 @@ public class DanhMucAdapter extends RecyclerView.Adapter<DanhMucAdapter.Category
         holder.tvNameCategory.setText(category.getNameCategory());
         LinearLayoutManager linearLayoutManager= new LinearLayoutManager(mContext,RecyclerView.HORIZONTAL,false);
         holder.rcvBook.setLayoutManager(linearLayoutManager);
-        TruyenTranhDeCuAdapter bookAdapter = new TruyenTranhDeCuAdapter();
-        bookAdapter.setData(category.getBooks());
-        holder.rcvBook.setAdapter(bookAdapter);
+        //TruyenTranhDeCuAdapter comicAdapter = new TruyenTranhDeCuAdapter();
+        //comicAdapter.setData(category.getBooks());
+        ///holder.rcvBook.setAdapter( comicAdapter);
     }
 
     @Override

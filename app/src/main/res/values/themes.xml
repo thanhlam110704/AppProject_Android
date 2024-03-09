@@ -16,7 +16,7 @@
     <style name="Theme.AppProject" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/design_default_color_primary</item>
         <item name="colorPrimaryDark">@color/design_default_color_primary_dark</item>
-
+        <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
     </style>
     <style name="MyRatingBar" parent="Widget.AppCompat.RatingBar">
         <!-- khong chon mau sao-->

@@ -47,42 +47,31 @@ public class UpdateComicActivity extends AppCompatActivity {
         avatar_input = findViewById(R.id.avatar_input2);
         update_button=findViewById(R.id.update_button);
         delete_button=findViewById(R.id.delete_button);
-
         getandsetIntentData();
+
+
         ActionBar ab= getSupportActionBar();
         if(ab!=null)
         {
             ab.setTitle(name);
         }
+
         update_button.setOnClickListener(view -> {
             MyDatabaseHelper myDB = new MyDatabaseHelper(UpdateComicActivity.this);
-            if (selectedImageUri != null) {
-                byte[] avatarBytes = getBytesFromUri(selectedImageUri);
                 name = namecomic_input.getText().toString().trim();
                 description = description_input.getText().toString().trim();
                 author = author_input.getText().toString().trim();
                 status = status_input.getText().toString().trim();
                 dateupdate = date_update_input.getText().toString().trim();
-                avatar = avatarBytes;
+                avatar= getBytesFromUri(selectedImageUri);
                 myDB.updateData_comic(id, name, description, author, status, dateupdate, avatar);
-            }
-            else {
-                Toast.makeText(UpdateComicActivity.this,"ko hop le",Toast.LENGTH_LONG).show();
-            }
             finish();
         });
 
 
-
         delete_button.setOnClickListener(view -> confirmDialog());
         button_upload = findViewById(R.id.button_upload); // Add this line to initialize button_upload
-        resultLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(),
-                result -> {
-                    if (result != null) {
-                        avatar_input.setImageURI(result);
-                        selectedImageUri = result;
-                    }
-                });
+
         button_upload.setOnClickListener(view -> {
             // Thay đổi cách gọi Intent.ACTION_PICK thành ResultLauncher
             resultLauncher.launch("image/*");

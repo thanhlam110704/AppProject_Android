@@ -22,6 +22,9 @@
         android:theme="@style/Theme.AppProject"
         tools:targetApi="31">
         <activity
+            android:name=".user.DetailComicActivity"
+            android:exported="false" />
+        <activity
             android:name=".user.FanpageActivity"
             android:exported="false"
             android:label="Fanpage"
@@ -35,8 +38,9 @@
             android:theme="@style/Base.Theme.AppProject" />
         <activity
             android:name=".user.RatingActivity"
+            android:exported="false"
             android:label="Trang đánh giá"
-            android:exported="false"   android:parentActivityName=".user.MainActivity"
+            android:parentActivityName=".user.MainActivity"
             android:theme="@style/Base.Theme.AppProject" />
         <activity
             android:name=".admin.UpdateChapterActivity"
@@ -85,7 +89,11 @@
             android:exported="true"
             android:label="Admin"
             android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".user.LoginActivity"
@@ -100,13 +108,8 @@
             android:name=".user.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.AppProject">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-
 
         <meta-data
             android:name="preloaded_fonts"
