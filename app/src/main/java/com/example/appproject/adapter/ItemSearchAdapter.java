@@ -54,7 +54,6 @@ public class ItemSearchAdapter extends BaseAdapter implements Filterable {
         TextView textV2 = convertView.findViewById(R.id.txtTenChap_search);
         TextView textV3 = convertView.findViewById(R.id.txtTheLoai_search);
         ImageView imageView = convertView.findViewById(R.id.imgTruyen_search);
-
         textV1.setText(itemSearch.getTenTruyen());
         textV2.setText(itemSearch.getTenChap());
         textV3.setText(itemSearch.getTheLoai());

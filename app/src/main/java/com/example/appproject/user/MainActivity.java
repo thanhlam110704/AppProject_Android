@@ -2,7 +2,6 @@ package com.example.appproject.user;
 
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,11 +26,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appproject.R;
 import com.example.appproject.adapter.ComicAdapter;
-import com.example.appproject.adapter.DanhMucAdapter;
+import com.example.appproject.adapter.ComicArrayAdapter;
 import com.example.appproject.adapter.ItemSearchAdapter;
 import com.example.appproject.adapter.TruyenTranhAdapter;
 import com.example.appproject.db.ComicDataHelper;
-import com.example.appproject.db.MyDatabaseHelper;
 import com.example.appproject.model.Comic;
 import com.example.appproject.model.ItemSearch;
 import com.example.appproject.model.TruyenTranh;
@@ -43,8 +41,9 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     ComicAdapter comicAdapter;
-    List<Comic> comicList;
-    ComicDataHelper comic_helper;
+    ComicArrayAdapter comicArrayAdapter;
+    List<Comic> comicList,comicList2;
+    ComicDataHelper comic_helper,comic_helper2;
     TextView textView;
     DrawerLayout drawerLayout;
     ListView listView;
@@ -53,8 +52,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     NavigationView navigationView;
     Toolbar toolbar;
     GridView gdvDSTruyen;
-    TruyenTranhAdapter adapter;
-    ArrayList<TruyenTranh> truyenTranhArrayList;
     RecyclerView rcvCategory;
     public boolean isSearching = false;
 
@@ -70,7 +67,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         addEventProduct();
         addMenuSearch();
     }
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==1){
+            recreate();
+        }
+    }
+    /*Xử lý danh sách truyện tranh để cử */
     private void addEventBanner() {
         comic_helper= new ComicDataHelper(MainActivity.this);
         rcvCategory = findViewById(R.id.rcv_category);
@@ -80,49 +84,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
         rcvCategory.setLayoutManager((linearLayoutManager));
     }
-
-
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==1){
-            recreate();
-        }
-    }
-
     /*Xử lý danh sách truyện tranh để cử */
-    private void addEventProduct() {
-
-        inittruyentranh();
-        anhXa();
-        setUp();
-        setClick();
-    }
-
-
     /*Xử lý danh sách truyện tranh */
-    private void setClick() {
-        gdvDSTruyen.setAdapter(adapter);
-    }
-
-    private void setUp() {
-    }
-
-
-    private void inittruyentranh() {
-        truyenTranhArrayList = new ArrayList<>();
-        truyenTranhArrayList.add(new TruyenTranh("Ta Ở Tu Tiên Giới Chỉ Làm Giờ Hành Chính", "Chapter 51.5", "https://metruyenqq.net/img/2299/190x247-de-tu-tu-luyen-con-ta-thi-luoi-bieng.jpeg"));
-        truyenTranhArrayList.add(new TruyenTranh("Chuyển Sinh Thành Liễu Đột Biến", "Chapter 166", "https://st.nettruyenclub.com/data/comics/222/chuyen-sinh-thanh-lieu-dot-bien-4917.jpg"));
-        truyenTranhArrayList.add(new TruyenTranh("Nhân Sinh Thâm Tiềm", "Chapter 4", "https://metruyenqq.net/img/2115/190x247-1001-cach-chinh-phuc-chong-yeu.jpeg"));
-        truyenTranhArrayList.add(new TruyenTranh("Kết Hôn Với Người Quyền Lực Nhất Hành Tinh", "Chapter 35", "https://metruyenqq.net/img/2300/190x247-shounen-no-abyss.jpeg"));
-        adapter = new TruyenTranhAdapter(this, 0, truyenTranhArrayList);
-    }
-
-    private void anhXa() {
+    private void addEventProduct() {
         gdvDSTruyen = findViewById(R.id.gdvDSTruyen);
+        comic_helper2= new ComicDataHelper(MainActivity.this);
+        comicList2= comic_helper2.getAllComics();
+        comicArrayAdapter = new ComicArrayAdapter(this,0,comicList2);
+        gdvDSTruyen.setAdapter(comicArrayAdapter);
     }
+    /*Xử lý danh sách truyện tranh */
+
+
+
 
 
 

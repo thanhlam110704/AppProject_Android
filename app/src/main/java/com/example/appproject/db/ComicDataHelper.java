@@ -27,7 +27,7 @@ public class ComicDataHelper  extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
-    private Comic cursorToProduct(Cursor cursor) {
+    private Comic cursorToComic(Cursor cursor) {
         byte[] imageByteArray = cursor.getBlob(6); // Lấy dữ liệu từ trường "image"
         Bitmap imageBitmap = BitmapFactory.decodeByteArray(imageByteArray, 0, imageByteArray.length); // Chuyển đổi mảng byte thành đối tượng Bitmap
 
@@ -45,12 +45,12 @@ public class ComicDataHelper  extends SQLiteOpenHelper {
     public ArrayList<Comic> getAllComics() {
         ArrayList<Comic> comics = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM my_comic", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM comic", null);
         if (cursor != null) {
             try {
                 if (cursor.moveToFirst()) {
                     do {
-                        Comic comic = cursorToProduct(cursor);
+                        Comic comic = cursorToComic(cursor);
 
                         comics.add(comic);
                     } while (cursor.moveToNext());

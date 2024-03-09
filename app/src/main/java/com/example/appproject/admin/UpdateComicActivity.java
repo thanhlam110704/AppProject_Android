@@ -33,7 +33,7 @@ public class UpdateComicActivity extends AppCompatActivity {
     ImageView avatar_input;
     Button update_button, delete_button,button_upload;
     String id, name, author,description, status, dateupdate;
-    byte[] avatar=null;
+    byte[] avatar;
     Uri selectedImageUri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,34 +48,56 @@ public class UpdateComicActivity extends AppCompatActivity {
         update_button=findViewById(R.id.update_button);
         delete_button=findViewById(R.id.delete_button);
         getandsetIntentData();
-
-
+        button_upload = findViewById(R.id.button_upload); // Add this line to initialize button_uploa
+        button_upload.setOnClickListener(view -> {
+            // Thay đổi cách gọi Intent.ACTION_PICK thành ResultLauncher
+            resultLauncher.launch("image/*");
+        });
         ActionBar ab= getSupportActionBar();
         if(ab!=null)
         {
             ab.setTitle(name);
         }
-
         update_button.setOnClickListener(view -> {
             MyDatabaseHelper myDB = new MyDatabaseHelper(UpdateComicActivity.this);
-                name = namecomic_input.getText().toString().trim();
-                description = description_input.getText().toString().trim();
-                author = author_input.getText().toString().trim();
-                status = status_input.getText().toString().trim();
-                dateupdate = date_update_input.getText().toString().trim();
-                avatar= getBytesFromUri(selectedImageUri);
-                myDB.updateData_comic(id, name, description, author, status, dateupdate, avatar);
-            finish();
+
+            // Lấy dữ liệu từ EditText
+            name = namecomic_input.getText().toString().trim();
+            description = description_input.getText().toString().trim();
+            author = author_input.getText().toString().trim();
+            status = status_input.getText().toString().trim();
+            dateupdate = date_update_input.getText().toString().trim();
+
+            try {
+                // Kiểm tra giá trị của các biến trước khi thực hiện cập nhật
+                if (!name.isEmpty() && !description.isEmpty() && !author.isEmpty() && !status.isEmpty() && !dateupdate.isEmpty()) {
+
+                    // Nếu có ảnh mới, cập nhật avatar từ ảnh mới
+                    if (selectedImageUri != null) {
+                        byte[] avatarBytes = getBytesFromUri(selectedImageUri);
+                        avatar = avatarBytes;
+                    }
+
+                    // Thực hiện cập nhật dữ liệu vào cơ sở dữ liệu
+                    myDB.updateData_comic(id, name, description, author, status, dateupdate, avatar);
+                    finish();
+
+                } else {
+                    // Hiển thị thông báo nếu có trường dữ liệu bị rỗng
+                    Toast.makeText(UpdateComicActivity.this, "Please fill in all fields.", Toast.LENGTH_SHORT).show();
+                }
+
+            } catch (Exception e) {
+                // Xử lý ngoại lệ khi có vấn đề với cơ sở dữ liệu
+                e.printStackTrace();
+                Toast.makeText(UpdateComicActivity.this, "Error updating data. Please try again.", Toast.LENGTH_SHORT).show();
+            }
         });
+
 
 
         delete_button.setOnClickListener(view -> confirmDialog());
-        button_upload = findViewById(R.id.button_upload); // Add this line to initialize button_upload
 
-        button_upload.setOnClickListener(view -> {
-            // Thay đổi cách gọi Intent.ACTION_PICK thành ResultLauncher
-            resultLauncher.launch("image/*");
-        });
     }
     private byte[] getBytesFromUri(Uri uri) {
         try {
@@ -111,41 +133,48 @@ public class UpdateComicActivity extends AppCompatActivity {
     }
     public void getandsetIntentData(){
         if(getIntent().hasExtra("id")&& getIntent().hasExtra("name")&& getIntent().hasExtra("description")&& getIntent().hasExtra("author")
-                &&getIntent().hasExtra("status")&&getIntent().hasExtra("dateupdate") && getIntent().hasExtra("avatar")){
+                &&getIntent().hasExtra("status")&&getIntent().hasExtra("dateupdate") && getIntent().hasExtra("avatar")) {
             // Lấy dữ liệu từ Intent
             id = getIntent().getStringExtra("id");
-            name=getIntent().getStringExtra("name");
-            description=getIntent().getStringExtra("description");
-            author=getIntent().getStringExtra("author");
-            status=getIntent().getStringExtra("status");
-            dateupdate=getIntent().getStringExtra("dateupdate");
-            avatar=getIntent().getByteArrayExtra("avatar");
-
+            name = getIntent().getStringExtra("name");
+            description = getIntent().getStringExtra("description");
+            author = getIntent().getStringExtra("author");
+            status = getIntent().getStringExtra("status");
+            dateupdate = getIntent().getStringExtra("dateupdate");
+            avatar = getIntent().getByteArrayExtra("avatar");
 
 
             // Setting dữ liệu từ Intent
-            namecomic_input.setText(name);
-            author_input.setText(author);
-            date_update_input.setText(dateupdate);
-            status_input.setText(status);
-            description_input.setText(description);
-            if (avatar != null) {
-                Bitmap avatarBitmap = BitmapFactory.decodeByteArray(avatar, 0, avatar.length);
-                avatar_input.setImageBitmap(avatarBitmap);
+            if (id != null && name != null && description != null && author != null
+                    && status != null && dateupdate != null && avatar != null) {
+
+                // Setting dữ liệu từ Intent
+                namecomic_input.setText(name);
+                author_input.setText(author);
+                date_update_input.setText(dateupdate);
+                status_input.setText(status);
+                description_input.setText(description);
+
+                // Hiển thị ảnh nếu có
+                if (avatar.length > 0) {
+                    Bitmap avatarBitmap = BitmapFactory.decodeByteArray(avatar, 0, avatar.length);
+                    avatar_input.setImageBitmap(avatarBitmap);
+                } else {
+                    // Nếu không có ảnh, ẩn ImageView
+                    avatar_input.setVisibility(View.GONE);
+                    // Có thể ẩn các EditText tương ứng nếu muốn
+                }
+
+                Log.d("stev", name + " " + author + " " + description + " " + status + " " + dateupdate + " " + avatar);
+
             } else {
-                // Xử lý khi avatar là null hoặc rỗng
-                // Ví dụ: Hiển thị một hình ảnh mặc định hoặc ẩn ImageView
-
-                // hoặc
-                avatar_input.setVisibility(View.GONE); // Ẩn ImageView nếu không có avatar
+                Toast.makeText(this, "Incomplete or invalid data.", Toast.LENGTH_SHORT).show();
+                finish(); // Kết thúc Activity nếu dữ liệu không hợp lệ
             }
-
-            Log.d("stev", name+" "+author+" "+description+" "+status+" "+dateupdate+""+avatar);
-
-        } else{
+        } else {
             Toast.makeText(this, "No data.", Toast.LENGTH_SHORT).show();
+            finish(); // Kết thúc Activity nếu không có dữ liệu
         }
-
     }
     public void confirmDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
