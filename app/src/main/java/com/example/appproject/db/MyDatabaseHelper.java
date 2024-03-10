@@ -17,7 +17,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     public final Context context;
     public static final String DATABASE_NAME = "Comic.db";
-    public static final int DATABASE_VERSION = 8;
+    public static final int DATABASE_VERSION = 12;
 
 
 

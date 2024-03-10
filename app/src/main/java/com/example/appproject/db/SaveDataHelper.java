@@ -27,13 +27,13 @@ public class SaveDataHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
-    private Save cursorToProduct(Cursor cursor){
+    private Save cursorToSave(Cursor cursor){
         byte[] imageByteArray= cursor.getBlob(3);
         Bitmap imageBitmap= BitmapFactory.decodeByteArray(imageByteArray,0,imageByteArray.length);
         return new Save(
-                cursor.getString(0),//idSave
-                cursor.getString(1),//id_account_save
-                cursor.getString(2)//id_comic_save
+                cursor.getInt(0),//idSave
+                cursor.getInt(1),//id_account_save
+                cursor.getInt(2)//id_comic_save
         );
     }
     public ArrayList<Save> getAllSave(){
@@ -44,7 +44,7 @@ public class SaveDataHelper extends SQLiteOpenHelper {
             try {
                 if (cursor.moveToFirst()) {
                     do {
-                        Save save= cursorToProduct(cursor);
+                        Save save= cursorToSave(cursor);
 
                         saves.add(save);
                     } while (cursor.moveToNext());

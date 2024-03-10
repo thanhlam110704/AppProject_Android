@@ -1,14 +1,23 @@
 package com.example.appproject.model;
 
 public class Genre {
-    private  String idGenre;
+    private  int idGenre;
     private  String nameGenre;
 
-    public String getIdGenre() {
+
+    public Genre() {
+    }
+
+    public Genre(int idGenre, String nameGenre) {
+        this.idGenre = idGenre;
+        this.nameGenre = nameGenre;
+    }
+
+    public int getIdGenre() {
         return idGenre;
     }
 
-    public void setIdGenre(String idGenre) {
+    public void setIdGenre(int idGenre) {
         this.idGenre = idGenre;
     }
 
@@ -18,12 +27,5 @@ public class Genre {
 
     public void setNameGenre(String nameGenre) {
         this.nameGenre = nameGenre;
-    }
-
-    public Genre() {
-    }
-    public Genre(String idGenre,String nameGenre){
-        this.idGenre=idGenre;
-        this.nameGenre=nameGenre;
     }
 }

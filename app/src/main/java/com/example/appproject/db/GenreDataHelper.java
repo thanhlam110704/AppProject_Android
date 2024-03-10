@@ -28,10 +28,8 @@ public class GenreDataHelper extends SQLiteOpenHelper {
 
     }
     private Genre cursorToProduct(Cursor cursor){
-        byte[] imageByteArray= cursor.getBlob(2);
-        Bitmap imageBitmap= BitmapFactory.decodeByteArray(imageByteArray,0,imageByteArray.length);
         return new Genre(
-                cursor.getString(0),//idGenre
+                cursor.getInt(0),//idGenre
                 cursor.getString(1)//nameGenre
         );
     }

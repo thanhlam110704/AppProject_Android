@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.appproject.R;
+import com.example.appproject.model.Chapter;
 import com.example.appproject.model.Comic;
 import com.example.appproject.user.DetailComicActivity;
 
@@ -41,6 +42,7 @@ public class ComicArrayAdapter extends ArrayAdapter<Comic> {
             convertView = inflater.inflate(R.layout.item_truyen, null);
         }
         if(comics.size()>0){
+
             Comic comic= this.comics.get(position);
             byte[] imageByteArray = comic.getAvatar();
             Bitmap bitmap = BitmapFactory.decodeByteArray(imageByteArray, 0, imageByteArray.length);

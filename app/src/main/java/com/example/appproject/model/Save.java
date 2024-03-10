@@ -3,39 +3,40 @@ package com.example.appproject.model;
 import androidx.annotation.OpenForTesting;
 
 public class Save {
-    private  String idSave;
-    private String id_account_save;
-    private String id_comic_save;
+    private  int idSave;
+    private int id_account_save;
+    private int id_comic_save;
 
     public Save() {
     }
 
-    public Save(String idSave,String id_account_save,String id_comic_save){
-        this.idSave=idSave;
-        this.id_account_save=id_account_save;
-        this.id_comic_save=id_comic_save;
+    public Save(int idSave, int id_account_save, int id_comic_save) {
+        this.idSave = idSave;
+        this.id_account_save = id_account_save;
+        this.id_comic_save = id_comic_save;
     }
-    public String getIdSave() {
+
+    public int getIdSave() {
         return idSave;
     }
 
-    public void setIdSave(String idSave) {
+    public void setIdSave(int idSave) {
         this.idSave = idSave;
     }
 
-    public String getId_account_save() {
+    public int getId_account_save() {
         return id_account_save;
     }
 
-    public void setId_account_save(String id_account_save) {
+    public void setId_account_save(int id_account_save) {
         this.id_account_save = id_account_save;
     }
 
-    public String getId_comic_save() {
+    public int getId_comic_save() {
         return id_comic_save;
     }
 
-    public void setId_comic_save(String id_comic_save) {
+    public void setId_comic_save(int id_comic_save) {
         this.id_comic_save = id_comic_save;
     }
 }

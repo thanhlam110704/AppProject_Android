@@ -27,13 +27,11 @@ public class CommentDataHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
-    private Comment cursorToProduct(Cursor cursor){
-        byte[] imageByteArray= cursor.getBlob(3);
-        Bitmap imageBitmap= BitmapFactory.decodeByteArray(imageByteArray,0,imageByteArray.length);
+    private Comment cursorToComment(Cursor cursor){
         return new Comment(
-                cursor.getString(0),//idComment
-                cursor.getString(1),//id_account_name
-                cursor.getString(2)//id_comic_name
+                cursor.getInt(0),//idComment
+                cursor.getInt(1),//id_account_name
+                cursor.getInt(2)//id_comic_name
         );
     }
     public ArrayList<Comment> getAllComment(){
@@ -44,7 +42,7 @@ public class CommentDataHelper extends SQLiteOpenHelper {
             try {
                 if (cursor.moveToFirst()) {
                     do {
-                        Comment comment= cursorToProduct(cursor);
+                        Comment comment= cursorToComment(cursor);
 
                         comments.add(comment);
                     } while (cursor.moveToNext());
