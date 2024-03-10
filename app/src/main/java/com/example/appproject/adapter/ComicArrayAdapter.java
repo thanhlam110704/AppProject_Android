@@ -14,10 +14,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.bumptech.glide.Glide;
 import com.example.appproject.R;
 import com.example.appproject.model.Comic;
-import com.example.appproject.model.TruyenTranh;
 import com.example.appproject.user.DetailComicActivity;
 
 import java.io.Serializable;

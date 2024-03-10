@@ -30,7 +30,7 @@
                 android:id="@+id/imgAnhTruyen"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
+                android:scaleType="fitXY"
                 android:src="@drawable/hinh_conantruyen" />
 
             <TextView
@@ -40,9 +40,9 @@
                 android:layout_alignParentBottom="true"
                 android:background="#A8000000"
                 android:gravity="center"
-                android:text="Truyen tranh"
+                android:text="Net truyện"
                 android:textColor="@color/white"
-                android:textSize="10dp"
+                android:textSize="12dp"
                 tools:ignore="TextSizeCheck" />
         </RelativeLayout>
         <TextView

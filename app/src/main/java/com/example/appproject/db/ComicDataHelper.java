@@ -61,4 +61,5 @@ public class ComicDataHelper  extends SQLiteOpenHelper {
         }
         return comics;
     }
+
 }

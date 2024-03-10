@@ -22,6 +22,24 @@
         android:theme="@style/Theme.AppProject"
         tools:targetApi="31">
         <activity
+            android:name=".admin.UpdateGenActivity"
+            android:exported="false" />
+        <activity
+            android:name=".admin.UpdateComicGenreActivity"
+            android:exported="false" />
+        <activity
+            android:name=".db.GenDataActivity"
+            android:exported="false" />
+        <activity
+            android:name=".db.Comic_GenreDataActivity"
+            android:exported="false" />
+        <activity
+            android:name=".admin.AddComic_GenActivity"
+            android:exported="false" />
+        <activity
+            android:name=".admin.AddGenActivity"
+            android:exported="false" />
+        <activity
             android:name=".user.DetailComicActivity"
             android:exported="false" />
         <activity
@@ -65,9 +83,7 @@
             android:exported="true"
             android:label="Đăng ký"
             android:parentActivityName=".user.MainActivity"
-            android:theme="@style/Base.Theme.AppProject" >
-
-        </activity>
+            android:theme="@style/Base.Theme.AppProject" />
         <activity
             android:name=".admin.UpdateComicActivity"
             android:exported="false"
@@ -90,9 +106,7 @@
             android:name=".admin.AdminActivity"
             android:exported="true"
             android:label="Admin"
-            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar">
-
-        </activity>
+            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
         <activity
             android:name=".user.LoginActivity"
             android:exported="false"

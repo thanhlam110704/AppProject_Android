@@ -28,11 +28,9 @@ import com.example.appproject.R;
 import com.example.appproject.adapter.ComicAdapter;
 import com.example.appproject.adapter.ComicArrayAdapter;
 import com.example.appproject.adapter.ItemSearchAdapter;
-import com.example.appproject.adapter.TruyenTranhAdapter;
 import com.example.appproject.db.ComicDataHelper;
 import com.example.appproject.model.Comic;
 import com.example.appproject.model.ItemSearch;
-import com.example.appproject.model.TruyenTranh;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;

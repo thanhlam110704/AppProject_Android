@@ -198,6 +198,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME8);
         onCreate(db);
     }
+    //Data in SQLite
     public void addRegister(String uname, String pword, String email){
         SQLiteDatabase db = this.getWritableDatabase();
         if (isUsernameExists(uname)) {
@@ -401,6 +402,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         if(db != null){
             cursor = db.rawQuery(query, null);
         }
+
         return cursor;
     }
     public void deleteOneRow_genre(String row_id){
@@ -418,21 +420,22 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
         cv.put(ID_COMIC_FOREGIN_COMIC_GENRE,idcomic);
         cv.put(ID_GENRE_FOREGIN_COMIC_GENRE, idgen);
-        long result = db.insert(TABLE_NAME4, null, cv);
+        long result = db.insert(TABLE_NAME5, null, cv);
 
         if (result == -1) {
-            Toast.makeText(context, "Failed to add genre", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Failed to add comic genre", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(context, "Genre added successfully!", Toast.LENGTH_SHORT).show();
         }
     }
-    public void updateDatacomic_genre(String row_id,String name){
+    public void updateDatacomic_genre(String row_id,String idcomic, String idgen){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        cv.put(NAME_GENRE, name);
+        cv.put(ID_COMIC_FOREGIN_COMIC_GENRE,idcomic);
+        cv.put(ID_GENRE_FOREGIN_COMIC_GENRE, idgen);
 
-        long result = db.update(TABLE_NAME4, cv, "id_genre=?", new String[]{row_id});
+        long result = db.update(TABLE_NAME5, cv, "id_comicgenre=?", new String[]{row_id});
         if(result == -1){
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
         }else {
@@ -441,7 +444,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     }
     Cursor readAllDataComic_Genre(){
-        String query = "SELECT * FROM " + TABLE_NAME4;
+        String query = "SELECT * FROM " + TABLE_NAME5;
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = null;
@@ -452,13 +455,16 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     }
     public void deleteOneRowcomic_genre(String row_id){
         SQLiteDatabase db = this.getWritableDatabase();
-        long result = db.delete(TABLE_NAME4, "id_genre=?", new String[]{row_id});
+        long result = db.delete(TABLE_NAME5, "id_comicgenre=?", new String[]{row_id});
         if(result == -1){
             Toast.makeText(context, "Failed to Delete.", Toast.LENGTH_SHORT).show();
         }else{
             Toast.makeText(context, "Successfully Deleted.", Toast.LENGTH_SHORT).show();
         }
     }
+    //Data in SQlite
+
+    //Login + Register
     public boolean isUsernameExists(String username) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME8 + " WHERE " + ID_USERNAME + " = ?", new String[]{username});
@@ -501,5 +507,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             cursor.close();
             return false; // Return a value that indicates failure
         }
+
     }
+    //Login + Register
 }
