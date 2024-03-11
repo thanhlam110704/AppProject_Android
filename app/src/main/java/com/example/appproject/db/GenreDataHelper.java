@@ -1,5 +1,8 @@
 package com.example.appproject.db;
 
+import static com.example.appproject.db.MyDatabaseHelper.ID_COMIC_FOREGIN_CHAPTER;
+import static com.example.appproject.db.MyDatabaseHelper.TABLE_NAME2;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -27,7 +30,7 @@ public class GenreDataHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
-    private Genre cursorToProduct(Cursor cursor){
+    private Genre cursorToGenre(Cursor cursor){
         return new Genre(
                 cursor.getInt(0),//idGenre
                 cursor.getString(1)//nameGenre
@@ -41,7 +44,7 @@ public class GenreDataHelper extends SQLiteOpenHelper {
             try {
                 if (cursor.moveToFirst()) {
                     do {
-                        Genre genre= cursorToProduct(cursor);
+                        Genre genre= cursorToGenre(cursor);
 
                         genres.add(genre);
                     } while (cursor.moveToNext());
@@ -52,6 +55,7 @@ public class GenreDataHelper extends SQLiteOpenHelper {
         }
         return genres;
     }
+
 
 
 }

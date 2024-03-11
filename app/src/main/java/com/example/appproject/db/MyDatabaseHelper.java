@@ -1,5 +1,6 @@
 package com.example.appproject.db;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -17,7 +19,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     public final Context context;
     public static final String DATABASE_NAME = "Comic.db";
-    public static final int DATABASE_VERSION = 12;
+    public static final int DATABASE_VERSION = 13;
 
 
 
@@ -155,8 +157,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         // Tạo bảng Comic_Gender
         String createTableComicGender = "CREATE TABLE " + TABLE_NAME5 + " ("
                 + ID_Comic_Genre + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + ID_GENRE_FOREGIN_COMIC_GENRE + " INTEGER, "
                 + ID_COMIC_FOREGIN_COMIC_GENRE + " INTEGER, "
+                + ID_GENRE_FOREGIN_COMIC_GENRE + " INTEGER, "
                 + "FOREIGN KEY(" + ID_GENRE_FOREGIN_COMIC_GENRE + ") REFERENCES "
                 + TABLE_NAME4 + "(" + ID_GENRE + "), "
                 + "FOREIGN KEY(" + ID_COMIC_FOREGIN_COMIC_GENRE + ") REFERENCES "
@@ -510,4 +512,35 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     }
     //Login + Register
+    public List<String> getGenresByComicId(int comicId) {
+        List<String> genres = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT " + NAME_GENRE +
+                " FROM " + TABLE_NAME5 +
+                " INNER JOIN " +TABLE_NAME4 +
+                " ON " + ID_GENRE_FOREGIN_COMIC_GENRE + " = " + ID_GENRE +
+                " WHERE " + ID_COMIC_FOREGIN_COMIC_GENRE + " = ?";
+
+        String[] selectionArgs = {String.valueOf(comicId)};
+
+        Cursor cursor = db.rawQuery(query, selectionArgs);
+
+        if (cursor != null) {
+            try {
+                if (cursor.moveToFirst()) {
+                    do {
+                        @SuppressLint("Range") String genreName = cursor.getString(cursor.getColumnIndex(NAME_GENRE));
+                        genres.add(genreName);
+                    } while (cursor.moveToNext());
+                }
+            } finally {
+                cursor.close();
+            }
+        }
+
+        db.close();
+
+        return genres;
+    }
 }

@@ -30,7 +30,6 @@ import com.example.appproject.adapter.ComicArrayAdapter;
 import com.example.appproject.adapter.ItemSearchAdapter;
 import com.example.appproject.db.ComicDataHelper;
 import com.example.appproject.model.Comic;
-import com.example.appproject.model.ItemSearch;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
@@ -45,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     TextView textView;
     DrawerLayout drawerLayout;
     ListView listView;
-    ArrayList<ItemSearch> arrayList_search;
+    ArrayList<Comic> arrayList_search;
     ItemSearchAdapter adaptersearch;
     NavigationView navigationView;
     Toolbar toolbar;
@@ -59,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setTitle("Home");
+        setTitle("Trang chủ");
         addEventBanner();
         addEventMenu();
         addEventProduct();
@@ -150,10 +149,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     listView.setVisibility(View.VISIBLE);
 
                     // Filter the arrayList_search based on the story name
-                    ArrayList<ItemSearch> filteredList = new ArrayList<>();
-                    for (ItemSearch item : arrayList_search) {
-                        if (item.getTenTruyen().toLowerCase().contains(newText.toLowerCase())) {
-                            filteredList.add(item);
+                    ArrayList<Comic> filteredList = new ArrayList<>();
+                    for (Comic comic : arrayList_search) {
+                        if (comic.getName().toLowerCase().contains(newText.toLowerCase())) {
+                            filteredList.add(comic);
                         }
                     }
 
@@ -172,30 +171,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void addMenuSearch() {
         listView = findViewById(R.id.listViewitem);
         arrayList_search = new ArrayList<>();
-        arrayList_search.add(new ItemSearch("Conan","Chap11","Adult",R.drawable.hinh1));
-        arrayList_search.add(new ItemSearch("Doraemon","Chap11","Adult",R.drawable.hinh2));
-        arrayList_search.add(new ItemSearch("Chú thuật sư","Chap11","Adult",R.drawable.hinh3));
-        arrayList_search.add(new ItemSearch("Naruto","Chap11","Adult",R.drawable.hinh4));
-        arrayList_search.add(new ItemSearch("Chuyển sinh ","Chap11","Adult",R.drawable.hinh5));
-        arrayList_search.add(new ItemSearch("Goblin","Chap11","Adult",R.drawable.hinh6));
-        arrayList_search.add(new ItemSearch("Bảy viên ngọc rồng","Chap11","Adult",R.drawable.hinh1));
-        arrayList_search.add(new ItemSearch("ABC","Chap11","Adult",R.drawable.hinh2));
-        arrayList_search.add(new ItemSearch("Conan3","Chap11","Adult",R.drawable.hinh3));
-        arrayList_search.add(new ItemSearch("Conan4","Chap11","Adult",R.drawable.hinh4));
-        arrayList_search.add(new ItemSearch("Conan5","Chap11","Adult",R.drawable.hinh5));
-        arrayList_search.add(new ItemSearch("Conan6","Chap11","Adult",R.drawable.hinh6));
-        arrayList_search.add(new ItemSearch("Conan1","Chap11","Adult",R.drawable.hinh1));
-        arrayList_search.add(new ItemSearch("Conan2","Chap11","Adult",R.drawable.hinh2));
-        arrayList_search.add(new ItemSearch("Conan3","Chap11","Adult",R.drawable.hinh3));
-        arrayList_search.add(new ItemSearch("Conan4","Chap11","Adult",R.drawable.hinh4));
-        arrayList_search.add(new ItemSearch("Conan5","Chap11","Adult",R.drawable.hinh5));
-        arrayList_search.add(new ItemSearch("Conan6","Chap11","Adult",R.drawable.hinh6));
-
+        comic_helper2= new ComicDataHelper(MainActivity.this);
+        arrayList_search=  comic_helper2.getAllComics();
         rcvCategory.setVisibility(View.VISIBLE);
         gdvDSTruyen.setVisibility(View.VISIBLE);
         textView.setVisibility(View.VISIBLE);
         listView.setVisibility(View.GONE);
-
         adaptersearch = new ItemSearchAdapter(this, R.layout.layout_item_search, arrayList_search);
         listView.setAdapter(adaptersearch);
 

@@ -13,6 +13,7 @@ import com.example.appproject.model.Comic;
 import java.util.ArrayList;
 
 public class ComicDataHelper  extends SQLiteOpenHelper {
+
     public ComicDataHelper(@Nullable Context context) {
         super(context, MyDatabaseHelper.DATABASE_NAME, null, MyDatabaseHelper.DATABASE_VERSION);
     }

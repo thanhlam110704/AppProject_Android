@@ -74,8 +74,9 @@ public ArrayList<Chapter>getAllChapter(){
     }
     return chapters;
 }
-    public ArrayList<Chapter> getChaptersByComicId(SQLiteDatabase db, int comicId) {
+    public  ArrayList<Chapter> getChaptersByComicId( int comicId) {
         ArrayList<Chapter> chapters = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT * FROM " + TABLE_NAME2 + " WHERE " + ID_COMIC_FOREGIN_CHAPTER + " = ?";
         String[] selectionArgs = {String.valueOf(comicId)};
 
@@ -95,9 +96,9 @@ public ArrayList<Chapter>getAllChapter(){
         }
         return chapters;
     }
-    public Chapter getLatestChapterByComicId(SQLiteDatabase db, int comicId) {
-        Chapter latestChapter = null;
-
+    public Chapter getLatestChapterByComicId(int comicId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Chapter latestChapter = new Chapter();
         String query = "SELECT * FROM " + TABLE_NAME2 + " WHERE " + ID_COMIC_FOREGIN_CHAPTER + " = ?" +
                 " ORDER BY " + DATE_PUBLISH + " DESC LIMIT 1";
         String[] selectionArgs = {String.valueOf(comicId)};

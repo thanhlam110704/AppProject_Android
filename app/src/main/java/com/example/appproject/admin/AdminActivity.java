@@ -11,6 +11,8 @@ import androidx.cardview.widget.CardView;
 import com.example.appproject.R;
 import com.example.appproject.db.ChapterDataActivity;
 import com.example.appproject.db.ComicDataActivity;
+import com.example.appproject.db.Comic_GenreDataActivity;
+import com.example.appproject.db.GenDataActivity;
 
 public class AdminActivity extends AppCompatActivity {
 
@@ -49,13 +51,15 @@ public class AdminActivity extends AppCompatActivity {
         cardGenres.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(AdminActivity.this, GenDataActivity.class);
+                startActivity(intent);
             }
         });
         cardComments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(AdminActivity.this, Comic_GenreDataActivity.class);
+                startActivity(intent);
             }
         });
         cardLogout.setOnClickListener(new View.OnClickListener() {
