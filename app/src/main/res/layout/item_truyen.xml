@@ -58,40 +58,10 @@
             android:textSize="12dp"
             android:textStyle="bold"
             tools:ignore="TextSizeCheck" />
-        <TextView
-            android:id="@+id/txtTenChap"
+        <ListView
+            android:id="@+id/listViewChapters"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:paddingLeft="5dp"
-            android:text="Chapter 13"
-            android:textColor="@color/black"
-            android:textSize="10dp"
-            android:layout_gravity="center"
-            tools:ignore="TextSizeCheck" />
-        <TextView
-            android:id="@+id/txtTenChap3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:paddingLeft="5dp"
-            android:text="Chapter 12"
-            android:layout_gravity="center"
-            android:textColor="@color/black"
-            android:textSize="10dp"
-            tools:ignore="TextSizeCheck" />
-        <TextView
-            android:id="@+id/txtTenChap2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:paddingLeft="5dp"
-            android:text="Chapter 12"
-            android:layout_gravity="center"
-            android:textColor="@color/black"
-            android:textSize="10dp"
-            tools:ignore="TextSizeCheck" />
-
+            android:layout_height="match_parent"/>
     </LinearLayout>
 
 

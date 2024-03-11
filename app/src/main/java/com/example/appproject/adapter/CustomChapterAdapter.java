@@ -58,7 +58,7 @@ public class CustomChapterAdapter extends RecyclerView.Adapter<CustomChapterAdap
         holder.chapter_viewer_txt.setText(String.valueOf(chapter_viewer.get(position)));
         holder.chapter_datepublish_txt.setText(String.valueOf(chapter_datepulish.get(position)));
         List<byte[]> chapterImages = chapter_img.get(position);
-        holder.chapter_idcomic_txt.setText(String.valueOf(chapter_id.get(position)));
+        holder.chapter_idcomic_txt.setText(String.valueOf(chapter_idcomic.get(position)));
 
         // Hiển thị hình ảnh trong các ImageView
         for (int i = 0; i < Math.min(chapterImages.size(), holder.chapter_img_imgview.size()); i++) {

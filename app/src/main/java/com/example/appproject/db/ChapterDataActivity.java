@@ -79,71 +79,76 @@ public class ChapterDataActivity extends AppCompatActivity {
     public void storeDataInArrays() {
         Cursor cursor = mydb.readAllDataChapter();
 
-        // Kiểm tra xem cursor có dữ liệu hay không
-        if (cursor != null && cursor.getCount() > 0) {
-            // Kiểm tra và khởi tạo chapter_img nếu nó là null
-            if (chapter_img == null) {
-                chapter_img = new ArrayList<>();
+        try {
+            // Kiểm tra xem cursor có dữ liệu hay không
+            if (cursor != null && cursor.getCount() > 0) {
+                // Kiểm tra và khởi tạo chapter_img nếu nó là null
+                if (chapter_img == null) {
+                    chapter_img = new ArrayList<>();
+                }
+
+                while (cursor.moveToNext()) {
+                    List<byte[]> singleChapterImages = new ArrayList<>();
+                    chapter_img.add(singleChapterImages);
+                    chapter_id.add(cursor.getString(0));
+                    chapter_name.add(cursor.getString(1));
+                    chapter_viewer.add(cursor.getString(2));
+                    chapter_datepulish.add(cursor.getString(3));
+                    chapter_idcomic.add(cursor.getString(9));
+
+                    // Tạo danh sách để chứa dữ liệu BLOB từ các cột IMG1 đến IMG5
+
+                    // Lấy giá trị BLOB từ cột IMG1
+                    byte[] img1Bytes = cursor.getBlob(4);
+                    if (img1Bytes != null) {
+                        singleChapterImages.add(img1Bytes);
+                    }
+
+                    // Lấy giá trị BLOB từ cột IMG2
+                    byte[] img2Bytes = cursor.getBlob(5);
+                    if (img2Bytes != null) {
+                        singleChapterImages.add(img2Bytes);
+                    }
+
+                    // Lấy giá trị BLOB từ cột IMG3
+                    byte[] img3Bytes = cursor.getBlob(6);
+                    if (img3Bytes != null) {
+                        singleChapterImages.add(img3Bytes);
+                    }
+
+                    // Lấy giá trị BLOB từ cột IMG4
+                    byte[] img4Bytes = cursor.getBlob(7);
+                    if (img4Bytes != null) {
+                        singleChapterImages.add(img4Bytes);
+                    }
+
+                    // Lấy giá trị BLOB từ cột IMG5
+                    byte[] img5Bytes = cursor.getBlob(8);
+                    if (img5Bytes != null) {
+                        singleChapterImages.add(img5Bytes);
+                    }
+
+                    // Thêm danh sách ảnh của chương vào chapter_img
+                }
+
+                // Ẩn thông báo không có dữ liệu
+                empty_imageview2.setVisibility(View.GONE);
+                no_data2.setVisibility(View.GONE);
+            } else {
+                // Hiển thị thông báo không có dữ liệu
+                empty_imageview2.setVisibility(View.VISIBLE);
+                no_data2.setVisibility(View.VISIBLE);
             }
-
-            while (cursor.moveToNext()) {
-                List<byte[]> singleChapterImages = new ArrayList<>();
-                chapter_img.add(singleChapterImages);
-                chapter_id.add(cursor.getString(0));
-                chapter_name.add(cursor.getString(1));
-                chapter_viewer.add(cursor.getString(2));
-                chapter_datepulish.add(cursor.getString(3));
-                chapter_idcomic.add(cursor.getString(9));
-
-                // Tạo danh sách để chứa dữ liệu BLOB từ các cột IMG1 đến IMG5
-
-
-                // Lấy giá trị BLOB từ cột IMG1
-                byte[] img1Bytes = cursor.getBlob(4);
-                if (img1Bytes != null) {
-                    singleChapterImages.add(img1Bytes);
-                }
-
-                // Lấy giá trị BLOB từ cột IMG2
-                byte[] img2Bytes = cursor.getBlob(5);
-                if (img2Bytes != null) {
-                    singleChapterImages.add(img2Bytes);
-                }
-
-                // Lấy giá trị BLOB từ cột IMG3
-                byte[] img3Bytes = cursor.getBlob(6);
-                if (img3Bytes != null) {
-                    singleChapterImages.add(img3Bytes);
-                }
-
-                // Lấy giá trị BLOB từ cột IMG4
-                byte[] img4Bytes = cursor.getBlob(7);
-                if (img4Bytes != null) {
-                    singleChapterImages.add(img4Bytes);
-                }
-
-                // Lấy giá trị BLOB từ cột IMG5
-                byte[] img5Bytes = cursor.getBlob(8);
-                if (img5Bytes != null) {
-                    singleChapterImages.add(img5Bytes);
-                }
-
-                // Thêm danh sách ảnh của chương vào chapter_img
-
-
+        } finally {
+            // Đảm bảo rằng cursor sẽ được đóng ngay cả khi có ngoại lệ xảy ra
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close();
             }
-
-            // Ẩn thông báo không có dữ liệu
-            empty_imageview2.setVisibility(View.GONE);
-            no_data2.setVisibility(View.GONE);
-        } else {
-            // Hiển thị thông báo không có dữ liệu
-            empty_imageview2.setVisibility(View.VISIBLE);
-            no_data2.setVisibility(View.VISIBLE);
         }
 
         // Tiếp tục xử lý hoặc hiển thị dữ liệu nếu cần
     }
+
 
 
     @Override

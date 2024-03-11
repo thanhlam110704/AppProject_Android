@@ -9,12 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.appproject.R;
+import com.example.appproject.db.ChapterDataHelper;
 import com.example.appproject.model.Chapter;
 import com.example.appproject.model.Comic;
 import com.example.appproject.user.DetailComicActivity;
@@ -24,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ComicArrayAdapter extends ArrayAdapter<Comic> {
-
+    private ChapterDataHelper chapterDataHelper;
     private Context ct;
     private ArrayList<Comic> comics;
 
@@ -45,12 +47,20 @@ public class ComicArrayAdapter extends ArrayAdapter<Comic> {
 
             Comic comic= this.comics.get(position);
             byte[] imageByteArray = comic.getAvatar();
+            chapterDataHelper = new ChapterDataHelper(ct);
+            List<Chapter> chapters = chapterDataHelper.getChaptersByComicId(comic.getId());
+            List<String> name_chapters = new ArrayList<>();
+            for (Chapter chapter : chapters) {
+                name_chapters.add(chapter.getNameChap());
+            }
+
             Bitmap bitmap = BitmapFactory.decodeByteArray(imageByteArray, 0, imageByteArray.length);
             TextView name_comic_arr = convertView.findViewById(R.id.txtTenTruyen);
-            TextView name_chapter_arr= convertView.findViewById(R.id.txtTenChap);
+            ChapterAdapter adapter = new ChapterAdapter(ct, name_chapters);
+            ListView listViewChapters = convertView.findViewById(R.id.listViewChapters);
+            listViewChapters.setAdapter(adapter);
             ImageView img_comic_arr= convertView.findViewById(R.id.imgAnhTruyen);
             name_comic_arr.setText(comic.getName());
-            //name_chapter_arr.setText(comic.getTenChap());
             img_comic_arr.setImageBitmap(bitmap);
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override

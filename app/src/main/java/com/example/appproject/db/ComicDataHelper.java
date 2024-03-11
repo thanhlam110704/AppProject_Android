@@ -62,5 +62,28 @@ public class ComicDataHelper  extends SQLiteOpenHelper {
         }
         return comics;
     }
+    public ArrayList<Comic> getComicsByMonth() {
+        ArrayList<Comic> comics = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Lấy ngày đầu và cuối tháng 4
+        String query = "SELECT * FROM comic WHERE date_update LIKE '%/4/%'";
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor != null) {
+            try {
+                if (cursor.moveToFirst()) {
+                    do {
+                        Comic comic = cursorToComic(cursor);
+                        comics.add(comic);
+                    } while (cursor.moveToNext());
+                }
+            } finally {
+                cursor.close();
+            }
+        }
+        return comics;
+    }
+
 
 }

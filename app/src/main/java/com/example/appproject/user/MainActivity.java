@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void addEventBanner() {
         comic_helper= new ComicDataHelper(MainActivity.this);
         rcvCategory = findViewById(R.id.rcv_category);
-        comicList= comic_helper.getAllComics();
+        comicList= comic_helper.getComicsByMonth();
         comicAdapter = new ComicAdapter(comicList,MainActivity.this);
         rcvCategory.setAdapter(comicAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);

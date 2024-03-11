@@ -36,7 +36,7 @@ public class UpdateChapterActivity extends AppCompatActivity {
     EditText chapter_input, date_publish_input,viewer_input,idcomic_input;
     Button update_button, delete_button, upload_button_chapter;
     String id, chapter, datepublish,viewer, idcomic;
-    List<byte[]> imgBytesList;
+    List<byte[]> imgBytesList,listimg;
 
 
     @Override
@@ -64,18 +64,36 @@ public class UpdateChapterActivity extends AppCompatActivity {
         }
         update_button.setOnClickListener(view -> {
             MyDatabaseHelper myDB = new MyDatabaseHelper(UpdateChapterActivity.this);
-            if (selectedImageUris!=null) {
-                imgBytesList = new ArrayList<>();
-                for (Uri selectedImageUri : selectedImageUris) {
-                    byte[] imgBytes = getBytesFromUri(selectedImageUri);
-                    imgBytesList.add(imgBytes);
+            try {
+                // Kiểm tra giá trị của các biến trước khi thực hiện cập nhật
+                if (!chapter.isEmpty() && !viewer.isEmpty() && !datepublish .isEmpty() && !idcomic.isEmpty()) {
+
+                    // Nếu có ảnh mới, cập nhật avatar từ ảnh mới
+                    if (selectedImageUris!=null) {
+                        imgBytesList = new ArrayList<>();
+                        for (Uri selectedImageUri : selectedImageUris) {
+                            byte[] imgBytes = getBytesFromUri(selectedImageUri);
+                            imgBytesList.add(imgBytes);
+                        }
+                        listimg=imgBytesList;
+                    }
+                    chapter = chapter_input.getText().toString().trim();
+                    viewer = viewer_input.getText().toString().trim();
+                    datepublish = date_publish_input.getText().toString().trim();
+                    idcomic = idcomic_input.getText().toString().trim();
+                    // Thực hiện cập nhật dữ liệu vào cơ sở dữ liệu
+                    myDB.updateData_chapter(id, chapter, viewer, datepublish, imgBytesList ,idcomic);
+                    finish();
+
+                } else {
+                    // Hiển thị thông báo nếu có trường dữ liệu bị rỗng
+                    Toast.makeText(UpdateChapterActivity.this, "Please fill in all fields.", Toast.LENGTH_SHORT).show();
                 }
-                chapter = chapter_input.getText().toString().trim();
-                viewer = viewer_input.getText().toString().trim();
-                datepublish = date_publish_input.getText().toString().trim();
-                idcomic = idcomic_input.getText().toString().trim();
-                myDB.updateData_chapter(id, chapter, viewer, datepublish, imgBytesList ,idcomic);
-                finish();
+
+            } catch (Exception e) {
+                // Xử lý ngoại lệ khi có vấn đề với cơ sở dữ liệu
+                e.printStackTrace();
+                Toast.makeText(UpdateChapterActivity.this, "Error updating data. Please try again.", Toast.LENGTH_SHORT).show();
             }
         });
         delete_button.setOnClickListener(view -> confirmDialog());
@@ -139,7 +157,7 @@ public class UpdateChapterActivity extends AppCompatActivity {
             viewer=getIntent().getStringExtra("viewer");
             datepublish=getIntent().getStringExtra("datepublish");
             idcomic=getIntent().getStringExtra("idcomic");
-            imgBytesList = (List<byte[]>) getIntent().getSerializableExtra("img");
+            listimg = (List<byte[]>) getIntent().getSerializableExtra("img");
 
 
             // Setting dữ liệu từ Intent
@@ -147,10 +165,10 @@ public class UpdateChapterActivity extends AppCompatActivity {
             viewer_input.setText(viewer);
             date_publish_input.setText(datepublish);
             idcomic_input.setText(idcomic);
-            if (imgBytesList != null && !imgBytesList.isEmpty()) {
+            if (listimg != null && !listimg.isEmpty()) {
                 // Set images to ImageView
-                for (int i = 0; i < Math.min(imgBytesList.size(), chapter_imgs.size()); i++) {
-                    byte[] imgBytes = imgBytesList.get(i);
+                for (int i = 0; i < Math.min(listimg.size(), chapter_imgs.size()); i++) {
+                    byte[] imgBytes = listimg.get(i);
                     Bitmap bitmap = BitmapFactory.decodeByteArray(imgBytes, 0, imgBytes.length);
                     chapter_imgs.get(i).setImageBitmap(bitmap);
                 }
