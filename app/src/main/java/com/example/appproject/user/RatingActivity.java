@@ -3,11 +3,15 @@ package com.example.appproject.user;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.Toast;
 
 import com.example.appproject.R;
 
@@ -22,6 +26,25 @@ public class RatingActivity extends AppCompatActivity {
         final AppCompatButton btnlater=findViewById(R.id.btnlater);
         final RatingBar ratingBar= findViewById(R.id.Ratingbar);
         final ImageView imgRating=findViewById(R.id.imgRating);
+        Animation scaleAnimation = AnimationUtils.loadAnimation(this, R.anim.scale_animation);
+        btnlater.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(RatingActivity.this, MainActivity.class);
+                startActivity(intent);
+                v.startAnimation(scaleAnimation);
+            }
+        });
+        btnrateNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(RatingActivity.this, MainActivity.class);
+                startActivity(intent);
+                v.startAnimation(scaleAnimation);
+                Toast.makeText(getApplicationContext(),"Successfully",Toast.LENGTH_LONG).show();
+
+            }
+        });
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {

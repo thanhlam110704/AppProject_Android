@@ -78,7 +78,8 @@
             android:exported="false"
             android:label="Trang đánh giá"
             android:parentActivityName=".user.MainActivity"
-            android:theme="@style/Base.Theme.AppProject" />
+            android:theme="@style/Base.Theme.AppProject" >
+        </activity>
         <activity
             android:name=".admin.UpdateChapterActivity"
             android:exported="false"
