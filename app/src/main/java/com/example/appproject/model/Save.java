@@ -2,7 +2,9 @@ package com.example.appproject.model;
 
 import androidx.annotation.OpenForTesting;
 
-public class Save {
+import java.io.Serializable;
+
+public class Save implements Serializable {
     private  int idSave;
     private int id_account_save;
     private int id_comic_save;

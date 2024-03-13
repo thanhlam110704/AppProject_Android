@@ -22,6 +22,9 @@
         android:theme="@style/Theme.AppProject"
         tools:targetApi="31">
         <activity
+            android:name=".user.DetailChapterActivity"
+            android:exported="false" />
+        <activity
             android:name=".admin.UpdateGenActivity"
             android:exported="false"
             android:label="Cập nhật Genre"
@@ -32,8 +35,7 @@
             android:exported="false"
             android:label="Cập nhật Comic-Genre"
             android:parentActivityName=".db.Comic_GenreDataActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
-            />
+            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
         <activity
             android:name=".db.GenDataActivity"
             android:exported="false"
@@ -60,7 +62,10 @@
             android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
         <activity
             android:name=".user.DetailComicActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Chi tiết truyện"
+            android:parentActivityName=".user.MainActivity"
+            android:theme="@style/Base.Theme.AppProject" />
         <activity
             android:name=".user.FanpageActivity"
             android:exported="false"
@@ -78,8 +83,7 @@
             android:exported="false"
             android:label="Trang đánh giá"
             android:parentActivityName=".user.MainActivity"
-            android:theme="@style/Base.Theme.AppProject" >
-        </activity>
+            android:theme="@style/Base.Theme.AppProject"></activity>
         <activity
             android:name=".admin.UpdateChapterActivity"
             android:exported="false"
@@ -126,10 +130,7 @@
             android:name=".admin.AdminActivity"
             android:exported="true"
             android:label="Admin"
-            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar">
-
-        </activity>
-
+            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"></activity>
         <activity
             android:name=".user.LoginActivity"
             android:exported="false"

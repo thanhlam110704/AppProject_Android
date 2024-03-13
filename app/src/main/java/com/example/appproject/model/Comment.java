@@ -1,6 +1,8 @@
 package com.example.appproject.model;
 
-public class Comment {
+import java.io.Serializable;
+
+public class Comment implements Serializable {
     private int idComment;
     private int id_account_name;
     private int id_comic_name;

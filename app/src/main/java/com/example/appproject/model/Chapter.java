@@ -1,6 +1,8 @@
 package com.example.appproject.model;
 
-public class Chapter {
+import java.io.Serializable;
+
+public class Chapter implements Serializable {
     private int idChapter;
     private String nameChap;
     private String viewer;

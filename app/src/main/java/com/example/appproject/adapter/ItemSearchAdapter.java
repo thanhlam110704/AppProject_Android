@@ -1,6 +1,7 @@
 package com.example.appproject.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -17,7 +18,9 @@ import com.example.appproject.db.ChapterDataHelper;
 import com.example.appproject.db.MyDatabaseHelper;
 import com.example.appproject.model.Chapter;
 import com.example.appproject.model.Comic;
+import com.example.appproject.user.DetailComicActivity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,7 +87,14 @@ public class ItemSearchAdapter extends BaseAdapter implements Filterable {
         name_chapter.setText(chapter.getNameChap());
         genres_comic.setText(genreText.toString());
         imageView.setImageBitmap(bitmap);
-
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, DetailComicActivity.class);
+                intent.putExtra("comic", (Serializable) comic);
+                context.startActivity(intent);
+            }
+        });
         return convertView;
     }
 

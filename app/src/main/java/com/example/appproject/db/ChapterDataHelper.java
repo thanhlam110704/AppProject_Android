@@ -2,6 +2,7 @@ package com.example.appproject.db;
 import static com.example.appproject.db.MyDatabaseHelper.DATE_PUBLISH;
 import static com.example.appproject.db.MyDatabaseHelper.ID_COMIC_FOREGIN_CHAPTER;
 import static com.example.appproject.db.MyDatabaseHelper.TABLE_NAME2;
+import static com.example.appproject.db.MyDatabaseHelper.VIEWER;
 
 import android.database.Cursor;
 import android.content.Context;
@@ -111,6 +112,45 @@ public ArrayList<Chapter>getAllChapter(){
         cursor.close();
         return latestChapter;
     }
+    public int getTotalViewsByComicId(int comicId) {
+        int totalViews = 0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT SUM(" + VIEWER + ") FROM " + TABLE_NAME2 + " WHERE " + ID_COMIC_FOREGIN_CHAPTER + " = ?";
+        String[] selectionArgs = {String.valueOf(comicId)};
+
+        Cursor cursor = db.rawQuery(query, selectionArgs);
+        if (cursor.moveToFirst()) {
+            totalViews = cursor.getInt(0);
+        }
+
+        cursor.close();
+        return totalViews;
+    }
+    public ArrayList<Chapter> getLatestChaptersByComicId(int comicId, int numberOfChapters) {
+        ArrayList<Chapter> latestChapters = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + TABLE_NAME2 + " WHERE " + ID_COMIC_FOREGIN_CHAPTER + " = ?" +
+                " ORDER BY " + DATE_PUBLISH + " DESC LIMIT ?";
+        String[] selectionArgs = {String.valueOf(comicId), String.valueOf(numberOfChapters)};
+
+        Cursor cursor = db.rawQuery(query, selectionArgs);
+        if (cursor != null) {
+            try {
+                if (cursor.moveToFirst()) {
+                    do {
+                        Chapter chapter = cursorToChapter(cursor);
+                        latestChapters.add(chapter);
+                    } while (cursor.moveToNext());
+                }
+            } finally {
+                cursor.close();
+            }
+        }
+        return latestChapters;
+    }
+
+
+
 
 
 

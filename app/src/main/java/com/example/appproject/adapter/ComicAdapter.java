@@ -44,7 +44,6 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.MyViewHolder
     public void onBindViewHolder(@NonNull ComicAdapter.MyViewHolder holder, int position) {
         Comic comic = comicList.get(position);
         chapterDataHelper = new ChapterDataHelper(context);
-        List<Chapter> chapters = chapterDataHelper.getChaptersByComicId(comic.getId());
         Chapter chapter = chapterDataHelper.getLatestChapterByComicId(comic.getId());
         holder.comic_name .setText(comic.getName());
         holder.chapter_name.setText(chapter.getNameChap());
@@ -53,7 +52,6 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.MyViewHolder
         Bitmap bitmap = BitmapFactory.decodeByteArray(imageByteArray, 0, imageByteArray.length);
         holder.comic_avatar.setImageBitmap(bitmap);
        
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,7 +70,6 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.MyViewHolder
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private ImageView comic_avatar;
         private TextView comic_name,chapter_name,chapter_dateupdate;
-        private TextView txtTenChap;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             comic_name = itemView.findViewById(R.id.comic_name_txt_home);

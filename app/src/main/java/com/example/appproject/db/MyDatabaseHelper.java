@@ -19,8 +19,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     public final Context context;
     public static final String DATABASE_NAME = "Comic.db";
-    public static final int DATABASE_VERSION = 13;
-
+    public static final int DATABASE_VERSION = 14;
 
 
     // Bảng 1-
@@ -54,6 +53,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public static final String ID_ACCOUNT = "id_account";
     public static final String NAME_ACCOUNT= "name_account";
     public static final String EMAIL="email";
+    public static final String Phone="phone";
+    public static final String AVATAR_ACCOUNT="account";
     public static final String PASSWORD="pass";
     public static final String ROLE="role";
 
@@ -112,6 +113,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 + ID_EMAIL + " TEXT, "
                 + ID_ROLE + " TEXT)";
         db.execSQL(createTableRegister);
+
         String createTableComic = "CREATE TABLE " + TABLE_NAME + " ("
                 + ID_COMIC + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + NAME_COMIC + " TEXT, "

@@ -27,12 +27,11 @@ import java.io.InputStream;
 
 public class UpdateComicActivity extends AppCompatActivity {
 
-    ActivityResultLauncher<String> resultLauncher;
-
+    ActivityResultLauncher<String> resultLauncher;// ảnh
     EditText namecomic_input, author_input, date_update_input,status_input,description_input;
-    ImageView avatar_input;
+    ImageView avatar_input;// ảnh
     Button update_button, delete_button,button_upload;
-    String id, name, author,description, status, dateupdate;
+    String id, name, author,description, status, dateupdate;// biến lưu dữ liệu
     byte[] avatar;
     Uri selectedImageUri;
     @Override
@@ -47,6 +46,16 @@ public class UpdateComicActivity extends AppCompatActivity {
         avatar_input = findViewById(R.id.avatar_input2);
         update_button=findViewById(R.id.update_button);
         delete_button=findViewById(R.id.delete_button);
+        // Khai báo và khởi tạo ActivityResultLauncher để xử lý kết quả của việc chọn ảnh từ bộ sưu tập
+        resultLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
+            // Xử lý kết quả khi người dùng chọn ảnh
+            if (uri != null) {
+                selectedImageUri = uri;
+                // Hiển thị ảnh đã chọn trong ImageView
+                avatar_input.setImageURI(uri);
+            }
+        });
+
         getandsetIntentData();
         button_upload = findViewById(R.id.button_upload); // Add this line to initialize button_uploa
         button_upload.setOnClickListener(view -> {
@@ -60,14 +69,12 @@ public class UpdateComicActivity extends AppCompatActivity {
         }
         update_button.setOnClickListener(view -> {
             MyDatabaseHelper myDB = new MyDatabaseHelper(UpdateComicActivity.this);
-
             // Lấy dữ liệu từ EditText
             name = namecomic_input.getText().toString().trim();
             description = description_input.getText().toString().trim();
             author = author_input.getText().toString().trim();
             status = status_input.getText().toString().trim();
             dateupdate = date_update_input.getText().toString().trim();
-
             try {
                 // Kiểm tra giá trị của các biến trước khi thực hiện cập nhật
                 if (!name.isEmpty() && !description.isEmpty() && !author.isEmpty() && !status.isEmpty() && !dateupdate.isEmpty()) {
@@ -76,6 +83,9 @@ public class UpdateComicActivity extends AppCompatActivity {
                     if (selectedImageUri != null) {
                         byte[] avatarBytes = getBytesFromUri(selectedImageUri);
                         avatar = avatarBytes;
+                        Bitmap avatarBitmap = BitmapFactory.decodeByteArray(avatarBytes, 0, avatarBytes.length);
+                        avatar_input.setImageBitmap(avatarBitmap);
+
                     }
 
                     // Thực hiện cập nhật dữ liệu vào cơ sở dữ liệu
@@ -93,11 +103,7 @@ public class UpdateComicActivity extends AppCompatActivity {
                 Toast.makeText(UpdateComicActivity.this, "Error updating data. Please try again.", Toast.LENGTH_SHORT).show();
             }
         });
-
-
-
         delete_button.setOnClickListener(view -> confirmDialog());
-
     }
     private byte[] getBytesFromUri(Uri uri) {
         try {

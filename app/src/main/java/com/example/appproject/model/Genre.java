@@ -1,6 +1,8 @@
 package com.example.appproject.model;
 
-public class Genre {
+import java.io.Serializable;
+
+public class Genre implements Serializable {
     private  int idGenre;
     private  String nameGenre;
 

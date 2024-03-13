@@ -48,7 +48,7 @@ public class ComicArrayAdapter extends ArrayAdapter<Comic> {
             Comic comic= this.comics.get(position);
             byte[] imageByteArray = comic.getAvatar();
             chapterDataHelper = new ChapterDataHelper(ct);
-            List<Chapter> chapters = chapterDataHelper.getChaptersByComicId(comic.getId());
+            List<Chapter> chapters = chapterDataHelper.getLatestChaptersByComicId(comic.getId(),3);
             List<String> name_chapters = new ArrayList<>();
             for (Chapter chapter : chapters) {
                 name_chapters.add(chapter.getNameChap());
