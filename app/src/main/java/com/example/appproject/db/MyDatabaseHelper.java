@@ -545,4 +545,36 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
         return genres;
     }
+    @SuppressLint("Range")
+    public void incrementViewer(int chapterId, int comicId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        // Lấy số lượng lượt xem hiện tại của chương
+        int currentViewer = 0;
+        String query = "SELECT " + VIEWER + " FROM " + TABLE_NAME2 +
+                " WHERE " + ID_CHAPTER + " = ? AND " + ID_COMIC_FOREGIN_CHAPTER + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(chapterId), String.valueOf(comicId)});
+        if (cursor.moveToFirst()) {
+            currentViewer = cursor.getInt(cursor.getColumnIndex(VIEWER));
+        }
+        cursor.close();
+
+        // Cộng thêm 1 vào số lượt xem
+        cv.put(VIEWER, currentViewer + 1);
+
+        // Cập nhật số lượt xem mới vào cơ sở dữ liệu
+        int result = db.update(TABLE_NAME2, cv, ID_CHAPTER + " = ? AND " + ID_COMIC_FOREGIN_CHAPTER + " = ?",
+                new String[]{String.valueOf(chapterId), String.valueOf(comicId)});
+
+        if (result == -1) {
+            Toast.makeText(context, "Failed to increment viewer", Toast.LENGTH_SHORT).show();
+        } else {
+
+        }
+
+        db.close();
+    }
+
+
 }

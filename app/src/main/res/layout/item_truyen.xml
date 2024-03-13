@@ -12,8 +12,9 @@
     >
 
     <LinearLayout
+
         android:layout_width="130dp"
-        android:layout_height="210dp"
+        android:layout_height="220dp"
         android:layout_gravity="center"
         android:orientation="vertical"
         android:background="@drawable/border_background"
@@ -58,10 +59,11 @@
             android:textSize="12dp"
             android:textStyle="bold"
             tools:ignore="TextSizeCheck" />
+
         <ListView
             android:id="@+id/listViewChapters"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
     </LinearLayout>
 
 

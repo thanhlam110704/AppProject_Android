@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.appproject.R;
+import com.example.appproject.db.MyDatabaseHelper;
 import com.example.appproject.model.Chapter;
 import com.example.appproject.model.Comic;
 import com.example.appproject.user.DetailChapterActivity;
@@ -46,7 +47,9 @@ public class ChapterLvDetailAdapter extends ArrayAdapter<Chapter> {
             public void onClick(View view) {
                 Intent intent = new Intent(context, DetailChapterActivity.class);
                 intent.putExtra("chapter", chapter); // Truyền đối tượng Chapter sang DetailChapterActivity
-                intent.putExtra("comic", comic); // Truyền đối tượng Comic sang DetailChapterActivity
+                intent.putExtra("comic", comic);
+                MyDatabaseHelper dbHelper = new MyDatabaseHelper(context);
+                dbHelper.incrementViewer(chapter.getIdChapter(),comic.getId());// Truyền đối tượng Comic sang DetailChapterActivity
                 context.startActivity(intent);
             }
         });
