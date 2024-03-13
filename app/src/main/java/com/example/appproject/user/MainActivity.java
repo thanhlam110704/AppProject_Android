@@ -29,6 +29,7 @@ import com.example.appproject.adapter.ComicAdapter;
 import com.example.appproject.adapter.ComicArrayAdapter;
 import com.example.appproject.adapter.ItemSearchAdapter;
 import com.example.appproject.db.ComicDataHelper;
+import com.example.appproject.db.MyDatabaseHelper;
 import com.example.appproject.model.Comic;
 import com.google.android.material.navigation.NavigationView;
 
@@ -92,13 +93,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
     /*Xử lý danh sách truyện tranh */
 
-
-
-
-
-
-
-    /*Xử lý thanh menu */
+    //Xử lý menu và search
     private void addEventMenu() {
         /*Hook*/
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -121,7 +116,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.search_menu, menu);
         MenuItem menuItem = menu.findItem(R.id.app_bar_search);
@@ -148,11 +142,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     gdvDSTruyen.setVisibility(View.GONE);
                     listView.setVisibility(View.VISIBLE);
 
-                    // Filter the arrayList_search based on the story name
+                    // Filter the arrayList_search based on the story name and genre
                     ArrayList<Comic> filteredList = new ArrayList<>();
                     for (Comic comic : arrayList_search) {
                         if (comic.getName().toLowerCase().contains(newText.toLowerCase())) {
                             filteredList.add(comic);
+                        } else {
+                            MyDatabaseHelper dbHelper = new MyDatabaseHelper(MainActivity.this);
+                            List<String> genres = dbHelper.getGenresByComicId(comic.getId());
+                            for (String genre : genres) {
+                                if (genre.toLowerCase().contains(newText.toLowerCase())) {
+                                    filteredList.add(comic);
+                                    break; // Break the loop once a match is found for the genre
+                                }
+                            }
                         }
                     }
 
@@ -168,6 +171,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
+
     private void addMenuSearch() {
         listView = findViewById(R.id.listViewitem);
         arrayList_search = new ArrayList<>();
@@ -181,6 +185,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         listView.setAdapter(adaptersearch);
 
     }
+    //Xử lý menu và search
 
 
 
@@ -202,13 +207,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(intent);
         }
         else if (item.getItemId()==R.id.nav_Login){
-
-//  if(currentFrageMent!=FragMent_Login) {
-//                replaceFragMent(new LoginFragment());
-//                currentFrageMent=FragMent_Login;
-//                setTitle(item.getTitle());
-//
-//            }
             Intent intent= new Intent(this,LoginActivity.class);
             startActivity(intent);
         }

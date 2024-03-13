@@ -1,7 +1,6 @@
 package com.example.appproject.user;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -32,6 +31,7 @@ public class DetailComicActivity extends AppCompatActivity {
     List<String> genres;
     List<String> name_chapters;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +41,8 @@ public class DetailComicActivity extends AppCompatActivity {
 
         // Kiểm tra xem comic có null hay không trước khi sử dụng
         if (comic != null) {
+            // Lưu comic vào ViewModel để giữ lại dữ liệu khi DetailComicActivity được tái tạo
+
             // Thực hiện các thao tác khi biến comic không null
             addControls();
 
@@ -79,7 +81,7 @@ public class DetailComicActivity extends AppCompatActivity {
             comic_dateupdate.setText(comic.getDateUpdate());
             comic_view.setText(String.valueOf(viewer));
             // Khởi tạo và thiết lập Adapter cho listViewchapter
-            adapter = new ChapterLvDetailAdapter(DetailComicActivity.this, chapters);
+            adapter = new ChapterLvDetailAdapter(DetailComicActivity.this, chapters,comic);
             listViewchapter.setAdapter(adapter);
         } else {
             Toast.makeText(DetailComicActivity.this,"dữ liệu comic null",Toast.LENGTH_LONG).show();
