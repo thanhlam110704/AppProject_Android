@@ -84,7 +84,7 @@
 
 
             <EditText
-                android:id="@+id/email"
+                android:id="@+id/phone"
 
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -93,8 +93,8 @@
                 android:background="@drawable/custom"
                 android:drawableLeft="@drawable/i"
                 android:drawablePadding="8dp"
-                android:hint="Email"
-                android:inputType="textEmailAddress"
+                android:hint="Số điện thoại"
+                android:inputType="number"
                 android:padding="8dp"
                 android:textColor="@color/black"
                 android:textColorHighlight="@color/cardview_dark_background" />

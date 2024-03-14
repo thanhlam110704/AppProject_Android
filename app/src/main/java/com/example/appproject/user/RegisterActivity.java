@@ -23,7 +23,7 @@ import android.text.InputType;
 import android.content.Intent;
 public class RegisterActivity extends AppCompatActivity {
 
-    EditText username,password,email,repassword;
+    EditText username,password,phone,repassword;
     Button btnRegister;
     CheckBox checkBox2;
     private MyDatabaseHelper dbHelper;
@@ -55,12 +55,12 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String uname= username.getText().toString();
-                String mail= email.getText().toString();
+                String sdt= phone.getText().toString();
                 String pword= password.getText().toString();
                 String rpword = repassword.getText().toString();
-                validateinfo(uname,mail,pword,rpword);
+                validateinfo(uname,sdt,pword,rpword);
                 if (!hasError) {
-                    dbHelper.addRegister(uname, pword, mail);
+                    dbHelper.addRegister(uname, pword, sdt);
                     showSuccessDialog();
                 }
 
@@ -70,7 +70,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
     private boolean hasError = false;
 
-    private void validateinfo(String uname, String mail, String pword, String rpword) {
+    private void validateinfo(String uname, String sdt, String pword, String rpword) {
         StringBuilder errorMessage = new StringBuilder();
         hasError = false;
 
@@ -99,18 +99,14 @@ public class RegisterActivity extends AppCompatActivity {
             repassword.setError("Mật khẩu không khớp");
             hasError = true;
         }
-        if (isEmailExists(mail)) {
+        if (isPhoneExists(sdt)) {
             errorMessage.append("Email đã được sử dụng\n");
-            email.setError("Email đã được sử dụng");
+            phone.setError("Email đã được sử dụng");
             hasError = true;
         }
-        if (mail.length() == 0) {
+        else if (sdt.length() == 0) {
             errorMessage.append("Vui lòng nhập email\n");
-            email.setError("Vui lòng nhập email");
-            hasError = true;
-        } else if (!mail.matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")) {
-            errorMessage.append("Vui lòng nhập email hợp lệ\n");
-            email.setError("Vui lòng nhập email hợp lệ");
+            phone.setError("Vui lòng nhập email");
             hasError = true;
         }
 
@@ -131,7 +127,7 @@ public class RegisterActivity extends AppCompatActivity {
     private void addControls() {
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
-        email = findViewById(R.id.email);
+        phone = findViewById(R.id.phone);
         btnRegister = findViewById(R.id.btnRegister);
         repassword = findViewById(R.id.repassword);
         checkBox2= findViewById(R.id.checkBox2);
@@ -169,12 +165,12 @@ public class RegisterActivity extends AppCompatActivity {
         return exists;
     }
 
-    private boolean isEmailExists(String email) {
+    private boolean isPhoneExists(String phone) {
         // Check if the email exists in the database
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = dbHelper.getReadableDatabase().rawQuery(
-                "SELECT * FROM " + MyDatabaseHelper.TABLE_NAME8 + " WHERE " + MyDatabaseHelper.ID_EMAIL + "=?",
-                new String[]{email}
+        Cursor cursor = db.rawQuery(
+                "SELECT * FROM " + MyDatabaseHelper.TABLE_NAME8 + " WHERE " + MyDatabaseHelper.ID_PHONE + "=?",
+                new String[]{phone}
         );
 
         boolean exists = cursor.getCount() > 0;

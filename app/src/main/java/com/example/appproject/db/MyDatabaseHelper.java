@@ -10,9 +10,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.widget.Toast;
-
+import android.util.Base64;
 import androidx.annotation.Nullable;
-
+import android.content.SharedPreferences;
 import com.example.appproject.R;
 
 import java.io.ByteArrayOutputStream;
@@ -88,18 +88,44 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     //Bảng 8
     public static final String TABLE_NAME8 ="register";
     public static final String ID_USERNAME ="id_username";
-    private static final String ID_PASSWORD ="id_password";
-    public static final String Phone="phone";
-    public static final String AVATAR_ACCOUNT="account";
-    public static final String ID_EMAIL ="id_email";
+    public static final String ID_PASSWORD ="id_password";
+    public static final String ID_PHONE ="id_phone";
     private static final String ID_ROLE ="id_role";
+    public static final String AVATAR_ACCOUNT="account";
+
 
     public MyDatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
         SQLiteDatabase db = this.getWritableDatabase();
-        String insertDefaultAccount = "INSERT INTO " + TABLE_NAME8 + " (" + ID_USERNAME + ", " + ID_PASSWORD + ", " + ID_EMAIL + ", " + ID_ROLE + ") VALUES (?, ?, ?, ?)";
-        db.execSQL(insertDefaultAccount, new String[]{"Thanh", "admin123", "thanh@gmail.com", "1"});
+        SharedPreferences preferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        boolean isDefaultAccountInserted = preferences.getBoolean("defaultAccountInserted", false);
+        if (!isDefaultAccountInserted) {
+            ContentValues cv = new ContentValues();
+            cv.put(ID_USERNAME, "Thanh");
+            cv.put(ID_PASSWORD, "admin123");
+            cv.put(ID_PHONE, "0939101351");
+            cv.put(ID_ROLE, "1");
+
+            // Convert the default admin avatar drawable resource to a bitmap
+            Bitmap adminAvatarBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.h1);
+
+            // Convert the bitmap to a byte array
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            adminAvatarBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] byteArray = stream.toByteArray();
+
+            // Store the byte array in the database
+            cv.put(AVATAR_ACCOUNT, byteArray);
+
+            // Insert the default admin account into the database
+            db.insert(TABLE_NAME8, null, cv);
+
+            // Set the flag to indicate that the default account has been inserted
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("defaultAccountInserted", true);
+            editor.apply();
+        }
         db.close();
     }
 
@@ -108,8 +134,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         String createTableRegister = "CREATE TABLE " + TABLE_NAME8 + " ("
                 + ID_USERNAME + " TEXT, "
                 + ID_PASSWORD + " TEXT, "
-                + ID_EMAIL + " TEXT, "
-                + ID_ROLE + " TEXT)";
+                + ID_PHONE + " TEXT, "
+                + ID_ROLE + " TEXT, "
+                + AVATAR_ACCOUNT + " BLOB)";
         db.execSQL(createTableRegister);
 
         String createTableComic = "CREATE TABLE " + TABLE_NAME + " ("
@@ -190,25 +217,15 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
     //Data in SQLite
-    public void addRegister(String uname, String pword, String email){
+    public void addRegister(String uname, String pword, String phone){
         SQLiteDatabase db = this.getWritableDatabase();
-        if (isUsernameExists(uname)) {
-            Toast.makeText(context, "Tên đăng nhập đã tồn tại", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (isEmailExists(email)) {
-            Toast.makeText(context, "Email đã được đăng ký", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        byte[] byteArray = ImageUtils.bitmapToByteArray(context, R.drawable.h1);
-
         ContentValues cv = new ContentValues();
         cv.put(ID_USERNAME, uname);
         cv.put(ID_PASSWORD, pword);
-        cv.put(ID_EMAIL, email);
+        cv.put(ID_PHONE, phone);
         cv.put(ID_ROLE, "0");
-
+        byte[] byteArray = ImageUtils.bitmapToByteArray(context, R.drawable.h1);
+        cv.put(MyDatabaseHelper.AVATAR_ACCOUNT, byteArray);
         db.insert(TABLE_NAME8, null, cv);
 
         db.close();
@@ -457,24 +474,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     }
     //Data in SQlite
 
-    //Login + Register
-    public boolean isUsernameExists(String username) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME8 + " WHERE " + ID_USERNAME + " = ?", new String[]{username});
-        boolean exists = cursor.getCount() > 0;
-        cursor.close();
 
-        return exists;
-    }
 
-    public boolean isEmailExists(String email) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME8 + " WHERE " + ID_EMAIL + " = ?", new String[]{email});
-        boolean exists = cursor.getCount() > 0;
-        cursor.close();
-
-        return exists;
-    }
     public boolean checkLogin(String uname, String pword, String[] roleHolder) {
         SQLiteDatabase db = this.getReadableDatabase();
         String[] columns = {ID_USERNAME,ID_ROLE};
