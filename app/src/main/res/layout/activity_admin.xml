@@ -168,7 +168,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardComments"
+            android:id="@+id/cardComic_Genre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="fill"
@@ -190,12 +190,12 @@
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/icon_comment"/>
+                    android:src="@drawable/icon_setting"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Comments"
+                    android:text="Comic_Genre"
                     android:textSize="16sp"
                     android:textColor="@color/black"/>
             </LinearLayout>

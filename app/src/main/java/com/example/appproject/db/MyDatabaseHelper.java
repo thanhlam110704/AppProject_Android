@@ -6,11 +6,16 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.example.appproject.R;
+
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,8 +58,6 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public static final String ID_ACCOUNT = "id_account";
     public static final String NAME_ACCOUNT= "name_account";
     public static final String EMAIL="email";
-    public static final String Phone="phone";
-    public static final String AVATAR_ACCOUNT="account";
     public static final String PASSWORD="pass";
     public static final String ROLE="role";
 
@@ -86,6 +89,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public static final String TABLE_NAME8 ="register";
     public static final String ID_USERNAME ="id_username";
     private static final String ID_PASSWORD ="id_password";
+    public static final String Phone="phone";
+    public static final String AVATAR_ACCOUNT="account";
     public static final String ID_EMAIL ="id_email";
     private static final String ID_ROLE ="id_role";
 
@@ -196,6 +201,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             Toast.makeText(context, "Email đã được đăng ký", Toast.LENGTH_SHORT).show();
             return;
         }
+        byte[] byteArray = ImageUtils.bitmapToByteArray(context, R.drawable.h1);
+
         ContentValues cv = new ContentValues();
         cv.put(ID_USERNAME, uname);
         cv.put(ID_PASSWORD, pword);

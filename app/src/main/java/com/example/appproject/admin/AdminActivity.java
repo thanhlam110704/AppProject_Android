@@ -16,7 +16,7 @@ import com.example.appproject.db.GenDataActivity;
 
 public class AdminActivity extends AppCompatActivity {
 
-    CardView cardComic,cardChapter,cardAccount,cardGenres,cardComments,cardLogout;
+    CardView cardComic,cardChapter,cardAccount,cardGenres,cardComic_Genre,cardLogout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +25,7 @@ public class AdminActivity extends AppCompatActivity {
         cardChapter = findViewById(R.id.cardChapter);
         cardAccount = findViewById(R.id.cardAccount);
         cardGenres = findViewById(R.id.cardGenres);
-        cardComments = findViewById(R.id.cardComments);
+        cardComic_Genre = findViewById(R.id.cardComic_Genre);
         cardLogout = findViewById(R.id.cardLogout);
 
         cardComic.setOnClickListener(new View.OnClickListener() {
@@ -55,7 +55,7 @@ public class AdminActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        cardComments.setOnClickListener(new View.OnClickListener() {
+        cardComic_Genre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AdminActivity.this, Comic_GenreDataActivity.class);
