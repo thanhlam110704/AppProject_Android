@@ -75,13 +75,6 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
 
 
-    //Bảng 6
-    public static final String TABLE_NAME6 = "comment";
-    public static final String ID_COMMENT = "id_comment";
-    public static final String ID_ACCOUNT_FOREGIN_COMENT = "id_account_comment";
-    public static final String ID_COMIC_FOREGIN_COMMENT = "id_comic_comment";
-
-
 
     //Bảng 7
     public static final String TABLE_NAME7 = "save";
@@ -167,16 +160,6 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 + TABLE_NAME + "(" + ID_COMIC + "));";
         db.execSQL(createTableComicGender);
 
-        // Tạo bảng Comment
-        String createTableComment = "CREATE TABLE " + TABLE_NAME6 + " ("
-                + ID_COMMENT + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + ID_ACCOUNT_FOREGIN_COMENT + " INTEGER, "
-                + ID_COMIC_FOREGIN_COMMENT+ " INTEGER, "
-                + "FOREIGN KEY(" + ID_ACCOUNT_FOREGIN_COMENT + ") REFERENCES "
-                + TABLE_NAME3 + "(" + ID_ACCOUNT + "), "
-                + "FOREIGN KEY(" +  ID_COMIC_FOREGIN_COMMENT+ ") REFERENCES "
-                + TABLE_NAME + "(" + ID_COMIC + "));";
-        db.execSQL(createTableComment);
 
         // Tạo bảng Save
         String createTableSave = "CREATE TABLE " + TABLE_NAME7 + " ("
@@ -197,7 +180,6 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME3);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME4);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME5);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME6);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME7);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME8);
         onCreate(db);

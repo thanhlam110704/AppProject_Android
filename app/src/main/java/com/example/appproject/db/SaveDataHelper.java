@@ -9,7 +9,6 @@ import android.graphics.BitmapFactory;
 
 import androidx.annotation.Nullable;
 
-import com.example.appproject.model.Comment;
 import com.example.appproject.model.Save;
 
 import java.util.ArrayList;
