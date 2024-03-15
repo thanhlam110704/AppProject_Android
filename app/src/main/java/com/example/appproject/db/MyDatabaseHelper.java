@@ -54,12 +54,13 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
 
     //Bảng 3
-    public static final String TABLE_NAME3 = "account";
-    public static final String ID_ACCOUNT = "id_account";
-    public static final String NAME_ACCOUNT= "name_account";
-    public static final String EMAIL="email";
-    public static final String PASSWORD="pass";
-    public static final String ROLE="role";
+    public static final String TABLE_NAME3 ="account";
+    public static final String ID_ACCOUNT="account";
+    public static final String USERNAME ="username";
+    public static final String PASSWORD ="password";
+    public static final String PHONE ="phone";
+    private static final String ROLE ="role";
+    public static final String AVATAR_ACCOUNT="avatar_account";
 
 
 
@@ -85,13 +86,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public static final String ID_ACCOUNT_FOREGIN_SAVE = "id_account_save";
     public static final String ID_COMIC_FOREGIN_SAVE = "id_comic_save";
 
-    //Bảng 8
-    public static final String TABLE_NAME8 ="register";
-    public static final String ID_USERNAME ="id_username";
-    public static final String ID_PASSWORD ="id_password";
-    public static final String ID_PHONE ="id_phone";
-    private static final String ID_ROLE ="id_role";
-    public static final String AVATAR_ACCOUNT="account";
+
+
 
 
     public MyDatabaseHelper(@Nullable Context context) {
@@ -102,10 +98,10 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         boolean isDefaultAccountInserted = preferences.getBoolean("defaultAccountInserted", false);
         if (!isDefaultAccountInserted) {
             ContentValues cv = new ContentValues();
-            cv.put(ID_USERNAME, "Thanh");
-            cv.put(ID_PASSWORD, "admin123");
-            cv.put(ID_PHONE, "0939101351");
-            cv.put(ID_ROLE, "1");
+            cv.put(USERNAME, "Thanh");
+            cv.put(PASSWORD, "admin123");
+            cv.put(PHONE, "0939101351");
+            cv.put(ROLE, "1");
 
             // Convert the default admin avatar drawable resource to a bitmap
             Bitmap adminAvatarBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.h1);
@@ -119,7 +115,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             cv.put(AVATAR_ACCOUNT, byteArray);
 
             // Insert the default admin account into the database
-            db.insert(TABLE_NAME8, null, cv);
+            db.insert(TABLE_NAME3, null, cv);
 
             // Set the flag to indicate that the default account has been inserted
             SharedPreferences.Editor editor = preferences.edit();
@@ -131,13 +127,14 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTableRegister = "CREATE TABLE " + TABLE_NAME8 + " ("
-                + ID_USERNAME + " TEXT, "
-                + ID_PASSWORD + " TEXT, "
-                + ID_PHONE + " TEXT, "
-                + ID_ROLE + " TEXT, "
+        String createTableAccount = "CREATE TABLE " + TABLE_NAME3 + " ("
+                + ID_ACCOUNT + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + USERNAME + " TEXT, "
+                + PASSWORD + " TEXT, "
+                + PHONE + " TEXT, "
+                + ROLE + " TEXT, "
                 + AVATAR_ACCOUNT + " BLOB)";
-        db.execSQL(createTableRegister);
+        db.execSQL(createTableAccount);
 
         String createTableComic = "CREATE TABLE " + TABLE_NAME + " ("
                 + ID_COMIC + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -165,15 +162,6 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 + "FOREIGN KEY(" + ID_COMIC_FOREGIN_CHAPTER + ") REFERENCES "
                 + TABLE_NAME + "(" + ID_COMIC + "));";
         db.execSQL(createTableChapter);
-
-        // Tạo bảng Account
-        String createTableAccount = "CREATE TABLE " + TABLE_NAME3 + " ("
-                + ID_ACCOUNT + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + NAME_ACCOUNT + " TEXT, "
-                + EMAIL + " TEXT, "
-                + PASSWORD + " TEXT, "
-                + ROLE + " INTEGER);";
-        db.execSQL(createTableAccount);
 
         // Tạo bảng Gender
         String createTableGender = "CREATE TABLE " + TABLE_NAME4 + " ("
@@ -213,20 +201,20 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME4);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME5);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME7);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME8);
+
         onCreate(db);
     }
     //Data in SQLite
     public void addRegister(String uname, String pword, String phone){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put(ID_USERNAME, uname);
-        cv.put(ID_PASSWORD, pword);
-        cv.put(ID_PHONE, phone);
-        cv.put(ID_ROLE, "0");
+        cv.put(USERNAME, uname);
+        cv.put(PASSWORD, pword);
+        cv.put(PHONE, phone);
+        cv.put(ROLE, "0");
         byte[] byteArray = ImageUtils.bitmapToByteArray(context, R.drawable.h1);
         cv.put(MyDatabaseHelper.AVATAR_ACCOUNT, byteArray);
-        db.insert(TABLE_NAME8, null, cv);
+        db.insert(TABLE_NAME3, null, cv);
 
         db.close();
     }
@@ -478,13 +466,13 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     public boolean checkLogin(String uname, String pword, String[] roleHolder) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String[] columns = {ID_USERNAME,ID_ROLE};
-        String selection = ID_USERNAME + " = ?" + " AND " + ID_PASSWORD + " = ?";
+        String[] columns = {USERNAME,ROLE};
+        String selection = USERNAME + " = ?" + " AND " + PASSWORD + " = ?";
         String[] selectionArgs = {uname, pword};
-        Cursor cursor = db.query(TABLE_NAME8, columns, selection, selectionArgs, null, null, null);
+        Cursor cursor = db.query(TABLE_NAME3, columns, selection, selectionArgs, null, null, null);
         if (cursor.moveToFirst()) {
             // User exists, retrieve the role
-            int roleIndex = cursor.getColumnIndex(ID_ROLE);
+            int roleIndex = cursor.getColumnIndex(ROLE);
 
             if (roleIndex != -1) {
                 String role = cursor.getString(roleIndex);

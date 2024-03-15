@@ -155,7 +155,7 @@ public class RegisterActivity extends AppCompatActivity {
         // Check if the username exists in the database
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = dbHelper.getReadableDatabase().rawQuery(
-                "SELECT * FROM " + MyDatabaseHelper.TABLE_NAME8 + " WHERE " + MyDatabaseHelper.ID_USERNAME + "=?",
+                "SELECT * FROM " + MyDatabaseHelper.TABLE_NAME3 + " WHERE " + MyDatabaseHelper.USERNAME + "=?",
                 new String[]{username}
         );
 
@@ -169,7 +169,7 @@ public class RegisterActivity extends AppCompatActivity {
         // Check if the email exists in the database
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery(
-                "SELECT * FROM " + MyDatabaseHelper.TABLE_NAME8 + " WHERE " + MyDatabaseHelper.ID_PHONE + "=?",
+                "SELECT * FROM " + MyDatabaseHelper.TABLE_NAME3 + " WHERE " + MyDatabaseHelper.PHONE + "=?",
                 new String[]{phone}
         );
 
