@@ -144,7 +144,9 @@
             android:name=".admin.AdminActivity"
             android:exported="true"
             android:label="Admin"
-            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar">
+
+        </activity>
         <activity
             android:name=".user.LoginActivity"
             android:exported="false"

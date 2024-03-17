@@ -1,5 +1,8 @@
 package com.example.appproject.db;
 
+import static com.example.appproject.db.MyDatabaseHelper.ID_ACCOUNT;
+import static com.example.appproject.db.MyDatabaseHelper.TABLE_NAME3;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -71,5 +74,19 @@ public class AccountDataHelper extends SQLiteOpenHelper {
             }
         }
         return accounts ;
+    }
+
+    public Account getAccountById(int accountId) {
+        Account account = null;
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(
+                "SELECT * FROM " + TABLE_NAME3 + " WHERE " + ID_ACCOUNT + " = ?",
+                new String[]{String.valueOf(accountId)});
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            account = cursorToAccount(cursor);
+        }
+        cursor.close();
+        return account;
     }
 }

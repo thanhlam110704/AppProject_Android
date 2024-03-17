@@ -14,7 +14,7 @@
         android:id="@+id/imgavar"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:src="@drawable/icon_avatar"/>
+        android:src="@drawable/icon_avatar" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -28,22 +28,6 @@
             android:drawableLeft="@drawable/icon_user"
             android:drawablePadding="10dp"
             android:layout_marginTop="10dp"
-            android:text="">
-        </com.google.android.material.textfield.TextInputEditText>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Email">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edtemail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            android:drawableLeft="@drawable/icon_email"
-            android:drawablePadding="10dp"
             android:text="">
         </com.google.android.material.textfield.TextInputEditText>
     </com.google.android.material.textfield.TextInputLayout>
@@ -69,18 +53,11 @@
         android:layout_height="wrap_content"
         android:hint="Password">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edtpass"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            android:drawableLeft="@drawable/icon_password"
-            android:drawablePadding="10dp"
-            android:text="">
-        </com.google.android.material.textfield.TextInputEditText>
+
     </com.google.android.material.textfield.TextInputLayout>
     <Button
-        android:id="@+id/btnUpdate"
+        android:layout_marginTop="10dp"
+        android:id="@+id/btnUpdateProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/purple"

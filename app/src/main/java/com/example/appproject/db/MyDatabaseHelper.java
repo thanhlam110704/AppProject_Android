@@ -57,7 +57,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     //Bảng 3
     public static final String TABLE_NAME3 ="account";
-    public static final String ID_ACCOUNT="id_account";
+    public static final String ID_ACCOUNT="account";
     public static final String USERNAME ="username";
     public static final String PASSWORD ="password";
     public static final String PHONE ="phone";
@@ -489,6 +489,23 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         }else {
             Toast.makeText(context, "Follow Successfully!", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void updateData_account(String row_id,String name,String phone, byte[] avatar){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(USERNAME, name);
+        cv.put(PHONE,phone);
+        cv.put(AVATAR_ACCOUNT,avatar);
+
+        long result = db.update(TABLE_NAME3, cv, ID_ACCOUNT + " = ? ", new String[]{row_id});
+        if(result == -1){
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(context, "Updated Successfully!", Toast.LENGTH_SHORT).show();
+        }
+
     }
     //Data in SQlite
 
