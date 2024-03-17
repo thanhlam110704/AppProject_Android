@@ -27,8 +27,6 @@ public class SaveDataHelper extends SQLiteOpenHelper {
 
     }
     private Save cursorToSave(Cursor cursor){
-        byte[] imageByteArray= cursor.getBlob(3);
-        Bitmap imageBitmap= BitmapFactory.decodeByteArray(imageByteArray,0,imageByteArray.length);
         return new Save(
                 cursor.getInt(0),//idSave
                 cursor.getInt(1),//id_account_save
@@ -54,5 +52,28 @@ public class SaveDataHelper extends SQLiteOpenHelper {
         }
         return saves;
     }
+    public ArrayList<Save> getSaveByAccountId(int accountId) {
+        ArrayList<Save> saves = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] selectionArgs = {String.valueOf(accountId)};
+        Cursor cursor = db.rawQuery("SELECT * FROM " + MyDatabaseHelper.TABLE_NAME7 +
+                        " WHERE " + MyDatabaseHelper.ID_ACCOUNT_FOREGIN_SAVE + " = ?",
+                selectionArgs);
+        if (cursor != null) {
+            try {
+                if (cursor.moveToFirst()) {
+                    do {
+                        Save save = cursorToSave(cursor);
+                        saves.add(save);
+                    } while (cursor.moveToNext());
+                }
+            } finally {
+                cursor.close();
+            }
+        }
+        return saves;
+    }
+
+
 
 }

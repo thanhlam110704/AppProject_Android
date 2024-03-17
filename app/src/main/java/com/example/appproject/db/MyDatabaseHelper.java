@@ -9,11 +9,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.Toast;
 import android.util.Base64;
 import androidx.annotation.Nullable;
 import android.content.SharedPreferences;
 import com.example.appproject.R;
+import com.example.appproject.model.Comic;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -25,7 +27,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public final Context context;
     public static final String DATABASE_NAME = "Comic.db";
     public static final int DATABASE_VERSION = 20;
-
+    Byte[] avatar_comic_save;
 
     // Bảng 1-
     public static final String TABLE_NAME = "comic";
@@ -474,6 +476,20 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             Toast.makeText(context, "Successfully Deleted.", Toast.LENGTH_SHORT).show();
         }
     }
+    public void addSave(int id_comic, int id_account)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(ID_COMIC_FOREGIN_SAVE, id_comic);
+        cv.put(ID_ACCOUNT_FOREGIN_SAVE,id_account);
+        long result = db.insert(TABLE_NAME7, null, cv);
+
+        if(result == -1){
+            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(context, "Follow Successfully!", Toast.LENGTH_SHORT).show();
+        }
+    }
     //Data in SQlite
 
 
@@ -505,6 +521,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         }
 
     }
+
     //Login + Register
     public List<String> getGenresByComicId(int comicId) {
         List<String> genres = new ArrayList<>();
@@ -537,6 +554,44 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
         return genres;
     }
+    @SuppressLint("Range")
+    public List<Comic> getSavedComicsByAccountId(int accountId) {
+        List<Comic> savedComics = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT " + TABLE_NAME + ".* FROM " + TABLE_NAME +
+                " INNER JOIN " + TABLE_NAME7 + " ON " + TABLE_NAME + "." + ID_COMIC +
+                " = " + TABLE_NAME7 + "." + ID_COMIC_FOREGIN_SAVE +
+                " WHERE " + TABLE_NAME7 + "." + ID_ACCOUNT_FOREGIN_SAVE + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(accountId)});
+
+        if (cursor != null) {
+            try {
+                if (cursor.moveToFirst()) {
+                    do {
+                        Comic comic = new Comic();
+                        // Lấy thông tin của comic từ cursor và thêm vào danh sách savedComics
+                        comic.setId(cursor.getInt(cursor.getColumnIndex(ID_COMIC)));
+                        comic.setName(cursor.getString(cursor.getColumnIndex(NAME_COMIC)));
+                        comic.setDescription(cursor.getString(cursor.getColumnIndex(DESCRIPTION)));
+                        comic.setAuthor(cursor.getString(cursor.getColumnIndex(AUTHOR)));
+                        comic.setStatus(cursor.getString(cursor.getColumnIndex(STATUS)));
+                        comic.setDateUpdate(cursor.getString(cursor.getColumnIndex(DATE_UPDATE)));
+                        // Đọc ảnh avatar từ cột AVATAR trong cursor
+                        byte[] avatarBytes = cursor.getBlob(cursor.getColumnIndex(AVATAR));
+                        comic.setAvatar(avatarBytes);
+                        savedComics.add(comic);
+                    } while (cursor.moveToNext());
+                }
+            } finally {
+                cursor.close();
+            }
+        }
+
+        db.close();
+        return savedComics;
+    }
+
     @SuppressLint("Range")
     public void incrementViewer(int chapterId, int comicId) {
         SQLiteDatabase db = this.getWritableDatabase();

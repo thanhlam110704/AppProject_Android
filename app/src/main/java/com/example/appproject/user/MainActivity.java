@@ -242,6 +242,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent intent= new Intent(this,ProfileActivity.class);
             startActivity(intent);
         }
+        else if (item.getItemId()==R.id.nav_Favor){
+            Intent intent= new Intent(this,SaveActivity.class);
+            startActivity(intent);
+        }
         else if (item.getItemId()==R.id.nav_Logout){
             sessionManager.logoutUser();
             Intent intent= new Intent(this,MainActivity.class);

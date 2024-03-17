@@ -52,8 +52,6 @@ public class AddComicActivity extends AppCompatActivity {
                         date_update_input.getText().toString().trim(),
                         avatarBytes);
                 Intent intent = new Intent(AddComicActivity.this, ComicDataActivity.class);
-                // Gắn vào Intent (nếu cần) bất kỳ dữ liệu bổ sung nào bạn muốn truyền đi
-                // Ví dụ: intent.putExtra("key", value);
                 startActivity(intent);
             }
             else {
