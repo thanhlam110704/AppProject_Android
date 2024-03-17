@@ -30,6 +30,7 @@ import com.example.appproject.adapter.ComicArrayAdapter;
 import com.example.appproject.adapter.ItemSearchAdapter;
 import com.example.appproject.db.ComicDataHelper;
 import com.example.appproject.db.MyDatabaseHelper;
+import com.example.appproject.db.SessionManager;
 import com.example.appproject.model.Comic;
 import com.google.android.material.navigation.NavigationView;
 
@@ -39,6 +40,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     ComicAdapter comicAdapter;
+    SessionManager sessionManager;
     ComicArrayAdapter comicArrayAdapter;
     List<Comic> comicList,comicList2;
     ComicDataHelper comic_helper,comic_helper2;
@@ -52,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     GridView gdvDSTruyen;
     RecyclerView rcvCategory;
     public boolean isSearching = false;
+    Menu menu;
 
 
 
@@ -102,9 +105,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         textView=findViewById(R.id.textViewyeuthich);
         /*Toolbar*/
         setSupportActionBar(toolbar);
-
-        Menu menu= navigationView.getMenu();
-
+        menu=navigationView.getMenu();
+        menu.findItem(R.id.nav_Logout).setVisible(false);
+        menu.findItem(R.id.nav_rate).setVisible(false);
+        menu.findItem(R.id.nav_Profile).setVisible(false);
+        menu.findItem(R.id.nav_Favor).setVisible(false);
+        sessionManager= new SessionManager(MainActivity.this);
+        if(sessionManager.isLoggedIn())
+        {
+            menu.findItem(R.id.nav_Profile).setVisible(true);
+            menu.findItem(R.id.nav_Logout).setVisible(true);
+            menu.findItem(R.id.nav_rate).setVisible(true);
+            menu.findItem(R.id.nav_Login).setVisible(false);
+            menu.findItem(R.id.nav_Register).setVisible(false);
+            menu.findItem(R.id.nav_Favor).setVisible(true);
+        }
 
         navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -113,6 +128,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
         getMenuInflater().inflate(R.menu.main_menu, toolbar.getMenu());
         navigationView.setCheckedItem(R.id.nav_home);
+
 
     }
 
@@ -226,30 +242,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Intent intent= new Intent(this,ProfileActivity.class);
             startActivity(intent);
         }
+        else if (item.getItemId()==R.id.nav_Logout){
+            sessionManager.logoutUser();
+            Intent intent= new Intent(this,MainActivity.class);
+            startActivity(intent);
+        }
 
 
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
-    private void replaceFragMent(Fragment fragment)
-    {
-        FragmentTransaction fragmentTransaction= getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.content_frame,fragment);
-        fragmentTransaction.commit();
-    }
-    private void navigateToContentFrame() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        // Remove the current fragment
-        Fragment currentFragment = fragmentManager.findFragmentById(R.id.content_frame);
-        if (currentFragment != null) {
-            fragmentTransaction.remove(currentFragment);
-        }
-
-        // Commit the transaction
-        fragmentTransaction.commit();
-    }
 
 
 

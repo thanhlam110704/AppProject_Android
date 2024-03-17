@@ -8,10 +8,14 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import com.example.appproject.admin.AdminActivity;
+import com.example.appproject.db.AccountDataHelper;
 import com.example.appproject.db.MyDatabaseHelper;
 import androidx.appcompat.app.AppCompatActivity;
 import android.widget.Toast;
 import com.example.appproject.R;
+import com.example.appproject.db.SessionManager;
+import com.example.appproject.model.Account;
+
 import android.view.View;
 import androidx.appcompat.app.AlertDialog;
 import android.content.DialogInterface;
@@ -21,6 +25,8 @@ public class LoginActivity extends AppCompatActivity {
     Button btnLogin;
     CheckBox checkBox;
     MyDatabaseHelper databaseHelper;
+    SessionManager sessionManager;
+    AccountDataHelper accountDataHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +48,6 @@ public class LoginActivity extends AppCompatActivity {
                     edtPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
                 }
-
                 // Move the cursor to the end of the text to ensure it's always visible
                 edtPassword.setSelection(edtPassword.getText().length());
 
@@ -53,16 +58,20 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String uname = edtUsername.getText().toString().trim();
                 String pword = edtPassword.getText().toString().trim();
+                accountDataHelper= new AccountDataHelper(LoginActivity.this);
+                sessionManager= new SessionManager(LoginActivity.this);
                 String[] roleHolder = new String[1];
                 boolean loginSuccessful = databaseHelper.checkLogin(uname, pword, roleHolder);
                 if (loginSuccessful) {
                     // Login successful, show a pop-up message
+                    Account account=accountDataHelper.getAccountByName(uname);
                     String role = roleHolder[0];
                     AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                     builder.setTitle("Login Successful")
                             .setMessage("Welcome to the app!")
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
+                                    sessionManager.createLoginSession(uname,account.getId());
                                     if ("0".equals(role)) {
                                         // User role is 0 (normal user), navigate to HomeActivity
                                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);

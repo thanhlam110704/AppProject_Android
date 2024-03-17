@@ -9,13 +9,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.example.appproject.R;
+import com.example.appproject.db.AccountDataActivity;
 import com.example.appproject.db.ChapterDataActivity;
 import com.example.appproject.db.ComicDataActivity;
 import com.example.appproject.db.Comic_GenreDataActivity;
 import com.example.appproject.db.GenDataActivity;
+import com.example.appproject.db.SessionManager;
+import com.example.appproject.user.MainActivity;
 
 public class AdminActivity extends AppCompatActivity {
-
+    SessionManager sessionManager;
     CardView cardComic,cardChapter,cardAccount,cardGenres,cardComic_Genre,cardLogout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +30,7 @@ public class AdminActivity extends AppCompatActivity {
         cardGenres = findViewById(R.id.cardGenres);
         cardComic_Genre = findViewById(R.id.cardComic_Genre);
         cardLogout = findViewById(R.id.cardLogout);
+        sessionManager= new SessionManager(AdminActivity.this);
 
         cardComic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,7 +49,8 @@ public class AdminActivity extends AppCompatActivity {
         cardAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(AdminActivity.this, AccountDataActivity.class);
+                startActivity(intent);
             }
         });
         cardGenres.setOnClickListener(new View.OnClickListener() {
@@ -65,7 +70,9 @@ public class AdminActivity extends AppCompatActivity {
         cardLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showToast("Logout Clicked");
+                sessionManager.logoutUser();
+                Intent intent= new Intent(AdminActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 

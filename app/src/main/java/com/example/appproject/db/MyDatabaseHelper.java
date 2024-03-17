@@ -24,7 +24,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     public final Context context;
     public static final String DATABASE_NAME = "Comic.db";
-    public static final int DATABASE_VERSION = 16;
+    public static final int DATABASE_VERSION = 20;
 
 
     // Bảng 1-
@@ -55,11 +55,11 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     //Bảng 3
     public static final String TABLE_NAME3 ="account";
-    public static final String ID_ACCOUNT="account";
+    public static final String ID_ACCOUNT="id_account";
     public static final String USERNAME ="username";
     public static final String PASSWORD ="password";
     public static final String PHONE ="phone";
-    private static final String ROLE ="role";
+    public static final String ROLE ="role";
     public static final String AVATAR_ACCOUNT="avatar_account";
 
 
@@ -86,6 +86,10 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public static final String ID_ACCOUNT_FOREGIN_SAVE = "id_account_save";
     public static final String ID_COMIC_FOREGIN_SAVE = "id_comic_save";
 
+    private static final String TABLE_NAME8 = "session";
+    private static final String KEY_ID = "key_id";
+    private static final String KEY_USERNAME = "key_username";
+    private static final String KEY_IDUSER = "key_iduser"; // Sửa từ int thành String
 
 
 
@@ -127,14 +131,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTableAccount = "CREATE TABLE " + TABLE_NAME3 + " ("
-                + ID_ACCOUNT + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + USERNAME + " TEXT, "
-                + PASSWORD + " TEXT, "
-                + PHONE + " TEXT, "
-                + ROLE + " TEXT, "
-                + AVATAR_ACCOUNT + " BLOB)";
-        db.execSQL(createTableAccount);
+
 
         String createTableComic = "CREATE TABLE " + TABLE_NAME + " ("
                 + ID_COMIC + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -162,6 +159,16 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 + "FOREIGN KEY(" + ID_COMIC_FOREGIN_CHAPTER + ") REFERENCES "
                 + TABLE_NAME + "(" + ID_COMIC + "));";
         db.execSQL(createTableChapter);
+
+        // Tạo bảng Account
+        String createTableAccount = "CREATE TABLE " + TABLE_NAME3 + " ("
+                + ID_ACCOUNT + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + USERNAME + " TEXT, "
+                + PASSWORD + " TEXT, "
+                + PHONE + " TEXT, "
+                + ROLE + " TEXT, "
+                + AVATAR_ACCOUNT + " BLOB)";
+        db.execSQL(createTableAccount);
 
         // Tạo bảng Gender
         String createTableGender = "CREATE TABLE " + TABLE_NAME4 + " ("
@@ -191,6 +198,13 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 + "FOREIGN KEY(" +  ID_COMIC_FOREGIN_SAVE+ ") REFERENCES "
                 + TABLE_NAME + "(" + ID_COMIC + "));";
         db.execSQL(createTableSave);
+
+        // Tạo bảng session
+        String createTableQuery = "CREATE TABLE " + TABLE_NAME8 + "("
+                + KEY_ID + " INTEGER PRIMARY KEY,"
+                + KEY_USERNAME + " TEXT,"
+                + KEY_IDUSER + " TEXT" + ")";
+        db.execSQL(createTableQuery);
     }
 
     @Override
@@ -201,7 +215,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME4);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME5);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME7);
-
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME8);
         onCreate(db);
     }
     //Data in SQLite
