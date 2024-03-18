@@ -63,16 +63,16 @@ public class UpdateComicGenreActivity extends AppCompatActivity {
     }
     public void confirmDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Delete this row ?");
-        builder.setMessage("Are you sure you want to delete row  ?");
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        builder.setTitle("Bạn muốn xóa dòng này ?");
+        builder.setMessage("Bạn có chắc muốn xóa dòng này  ?");
+        builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 MyDatabaseHelper mydb= new MyDatabaseHelper(UpdateComicGenreActivity.this);
                 mydb.deleteOneRowcomic_genre(id);
             }
         });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 

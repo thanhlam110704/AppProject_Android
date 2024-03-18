@@ -135,8 +135,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void showSuccessDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Registration Successful")
-                .setMessage("Your registration was successful!")
+        builder.setTitle("Đăng ký thành công")
+                .setMessage("Tài khoản của bạn đã được đăng ký thành công!")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

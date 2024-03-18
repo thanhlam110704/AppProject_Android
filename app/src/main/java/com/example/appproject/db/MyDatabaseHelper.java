@@ -26,8 +26,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     public final Context context;
     public static final String DATABASE_NAME = "Comic.db";
-    public static final int DATABASE_VERSION = 20;
-    Byte[] avatar_comic_save;
+    public static final int DATABASE_VERSION = 1;
+
 
     // Bảng 1-
     public static final String TABLE_NAME = "comic";
@@ -57,7 +57,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     //Bảng 3
     public static final String TABLE_NAME3 ="account";
-    public static final String ID_ACCOUNT="account";
+    public static final String ID_ACCOUNT="id_account";
     public static final String USERNAME ="username";
     public static final String PASSWORD ="password";
     public static final String PHONE ="phone";
@@ -250,11 +250,11 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
 
         if (result == -1) {
-            Toast.makeText(context, "Failed to add comic", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Thêm comic thất bại", Toast.LENGTH_SHORT).show();
             Log.d("DBHelper", "Avatar bytes length: " + (avatar != null ? avatar.length : 0));
 
         } else {
-            Toast.makeText(context, "Comic added successfully!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Thêm comic thành công !", Toast.LENGTH_SHORT).show();
         }
         db.close();
     }
@@ -282,9 +282,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
         long result = db.update(TABLE_NAME, cv, "id_comic=?", new String[]{row_id});
         if(result == -1){
-            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Cập nhật comic thất bại", Toast.LENGTH_SHORT).show();
         }else {
-            Toast.makeText(context, "Updated Successfully!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Cập nhật comic thành công!", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -293,9 +293,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         long result = db.delete(TABLE_NAME, "id_comic=?", new String[]{row_id});
         if(result == -1){
-            Toast.makeText(context, "Failed to Delete.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Xóa comic thất bại.", Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(context, "Successfully Deleted.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Xóa comic thành công.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -324,9 +324,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         long result = db.insert(TABLE_NAME2, null, cv);
 
         if (result == -1) {
-            Toast.makeText(context, "Failed to add chapter", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Thêm chapter thất bại", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(context, "Chapter added successfully!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Thêm chapter thành công!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -350,9 +350,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
         long result = db.update(TABLE_NAME, cv, "id_chapter=?", new String[]{row_id});
         if(result == -1){
-            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Cập nhật chapter thất bại", Toast.LENGTH_SHORT).show();
         }else {
-            Toast.makeText(context, "Updated Successfully!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Cập nhật chapter thành công!", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -370,9 +370,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         long result = db.delete(TABLE_NAME2, "id_chapter=?", new String[]{row_id});
         if(result == -1){
-            Toast.makeText(context, "Failed to Delete.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Xóa chapter thất bại", Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(context, "Successfully Deleted.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Xóa chapter thành công.", Toast.LENGTH_SHORT).show();
         }
     }
     public Cursor getChaptersByComicId(int comicId) {
@@ -389,9 +389,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         long result = db.insert(TABLE_NAME4, null, cv);
 
         if (result == -1) {
-            Toast.makeText(context, "Failed to add genre", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Thêm thể loại thất bại", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(context, "Genre added successfully!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Thêm thể loại thành công!", Toast.LENGTH_SHORT).show();
         }
     }
     public void updateData_genre(String row_id,String name){
@@ -402,9 +402,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
         long result = db.update(TABLE_NAME4, cv, "id_genre=?", new String[]{row_id});
         if(result == -1){
-            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Cập nhật thể loại thất bại", Toast.LENGTH_SHORT).show();
         }else {
-            Toast.makeText(context, "Updated Successfully!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Cập nhật thể loại thành công!", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -423,9 +423,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         long result = db.delete(TABLE_NAME4, "id_genre=?", new String[]{row_id});
         if(result == -1){
-            Toast.makeText(context, "Failed to Delete.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Xóa thể loại thất bại.", Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(context, "Successfully Deleted.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Xóa thể loại thành công.", Toast.LENGTH_SHORT).show();
         }
     }
     public void addComic_Gen(String idcomic, String idgen) {
@@ -437,9 +437,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         long result = db.insert(TABLE_NAME5, null, cv);
 
         if (result == -1) {
-            Toast.makeText(context, "Failed to add comic genre", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Thêm comic_genre thất bại", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(context, "Genre added successfully!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Thêm comic_genre thành công!", Toast.LENGTH_SHORT).show();
         }
     }
     public void updateDatacomic_genre(String row_id,String idcomic, String idgen){
@@ -451,9 +451,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
         long result = db.update(TABLE_NAME5, cv, "id_comicgenre=?", new String[]{row_id});
         if(result == -1){
-            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Cập nhật comic_genre thất bại ", Toast.LENGTH_SHORT).show();
         }else {
-            Toast.makeText(context, "Updated Successfully!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Cập nhật comic genre thành công!", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -471,9 +471,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         long result = db.delete(TABLE_NAME5, "id_comicgenre=?", new String[]{row_id});
         if(result == -1){
-            Toast.makeText(context, "Failed to Delete.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Xóa comic_genre thất bại.", Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(context, "Successfully Deleted.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Xóa comic_genre thành công!", Toast.LENGTH_SHORT).show();
         }
     }
     public void addSave(int id_comic, int id_account)
@@ -485,9 +485,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         long result = db.insert(TABLE_NAME7, null, cv);
 
         if(result == -1){
-            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Theo dõi thất bại", Toast.LENGTH_SHORT).show();
         }else {
-            Toast.makeText(context, "Follow Successfully!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Theo dõi thành công!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -501,9 +501,9 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
         long result = db.update(TABLE_NAME3, cv, ID_ACCOUNT + " = ? ", new String[]{row_id});
         if(result == -1){
-            Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Cập nhật thất bại. ", Toast.LENGTH_SHORT).show();
         }else {
-            Toast.makeText(context, "Updated Successfully!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Cập nhật dữ liệu thành công !", Toast.LENGTH_SHORT).show();
         }
 
     }

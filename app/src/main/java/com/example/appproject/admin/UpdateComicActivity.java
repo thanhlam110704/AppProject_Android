@@ -184,16 +184,16 @@ public class UpdateComicActivity extends AppCompatActivity {
     }
     public void confirmDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Delete " + name + " ?");
-        builder.setMessage("Are you sure you want to delete " + name+ " ?");
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        builder.setTitle("Bạn muốn xóa " + name + " ?");
+        builder.setMessage("Bạn có chắc là xóa " + name+ " ?");
+        builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 MyDatabaseHelper mydb= new MyDatabaseHelper(UpdateComicActivity.this);
                 mydb.deleteOneRow_comic(id);
             }
         });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 

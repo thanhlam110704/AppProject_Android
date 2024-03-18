@@ -67,8 +67,8 @@ public class LoginActivity extends AppCompatActivity {
                     Account account=accountDataHelper.getAccountByName(uname);
                     String role = roleHolder[0];
                     AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                    builder.setTitle("Login Successful")
-                            .setMessage("Welcome to the app!")
+                    builder.setTitle("Đăng nhập thành công")
+                            .setMessage("Chào mừng đến với app của chúng tôi!")
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     sessionManager.createLoginSession(uname,account.getId());
@@ -86,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
                             .show();
                 } else {
                     // Login failed, show an error message
-                    Toast.makeText(LoginActivity.this, "Invalid username or password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "username hoặc mật khẩu của bạn không không tồn tại ", Toast.LENGTH_SHORT).show();
                 }
             }
         });

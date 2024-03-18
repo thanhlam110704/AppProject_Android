@@ -100,16 +100,16 @@ public class Comic_GenreDataActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId()== R.id.delete_all){
-            Toast.makeText(this, "Delete", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Xóa dữ liệu", Toast.LENGTH_SHORT).show();
             confirmDialog();
         }
         return super.onOptionsItemSelected(item);
     }
     public void confirmDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Delete All ?");
-        builder.setMessage("Are you sure you want to delete all data");
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        builder.setTitle("Bạn muốn xóa tất cả ?");
+        builder.setMessage("Bạn có chắc là muốn xóa hết tất cả dữ liệu ");
+        builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 MyDatabaseHelper myDB= new MyDatabaseHelper(Comic_GenreDataActivity.this);
@@ -120,7 +120,7 @@ public class Comic_GenreDataActivity extends AppCompatActivity {
 
             }
         });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 

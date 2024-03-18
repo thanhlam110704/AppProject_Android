@@ -60,16 +60,16 @@ public class UpdateGenActivity extends AppCompatActivity {
     }
     public void confirmDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Delete " + genre+ " ?");
-        builder.setMessage("Are you sure you want to delete " + genre+ " ?");
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        builder.setTitle("Bạn muốn xóa" + genre+ " ?");
+        builder.setMessage("Bạn có chắc là muốnn xóa" + genre+ " ?");
+        builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 MyDatabaseHelper mydb= new MyDatabaseHelper(UpdateGenActivity.this);
                 mydb.deleteOneRow_genre(id);
             }
         });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 

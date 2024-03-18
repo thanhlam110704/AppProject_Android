@@ -101,7 +101,7 @@ public class DetailComicActivity extends AppCompatActivity {
             });
 
         } else {
-            Toast.makeText(DetailComicActivity.this,"dữ liệu comic null",Toast.LENGTH_LONG).show();
+            Toast.makeText(DetailComicActivity.this,"Dữ liệu comic null",Toast.LENGTH_LONG).show();
         }
     }
 

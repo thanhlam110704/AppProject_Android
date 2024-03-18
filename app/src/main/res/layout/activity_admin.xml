@@ -55,7 +55,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Comic"
+                    android:text="Truyện tranh"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -125,7 +125,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Account"
+                    android:text="Tài khoản "
                     android:textSize="16sp"
                     android:textColor="@color/black"/>
             </LinearLayout>
@@ -160,7 +160,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Genres"
+                    android:text="Thể loại "
                     android:textSize="16sp"
                     android:textColor="@color/black"/>
             </LinearLayout>
@@ -230,7 +230,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Logout"
+                    android:text="Đăng xuất"
                     android:textSize="16sp"
                     android:textColor="@color/black"/>
             </LinearLayout>

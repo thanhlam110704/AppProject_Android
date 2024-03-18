@@ -41,7 +41,7 @@ public class RatingActivity extends AppCompatActivity {
                 Intent intent=new Intent(RatingActivity.this, MainActivity.class);
                 startActivity(intent);
                 v.startAnimation(scaleAnimation);
-                Toast.makeText(getApplicationContext(),"Successfully",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"Chúng tôi đã ghi nhận đánh giá của bạn!",Toast.LENGTH_LONG).show();
 
             }
         });
