@@ -1,7 +1,10 @@
 package com.example.appproject.user;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -29,6 +32,8 @@ import java.util.List;
 
 public class DetailComicActivity extends AppCompatActivity {
     AccountDataHelper accountDataHelper;
+    boolean isFollowed;
+    String id_user;
     SessionManager sessionManager;
     ChapterLvDetailAdapter adapter;
     ImageView comic_avatar;
@@ -60,7 +65,7 @@ public class DetailComicActivity extends AppCompatActivity {
             dbHelper = new MyDatabaseHelper(DetailComicActivity.this);
             genres = dbHelper.getGenresByComicId(comic.getId());
             name_chapters = new ArrayList<>();
-            int viewer= chapterDataHelper.getTotalViewsByComicId(comic.getId());
+            int viewer = chapterDataHelper.getTotalViewsByComicId(comic.getId());
             List<String> genres = dbHelper.getGenresByComicId(comic.getId());
             // Hiển thị danh sách chapter
             for (Chapter chapter : chapters) {
@@ -87,22 +92,71 @@ public class DetailComicActivity extends AppCompatActivity {
             comic_dateupdate.setText(comic.getDateUpdate());
             comic_view.setText(String.valueOf(viewer));
             // Khởi tạo và thiết lập Adapter cho listViewchapter
-            adapter = new ChapterLvDetailAdapter(DetailComicActivity.this, chapters,comic);
+            adapter = new ChapterLvDetailAdapter(DetailComicActivity.this, chapters, comic);
             listViewchapter.setAdapter(adapter);
-
-            // Chức năng theo dõi
             HashMap<String, String> userDetails = sessionManager.getUserDetails();
-            String id_user  = userDetails.get(SessionManager.KEY_IDUSER);
+            // Chức năng theo dõi
+            // Chức năng theo dõi
+            if (userDetails.get(SessionManager.KEY_IDUSER) != null) {
+                id_user = userDetails.get(SessionManager.KEY_IDUSER);
+                if (id_user != null && !id_user.equals("null")) {
+                    isFollowed = dbHelper.isSaved(comic.getId(), Integer.parseInt(id_user));
+                }
+            }
+
+
+            // Thiết lập trạng thái ban đầu của nút và hiển thị văn bản phù hợp
+            if (isFollowed) {
+                btnfollow.setText("Đã theo dõi");
+                btnfollow.setEnabled(false); // Vô hiệu hóa nút khi đã theo dõi
+            } else {
+                btnfollow.setText("Theo dõi");
+                btnfollow.setEnabled(true);
+            }
             btnfollow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    dbHelper.addSave(comic.getId(),Integer.parseInt(id_user));
+                    // Kiểm tra xem id_user có giá trị là null
+                    if (id_user == null || id_user.equals("null")) { // Thêm kiểm tra id_user.equals("0")
+                        showLoginDialog();
+                    } else {
+                        // Kiểm tra xem cặp id_comic và id_account đã được lưu hay chưa
+                        if (!isFollowed) { // Nếu chưa được lưu
+                            // Thêm cặp id_comic và id_account vào bảng save
+                            dbHelper.addSave(comic.getId(), Integer.parseInt(id_user));
+                            // Cập nhật trạng thái của nút và văn bản của nút
+                            btnfollow.setText("Đã theo dõi");
+                            btnfollow.setEnabled(false); // Vô hiệu hóa nút sau khi đã theo dõi
+                            // Cập nhật trạng thái của biến cờ
+                            isFollowed = true;
+                            // Hiển thị thông báo cho người dùng
+                            Toast.makeText(DetailComicActivity.this, "Truyện đã được theo dõi", Toast.LENGTH_SHORT).show();
+                        } else {
+                            // Nếu đã được lưu, không làm gì cả vì đã xử lý trạng thái này ở phần ban đầu
+                        }
+                    }
                 }
             });
-
-        } else {
-            Toast.makeText(DetailComicActivity.this,"Dữ liệu comic null",Toast.LENGTH_LONG).show();
         }
+        }
+    // Hàm để hiển thị hộp thoại xác nhận yêu cầu đăng nhập
+    private void showLoginDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(DetailComicActivity.this);
+        builder.setMessage("Bạn cần đăng nhập để thực hiện thao tác này.")
+                .setCancelable(false)
+                .setPositiveButton("Đăng nhập", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent intent = new Intent(DetailComicActivity.this, LoginActivity.class);
+                       startActivity(intent);
+                    }
+                })
+                .setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     private void addControls() {

@@ -490,6 +490,15 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             Toast.makeText(context, "Theo dõi thành công!", Toast.LENGTH_SHORT).show();
         }
     }
+    public boolean isSaved(int id_comic, int id_account) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME7 +
+                " WHERE " + ID_COMIC_FOREGIN_SAVE + " = ? AND " +
+                ID_ACCOUNT_FOREGIN_SAVE + " = ?", new String[]{String.valueOf(id_comic), String.valueOf(id_account)});
+        boolean isSaved = cursor.getCount() > 0;
+        cursor.close();
+        return isSaved;
+    }
 
     public void updateData_account(String row_id,String name,String phone, byte[] avatar){
         SQLiteDatabase db = this.getWritableDatabase();
