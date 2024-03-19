@@ -36,8 +36,8 @@ public class ProfileActivity extends AppCompatActivity {
     CircleImageView circleImageView;
     Account account;
     Button btnUpdate;
-    EditText edtfullname, edtphone;
-    String id,username, phone;
+    EditText edtfullname, edtphone,edtemail;
+    String id,username, phone,email;
     byte[] avatar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +46,7 @@ public class ProfileActivity extends AppCompatActivity {
         circleImageView= findViewById(R.id.imgavar);
         edtfullname=findViewById(R.id.edtfullname);
         edtphone=findViewById(R.id.edtnumber);
+        edtemail=findViewById(R.id.edtemail);
         btnUpdate=findViewById(R.id.btnUpdateProfile);
         resultLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
             // Xử lý kết quả khi người dùng chọn ảnh
@@ -71,30 +72,35 @@ public class ProfileActivity extends AppCompatActivity {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                username = edtfullname.getText().toString().trim();
+                email= edtemail.getText().toString().trim();
                 phone = edtphone.getText().toString().trim();
                 MyDatabaseHelper myDB = new MyDatabaseHelper(ProfileActivity.this);
                 try {
                     // Kiểm tra giá trị của các biến trước khi thực hiện cập nhật
-                    if (!username.isEmpty() && !phone.isEmpty()) {
-
-                        // Nếu có ảnh mới, cập nhật avatar từ ảnh mới
-                        if (selectedImageUri != null) {
-                            byte[] avatarBytes = getBytesFromUri(selectedImageUri);
-                            avatar = avatarBytes;
-                            Bitmap avatarBitmap = BitmapFactory.decodeByteArray(avatarBytes, 0, avatarBytes.length);
-                            circleImageView.setImageBitmap(avatarBitmap);
-
+                    if (!email.isEmpty() && !phone.isEmpty()) {
+                        // Kiểm tra định dạng email
+                        if (isValidEmail(email)) {
+                            // Kiểm tra độ dài số điện thoại
+                            if (phone.length() == 11) {
+                                // Nếu có ảnh mới, cập nhật avatar từ ảnh mới
+                                if (selectedImageUri != null) {
+                                    byte[] avatarBytes = getBytesFromUri(selectedImageUri);
+                                    avatar = avatarBytes;
+                                    Bitmap avatarBitmap = BitmapFactory.decodeByteArray(avatarBytes, 0, avatarBytes.length);
+                                    circleImageView.setImageBitmap(avatarBitmap);
+                                }
+                                // Thực hiện cập nhật dữ liệu vào cơ sở dữ liệu
+                                myDB.updateData_account(id, email, phone, avatar);
+                            } else {
+                                Toast.makeText(ProfileActivity.this, "Số điện thoại phải có đủ 11 số.", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(ProfileActivity.this, "Sai format email .", Toast.LENGTH_SHORT).show();
                         }
-
-                        // Thực hiện cập nhật dữ liệu vào cơ sở dữ liệu
-                        myDB.updateData_account(id, username, phone, avatar);
-
                     } else {
                         // Hiển thị thông báo nếu có trường dữ liệu bị rỗng
-                        Toast.makeText(ProfileActivity.this, "Please fill in all fields.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ProfileActivity.this, "Làm ơn đừng bỏ trống thông tin.", Toast.LENGTH_SHORT).show();
                     }
-
                 } catch (Exception e) {
                     // Xử lý ngoại lệ khi có vấn đề với cơ sở dữ liệu
                     e.printStackTrace();
@@ -105,6 +111,12 @@ public class ProfileActivity extends AppCompatActivity {
 
 
 
+    }
+    // Phương thức kiểm tra định dạng email
+    private boolean isValidEmail(String email) {
+        // Biểu thức chính quy kiểm tra định dạng email
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        return email.matches(emailPattern);
     }
     private byte[] getBytesFromUri(Uri uri) {
         try {
@@ -141,12 +153,15 @@ public class ProfileActivity extends AppCompatActivity {
     private void getandsetDataAccount() {
         if(account!=null)
         {
+
             // get dữ liệu
             username= account.getUsername();
+            email=account.getEmail();
             phone=account.getPhone();
             avatar= account.getAvatar();
 
             //set dữ liệu
+            edtemail.setText(email);
             edtfullname.setText(username);
             edtphone.setText(phone);
             Bitmap avatarBitmap = BitmapFactory.decodeByteArray(avatar, 0, avatar.length);

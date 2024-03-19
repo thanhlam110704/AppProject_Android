@@ -26,7 +26,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     public final Context context;
     public static final String DATABASE_NAME = "Comic.db";
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 4;
 
 
     // Bảng 1-
@@ -503,11 +503,11 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         return isSaved;
     }
 
-    public void updateData_account(String row_id,String name,String phone, byte[] avatar){
+    public void updateData_account(String row_id,String email,String phone, byte[] avatar){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        cv.put(USERNAME, name);
+        cv.put(EMAIL, email);
         cv.put(PHONE,phone);
         cv.put(AVATAR_ACCOUNT,avatar);
 

@@ -43,7 +43,12 @@ public class AddComicActivity extends AppCompatActivity {
         avatar_input = findViewById(R.id.avatar_input);
         add_button.setOnClickListener(view -> {
             MyDatabaseHelper myDB = new MyDatabaseHelper(AddComicActivity.this);
-            if (selectedImageUri!= null) {
+            if (selectedImageUri != null && !namecomic_input.getText().toString().trim().isEmpty() &&
+                    !description_input.getText().toString().trim().isEmpty() &&
+                    !author_input.getText().toString().trim().isEmpty() &&
+                    !status_input.getText().toString().trim().isEmpty() &&
+                    !date_update_input.getText().toString().trim().isEmpty()) {
+
                 byte[] avatarBytes = getBytesFromUri(selectedImageUri);
                 myDB.addComic(namecomic_input.getText().toString().trim(),
                         description_input.getText().toString().trim(),
@@ -53,13 +58,12 @@ public class AddComicActivity extends AppCompatActivity {
                         avatarBytes);
                 Intent intent = new Intent(AddComicActivity.this, ComicDataActivity.class);
                 startActivity(intent);
+                finish();
+            } else {
+                Toast.makeText(AddComicActivity.this, "Vui lòng điền đầy đủ thông tin và chọn hình ảnh", Toast.LENGTH_LONG).show();
             }
-            else {
-                Toast.makeText(AddComicActivity.this,"ko hop le",Toast.LENGTH_LONG).show();
-            }
-
-            finish();
         });
+
         resultLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(),
                 result -> {
                     if (result != null) {

@@ -87,7 +87,7 @@ public class UpdateChapterActivity extends AppCompatActivity {
 
                 } else {
                     // Hiển thị thông báo nếu có trường dữ liệu bị rỗng
-                    Toast.makeText(UpdateChapterActivity.this, "Please fill in all fields.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UpdateChapterActivity.this, "Vui lòng điền đầy đủ thông tin.", Toast.LENGTH_SHORT).show();
                 }
 
             } catch (Exception e) {

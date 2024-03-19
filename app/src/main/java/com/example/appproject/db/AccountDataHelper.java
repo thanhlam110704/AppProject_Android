@@ -41,14 +41,15 @@ public class AccountDataHelper extends SQLiteOpenHelper {
                 cursor.getString(2),
                 cursor.getString(3),
                 cursor.getString(4),
-                cursor.getBlob(5)
+                cursor.getString(5),
+                cursor.getBlob(6)
         );
     }
     public Account getAccountByName(String username) {
         Account account = null;
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery(
-                "SELECT * FROM account" + " WHERE username = ?", new String[]{username});
+                "SELECT * FROM "+TABLE_NAME3 + " WHERE username = ?", new String[]{username});
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             account = cursorToAccount(cursor);
@@ -59,13 +60,12 @@ public class AccountDataHelper extends SQLiteOpenHelper {
     public ArrayList<Account> getAllAccount() {
         ArrayList<Account> accounts = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM account", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " +TABLE_NAME3, null);
         if (cursor != null) {
             try {
                 if (cursor.moveToFirst()) {
                     do {
                        Account account = cursorToAccount(cursor);
-
                         accounts .add(account);
                     } while (cursor.moveToNext());
                 }

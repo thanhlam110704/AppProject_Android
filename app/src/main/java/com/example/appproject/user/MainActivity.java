@@ -10,6 +10,7 @@ import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,6 +29,7 @@ import com.example.appproject.R;
 import com.example.appproject.adapter.ComicAdapter;
 import com.example.appproject.adapter.ComicArrayAdapter;
 import com.example.appproject.adapter.ItemSearchAdapter;
+import com.example.appproject.admin.AdminActivity;
 import com.example.appproject.db.ComicDataHelper;
 import com.example.appproject.db.MyDatabaseHelper;
 import com.example.appproject.db.SessionManager;
@@ -67,6 +69,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         addEventMenu();
         addEventProduct();
         addMenuSearch();
+
+
+
+
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -250,6 +256,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             sessionManager.logoutUser();
             Intent intent= new Intent(this,MainActivity.class);
             startActivity(intent);
+            Toast.makeText(MainActivity.this, "Đăng xuất thành công", Toast.LENGTH_SHORT).show();
         }
 
 

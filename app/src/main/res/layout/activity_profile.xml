@@ -19,7 +19,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Full Name">
+        android:hint="Username">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edtfullname"
             android:layout_width="match_parent"
@@ -28,10 +28,26 @@
             android:drawableLeft="@drawable/icon_user"
             android:drawablePadding="10dp"
             android:layout_marginTop="10dp"
+            android:editable="false"
+            android:text=""
+            tools:ignore="Deprecated">
+        </com.google.android.material.textfield.TextInputEditText>
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtemail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:drawableLeft="@drawable/icon_email"
+            android:drawablePadding="10dp"
+            android:layout_marginTop="10dp"
             android:text="">
         </com.google.android.material.textfield.TextInputEditText>
     </com.google.android.material.textfield.TextInputLayout>
-
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

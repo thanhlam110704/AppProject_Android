@@ -73,6 +73,7 @@ public class AdminActivity extends AppCompatActivity {
                 sessionManager.logoutUser();
                 Intent intent= new Intent(AdminActivity.this, MainActivity.class);
                 startActivity(intent);
+                Toast.makeText(AdminActivity.this, "Đăng xuất thành công", Toast.LENGTH_SHORT).show();
             }
         });
 

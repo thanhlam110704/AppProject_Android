@@ -35,12 +35,15 @@ public class UpdateGenActivity extends AppCompatActivity {
             ab.setTitle(genre);
         }
         update_button.setOnClickListener(view -> {
-            MyDatabaseHelper myDB = new MyDatabaseHelper(UpdateGenActivity.this);
-            genre = genre_input.getText().toString().trim();
-            myDB.updateData_genre(id, genre);
-            finish();
+            String newGenre = genre_input.getText().toString().trim();
+            if (!newGenre.isEmpty()) {
+                MyDatabaseHelper myDB = new MyDatabaseHelper(UpdateGenActivity.this);
+                myDB.updateData_genre(id, newGenre);
+                finish();
+            } else {
+                Toast.makeText(UpdateGenActivity.this, "Vui lòng nhập thể loại mới", Toast.LENGTH_LONG).show();
+            }
         });
-        delete_button.setOnClickListener(view -> confirmDialog());
     }
 
     public void getandsetIntentData(){

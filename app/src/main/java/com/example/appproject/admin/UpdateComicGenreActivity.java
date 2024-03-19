@@ -36,12 +36,18 @@ public class UpdateComicGenreActivity extends AppCompatActivity {
             ab.setTitle(id_comic+""+id_gen);
         }
         update_button.setOnClickListener(view -> {
-            MyDatabaseHelper myDB = new MyDatabaseHelper(UpdateComicGenreActivity.this);
-            id_comic= comicgenre_idcomic_input.getText().toString().trim();
-            id_gen=comicgenre_idgen_input.getText().toString().trim();
-            myDB.updateDatacomic_genre(id, id_comic,id_gen);
-            finish();
+            String idComic = comicgenre_idcomic_input.getText().toString().trim();
+            String idGen = comicgenre_idgen_input.getText().toString().trim();
+
+            if (!idComic.isEmpty() && !idGen.isEmpty()) {
+                MyDatabaseHelper myDB = new MyDatabaseHelper(UpdateComicGenreActivity.this);
+                myDB.updateDatacomic_genre(id, idComic, idGen);
+                finish();
+            } else {
+                Toast.makeText(UpdateComicGenreActivity.this, "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+            }
         });
+
         delete_button.setOnClickListener(view -> confirmDialog());
     }
 

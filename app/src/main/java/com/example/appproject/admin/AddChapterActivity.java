@@ -50,25 +50,28 @@ public class AddChapterActivity extends AppCompatActivity {
         add_button=findViewById(R.id.add_button1);
         add_button.setOnClickListener(view -> {
             MyDatabaseHelper myDB = new MyDatabaseHelper(AddChapterActivity.this);
-            if (selectedImageUris!=null) {
-                List<byte[]> imgBytesList = new ArrayList<>();
-                for (Uri selectedImageUri : selectedImageUris) {
-                    byte[] imgBytes = getBytesFromUri(selectedImageUri);
-                    imgBytesList.add(imgBytes);
-                }
-                myDB.addChapter(
-                        chapter_input.getText().toString().trim(),
-                        viewer_input.getText().toString().trim(),
-                        date_publish_input.getText().toString().trim(),
-                        imgBytesList,
-                        idcomic_input.getText().toString().trim()
-                );
+            String chapter = chapter_input.getText().toString().trim();
+            String datePublish = date_publish_input.getText().toString().trim();
+            String viewer = viewer_input.getText().toString().trim();
+            String idComic = idcomic_input.getText().toString().trim();
 
-                Toast.makeText(AddChapterActivity.this, "Chapters Added Successfully", Toast.LENGTH_SHORT).show();
+            if (selectedImageUris != null && !selectedImageUris.isEmpty()) {
+                if (!chapter.isEmpty() && !datePublish.isEmpty() && !viewer.isEmpty() && !idComic.isEmpty()) {
+                    List<byte[]> imgBytesList = new ArrayList<>();
+                    for (Uri selectedImageUri : selectedImageUris) {
+                        byte[] imgBytes = getBytesFromUri(selectedImageUri);
+                        imgBytesList.add(imgBytes);
+                    }
+                    myDB.addChapter(chapter, viewer, datePublish, imgBytesList, idComic);
+                } else {
+                    Toast.makeText(AddChapterActivity.this, "Vui lòng điền đầy đủ thông tin.", Toast.LENGTH_SHORT).show();
+                }
             } else {
-                Toast.makeText(AddChapterActivity.this, "No Images Selected", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddChapterActivity.this, "Không có hình ảnh nào được chọn", Toast.LENGTH_SHORT).show();
             }
         });
+
+
 
 
         resultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {

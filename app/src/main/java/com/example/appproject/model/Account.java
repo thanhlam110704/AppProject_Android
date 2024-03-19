@@ -7,6 +7,7 @@ public class Account implements Serializable {
     private String username;
     private String password;
     private String phone;
+    private String email;
     private String role;
     private byte[] avatar;
 
@@ -15,11 +16,12 @@ public class Account implements Serializable {
 
     }
 
-    public Account(int id, String username, String password, String phone, String role, byte[] avatar) {
+    public Account(int id, String username, String password, String phone, String email, String role, byte[] avatar) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.phone = phone;
+        this.email = email;
         this.role = role;
         this.avatar = avatar;
     }
@@ -54,6 +56,14 @@ public class Account implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getRole() {
