@@ -23,7 +23,7 @@ import android.text.InputType;
 import android.content.Intent;
 public class RegisterActivity extends AppCompatActivity {
 
-    EditText username,password,phone,repassword;
+    EditText username,password,phone,repassword,email;
     Button btnRegister;
     CheckBox checkBox2;
     private MyDatabaseHelper dbHelper;
@@ -58,9 +58,11 @@ public class RegisterActivity extends AppCompatActivity {
                 String sdt= phone.getText().toString();
                 String pword= password.getText().toString();
                 String rpword = repassword.getText().toString();
-                validateinfo(uname,sdt,pword,rpword);
+                String mail = email.getText().toString();
+
+                validateinfo(uname,sdt,mail,pword,rpword);
                 if (!hasError) {
-                    dbHelper.addRegister(uname, pword, sdt);
+                    dbHelper.addRegister(uname, pword, sdt,mail);
                     showSuccessDialog();
                 }
 
@@ -70,43 +72,76 @@ public class RegisterActivity extends AppCompatActivity {
     }
     private boolean hasError = false;
 
-    private void validateinfo(String uname, String sdt, String pword, String rpword) {
+    private void validateinfo(String uname, String sdt, String mail, String pword, String rpword) {
         StringBuilder errorMessage = new StringBuilder();
         hasError = false;
 
-        if (uname.length() == 0) {
+        if (uname.isEmpty()) {
             errorMessage.append("Vui lòng nhập tên đăng nhập\n");
             username.setError("Vui lòng nhập tên đăng nhập");
             hasError = true;
-        }
-        if (isUsernameExists(uname)) {
+        } else if (isUsernameExists(uname)) {
             errorMessage.append("Tên đăng nhập đã tồn tại\n");
             username.setError("Tên đăng nhập đã tồn tại");
             hasError = true;
         }
-        if (pword.length() < 6) {
+
+        if (sdt.isEmpty()) {
+            errorMessage.append("Vui lòng nhập số điện thoại\n");
+            phone.setError("Vui lòng nhập số điện thoại");
+            hasError = true;
+        } else if (sdt.length() != 11) {
+            errorMessage.append("Số điện thoại cần phải có 11 chữ số\n");
+            phone.setError("Số điện thoại cần phải có 11 chữ số");
+            hasError = true;
+        }
+        else if (isPhoneExists(sdt)) {
+            errorMessage.append("Số điện thoại đã được sử dụng\n");
+            phone.setError("Số điện thoại đã được sử dụng");
+            hasError = true;
+        }
+
+        if (mail.isEmpty()) {
+            errorMessage.append("Vui lòng nhập email\n");
+            email.setError("Vui lòng nhập email");
+            hasError = true;
+        } else if (!mail.matches("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")) {
+            errorMessage.append("Vui lòng nhập email hợp lệ\n");
+            email.setError("Vui lòng nhập email hợp lệ");
+            hasError = true;
+        } else if (isEmailExists(mail)) {
+            errorMessage.append("Email đã được sử dụng\n");
+            email.setError("Email đã được sử dụng");
+            hasError = true;
+        }
+        if(pword.isEmpty()){
+            errorMessage.append("Vui lòng nhập mật khẩu\n");
+            password.setError("Vui lòng nhập mật khẩu");
+            hasError = true;
+        }
+        else if (pword.length() < 6) {
             errorMessage.append("Mật khẩu tối thiểu 6 ký tự\n");
             password.setError("Mật khẩu tối thiểu 6 ký tự");
             hasError = true;
-        } else if (!pword.matches(".*[!@#$%^&*~`()_+=-].*")) {
+        }
+        else if (!pword.matches(".*[A-Z].*")) {
+            errorMessage.append("Mật khẩu cần phải chứa ít nhất 1 ký tự viết hoa\n");
+            password.setError("Mật khẩu cần phải chứa ít nhất 1 ký tự viết hoa");
+            hasError = true;
+        }
+        else if (!pword.matches(".*[!@#$%^&*~`()_+=-].*")) {
             errorMessage.append("Mật khẩu cần chứa ít nhất 1 ký tự đặc biệt\n");
             password.setError("Mật khẩu cần chứa ít nhất 1 ký tự đặc biệt");
             hasError = true;
         }
-
-        if (!rpword.equals(pword)) {
+        if(rpword.isEmpty()){
+            errorMessage.append("Vui lòng nhập lại mật khẩu\n");
+            repassword.setError("Vui lòng nhập lại mật khẩu");
+            hasError = true;
+        }
+        else if (!rpword.equals(pword)) {
             errorMessage.append("Mật khẩu không khớp\n");
             repassword.setError("Mật khẩu không khớp");
-            hasError = true;
-        }
-        if (isPhoneExists(sdt)) {
-            errorMessage.append("Email đã được sử dụng\n");
-            phone.setError("Email đã được sử dụng");
-            hasError = true;
-        }
-        else if (sdt.length() == 0) {
-            errorMessage.append("Vui lòng nhập email\n");
-            phone.setError("Vui lòng nhập email");
             hasError = true;
         }
 
@@ -131,6 +166,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister = findViewById(R.id.btnRegister);
         repassword = findViewById(R.id.repassword);
         checkBox2= findViewById(R.id.checkBox2);
+        email = findViewById(R.id.email);
     }
 
     private void showSuccessDialog() {
@@ -171,6 +207,19 @@ public class RegisterActivity extends AppCompatActivity {
         Cursor cursor = db.rawQuery(
                 "SELECT * FROM " + MyDatabaseHelper.TABLE_NAME3 + " WHERE " + MyDatabaseHelper.PHONE + "=?",
                 new String[]{phone}
+        );
+
+        boolean exists = cursor.getCount() > 0;
+
+        cursor.close();
+        return exists;
+    }
+    private boolean isEmailExists(String mail) {
+        // Check if the email exists in the database
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery(
+                "SELECT * FROM " + MyDatabaseHelper.TABLE_NAME3 + " WHERE " + MyDatabaseHelper.EMAIL + "=?",
+                new String[]{mail}
         );
 
         boolean exists = cursor.getCount() > 0;

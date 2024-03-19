@@ -24,7 +24,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 public class LoginActivity extends AppCompatActivity {
     EditText edtUsername,edtPassword;
-    TextView txtSignup;
+    TextView txtForgetPassword,txtSignUp;
     Button btnLogin;
     CheckBox checkBox;
     MyDatabaseHelper databaseHelper;
@@ -40,15 +40,8 @@ public class LoginActivity extends AppCompatActivity {
         edtPassword=findViewById(R.id.edtPassword);
         btnLogin=findViewById(R.id.btnLogin);
         checkBox=findViewById(R.id.checkBox);
-        txtSignup=findViewById(R.id.txtSignUp);
-
-        txtSignup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent =new Intent(LoginActivity.this,RegisterActivity.class);
-                startActivity(intent);
-            }
-        });
+        txtForgetPassword=findViewById(R.id.txtForgetPassword);
+        txtSignUp=findViewById(R.id.txtSignUp);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -63,6 +56,21 @@ public class LoginActivity extends AppCompatActivity {
                 // Move the cursor to the end of the text to ensure it's always visible
                 edtPassword.setSelection(edtPassword.getText().length());
 
+            }
+        });
+
+        txtForgetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+                startActivity(intent);
+            }
+        });
+        txtSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
+                startActivity(intent);
             }
         });
         btnLogin.setOnClickListener(new View.OnClickListener() {

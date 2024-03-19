@@ -91,10 +91,25 @@
                 android:layout_marginTop="20dp"
 
                 android:background="@drawable/custom"
-                android:drawableLeft="@drawable/i"
+                android:drawableLeft="@drawable/a"
                 android:drawablePadding="8dp"
                 android:hint="Số điện thoại"
                 android:inputType="number"
+                android:padding="8dp"
+                android:textColor="@color/black"
+                android:textColorHighlight="@color/cardview_dark_background" />
+            <EditText
+                android:id="@+id/email"
+
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+
+                android:background="@drawable/custom"
+                android:drawableLeft="@drawable/i"
+                android:drawablePadding="8dp"
+                android:hint="Email"
+                android:inputType="text"
                 android:padding="8dp"
                 android:textColor="@color/black"
                 android:textColorHighlight="@color/cardview_dark_background" />

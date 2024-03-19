@@ -61,6 +61,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public static final String USERNAME ="username";
     public static final String PASSWORD ="password";
     public static final String PHONE ="phone";
+    public static final String EMAIL= "email";
     public static final String ROLE ="role";
     public static final String AVATAR_ACCOUNT="avatar_account";
 
@@ -168,6 +169,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 + USERNAME + " TEXT, "
                 + PASSWORD + " TEXT, "
                 + PHONE + " TEXT, "
+                + EMAIL + " TEXT, "
                 + ROLE + " TEXT, "
                 + AVATAR_ACCOUNT + " BLOB)";
         db.execSQL(createTableAccount);
@@ -217,16 +219,17 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME4);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME5);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME7);
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME8);
+
         onCreate(db);
     }
     //Data in SQLite
-    public void addRegister(String uname, String pword, String phone){
+    public void addRegister(String uname, String pword, String phone,String mail){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(USERNAME, uname);
         cv.put(PASSWORD, pword);
         cv.put(PHONE, phone);
+        cv.put(EMAIL, mail);
         cv.put(ROLE, "0");
         byte[] byteArray = ImageUtils.bitmapToByteArray(context, R.drawable.h1);
         cv.put(MyDatabaseHelper.AVATAR_ACCOUNT, byteArray);
