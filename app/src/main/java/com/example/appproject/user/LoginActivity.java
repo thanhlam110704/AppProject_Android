@@ -11,6 +11,8 @@ import com.example.appproject.admin.AdminActivity;
 import com.example.appproject.db.AccountDataHelper;
 import com.example.appproject.db.MyDatabaseHelper;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.widget.TextView;
 import android.widget.Toast;
 import com.example.appproject.R;
 import com.example.appproject.db.SessionManager;
@@ -22,6 +24,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 public class LoginActivity extends AppCompatActivity {
     EditText edtUsername,edtPassword;
+    TextView txtSignup;
     Button btnLogin;
     CheckBox checkBox;
     MyDatabaseHelper databaseHelper;
@@ -37,6 +40,15 @@ public class LoginActivity extends AppCompatActivity {
         edtPassword=findViewById(R.id.edtPassword);
         btnLogin=findViewById(R.id.btnLogin);
         checkBox=findViewById(R.id.checkBox);
+        txtSignup=findViewById(R.id.txtSignUp);
+
+        txtSignup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(LoginActivity.this,RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
