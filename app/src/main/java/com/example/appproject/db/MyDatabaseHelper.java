@@ -651,6 +651,12 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
         db.close();
     }
-
+    public void updatePassword(String phoneNumber, String newPassword) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(PASSWORD, newPassword);
+        db.update(TABLE_NAME3, values, PHONE + " = ?", new String[]{phoneNumber});
+        db.close();
+    }
 
 }

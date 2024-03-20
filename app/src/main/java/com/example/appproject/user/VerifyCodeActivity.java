@@ -21,7 +21,7 @@ public class VerifyCodeActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     Button btnCon2;
     EditText fpCode;
-    private String verificationId;
+    private String verificationId,phone;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +31,7 @@ public class VerifyCodeActivity extends AppCompatActivity {
         btnCon2=findViewById(R.id.btnCon2);
         fpCode=findViewById(R.id.fpCode);
         Intent intent = getIntent();
+        phone = intent.getStringExtra("mobile");
         verificationId = getIntent().getStringExtra("verificationId");
         btnCon2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,19 +46,20 @@ public class VerifyCodeActivity extends AppCompatActivity {
 
         if (!code.isEmpty()) {
             PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
-            signInWithPhoneAuthCredential(credential);
+            signInWithPhoneAuthCredential(credential,phone);
         } else {
             Toast.makeText(this, "Please enter the verification code.", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
+    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential, final String phone) {
         firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         // Verification successful, proceed to the password reset or any other action
                         Toast.makeText(VerifyCodeActivity.this, "Verification successful.", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(VerifyCodeActivity.this, ResetPasswordActivity.class);
+                        intent.putExtra("mobile", phone);
                         startActivity(intent);
                         // ...
 

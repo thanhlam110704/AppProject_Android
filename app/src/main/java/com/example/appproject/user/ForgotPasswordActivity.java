@@ -77,7 +77,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                                     verificationId = s;
                                     // Navigate to a new activity where the user can enter the code
                                     Intent intent = new Intent(ForgotPasswordActivity.this, VerifyCodeActivity.class);
-                                    intent.putExtra("mobile", fpPhone.getText().toString());
+                                    intent.putExtra("mobile", phone);
                                     intent.putExtra("verificationId", verificationId);
                                     startActivity(intent);
                                 }
