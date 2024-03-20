@@ -66,7 +66,7 @@ public class UpdateChapterActivity extends AppCompatActivity {
             MyDatabaseHelper myDB = new MyDatabaseHelper(UpdateChapterActivity.this);
             try {
                 // Kiểm tra giá trị của các biến trước khi thực hiện cập nhật
-                if (!chapter.isEmpty() && !viewer.isEmpty() && !datepublish .isEmpty() && !idcomic.isEmpty()) {
+                if (!chapter.isEmpty() && !viewer.isEmpty() && !datepublish .isEmpty()) {
 
                     // Nếu có ảnh mới, cập nhật avatar từ ảnh mới
                     if (selectedImageUris!=null) {
@@ -150,13 +150,13 @@ public class UpdateChapterActivity extends AppCompatActivity {
 
     public void getandsetIntentData(){
         if(getIntent().hasExtra("id")&& getIntent().hasExtra("chapter")&& getIntent().hasExtra("viewer")
-                &&getIntent().hasExtra("datepublish")&&getIntent().hasExtra("idcomic") && getIntent().hasExtra("img")){
+                &&getIntent().hasExtra("datepublish")&&getIntent().hasExtra("id_comic") && getIntent().hasExtra("img")){
             // Lấy dữ liệu từ Intent
             id = getIntent().getStringExtra("id");
             chapter=getIntent().getStringExtra("chapter");
             viewer=getIntent().getStringExtra("viewer");
             datepublish=getIntent().getStringExtra("datepublish");
-            idcomic=getIntent().getStringExtra("idcomic");
+            idcomic=getIntent().getStringExtra("id_comic");
             listimg = (List<byte[]>) getIntent().getSerializableExtra("img");
 
 

@@ -35,7 +35,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Rate Our App"
+            android:text="Đánh giá App"
             android:layout_marginTop="10dp"
             android:textColor="#CC000000"
             android:textSize="25sp"
@@ -50,7 +50,7 @@
             android:layout_gravity="center"
             android:textSize="16sp"
             android:layout_marginTop="10dp"
-            android:text="If you are enjoy using our app.Would you mind rating us on AppStore."/>
+            android:text="Bạn hãy đánh giá App để chúng tôi có thể mức độ hài lòng của bạn"/>
         <androidx.appcompat.widget.AppCompatRatingBar
             android:id="@+id/Ratingbar"
             android:layout_width="wrap_content"
@@ -79,7 +79,7 @@
                 android:background="@drawable/round_back_brown_6"
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
-                android:text="May Be, later"
+                android:text="Có lẽ, để sau"
                 android:textAllCaps="false"
                 android:textColor="#CC000000" />
 
@@ -88,7 +88,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:text="Rate Now"
+                android:text="Đánh giá ngay "
                 android:textAllCaps="false"
                 android:textColor="#FFFFFF"
                 android:paddingStart="20dp"

@@ -91,8 +91,8 @@ public class RegisterActivity extends AppCompatActivity {
             phone.setError("Vui lòng nhập số điện thoại");
             hasError = true;
         } else if (sdt.length() != 10) {
-            errorMessage.append("Số điện thoại cần phải có 11 chữ số\n");
-            phone.setError("Số điện thoại cần phải có 11 chữ số");
+            errorMessage.append("Số điện thoại cần phải có 10 chữ số\n");
+            phone.setError("Số điện thoại cần phải có 10 chữ số");
             hasError = true;
         }
         else if (isPhoneExists(sdt)) {

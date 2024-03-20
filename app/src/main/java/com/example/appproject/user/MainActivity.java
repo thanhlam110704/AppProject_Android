@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             recreate();
         }
     }
+
     /*Xử lý danh sách truyện tranh để cử */
     private void addEventBanner() {
         comic_helper= new ComicDataHelper(MainActivity.this);

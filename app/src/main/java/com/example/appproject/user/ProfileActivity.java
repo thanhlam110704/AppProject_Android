@@ -81,7 +81,7 @@ public class ProfileActivity extends AppCompatActivity {
                         // Kiểm tra định dạng email
                         if (isValidEmail(email)) {
                             // Kiểm tra độ dài số điện thoại
-                            if (phone.length() == 11) {
+                            if (phone.length() == 10) {
                                 // Nếu có ảnh mới, cập nhật avatar từ ảnh mới
                                 if (selectedImageUri != null) {
                                     byte[] avatarBytes = getBytesFromUri(selectedImageUri);
@@ -92,7 +92,7 @@ public class ProfileActivity extends AppCompatActivity {
                                 // Thực hiện cập nhật dữ liệu vào cơ sở dữ liệu
                                 myDB.updateData_account(id, email, phone, avatar);
                             } else {
-                                Toast.makeText(ProfileActivity.this, "Số điện thoại phải có đủ 11 số.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ProfileActivity.this, "Số điện thoại phải có đủ 10 số.", Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             Toast.makeText(ProfileActivity.this, "Sai format email .", Toast.LENGTH_SHORT).show();
