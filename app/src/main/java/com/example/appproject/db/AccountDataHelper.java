@@ -57,6 +57,18 @@ public class AccountDataHelper extends SQLiteOpenHelper {
         cursor.close();
         return account;
     }
+    public Account getAccountByEmail(String email) {
+        Account account = null;
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(
+                "SELECT * FROM "+TABLE_NAME3 + " WHERE email= ?", new String[]{email});
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            account = cursorToAccount(cursor);
+        }
+        cursor.close();
+        return account;
+    }
     public ArrayList<Account> getAllAccount() {
         ArrayList<Account> accounts = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();

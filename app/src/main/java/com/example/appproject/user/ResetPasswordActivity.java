@@ -21,7 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.appproject.db.MyDatabaseHelper;
 import com.example.appproject.R;
-import com.example.appproject.R;
+
 
 public class ResetPasswordActivity extends AppCompatActivity {
     private MyDatabaseHelper dbHelper;
@@ -67,12 +67,6 @@ public class ResetPasswordActivity extends AppCompatActivity {
 
     private void resetPassword() {
         String newPassword = repassword.getText().toString().trim();
-
-        if (newPassword.isEmpty()) {
-            Toast.makeText(this, "Please enter a new password.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
         // Assuming you have stored the phone number in a variable named phoneNumber
 
         dbHelper.updatePassword(phone, newPassword);

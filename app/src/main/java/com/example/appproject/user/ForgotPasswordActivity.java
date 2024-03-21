@@ -36,7 +36,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_forgot_password);
         firebaseAuth = FirebaseAuth.getInstance();
-
         dbHelper = new MyDatabaseHelper(this);
         btnCon=findViewById(R.id.btnCon);
         fpPhone=findViewById(R.id.fpPhone);
@@ -56,7 +55,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             PhoneAuthOptions options =
                     PhoneAuthOptions.newBuilder(FirebaseAuth.getInstance())
                             .setPhoneNumber("+84" + phone)    // Phone number to verify, with country code
-                            .setTimeout(60L, TimeUnit.SECONDS) // Timeout duration
+                            .setTimeout(120L, TimeUnit.SECONDS) // Timeout duration
                             .setActivity(this) // Activity (for callback binding)
                             .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                                 @Override

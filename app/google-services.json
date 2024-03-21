@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "419445208594",
-    "project_id": "adads-3addb",
-    "storage_bucket": "adads-3addb.appspot.com"
+    "project_number": "19481111391",
+    "project_id": "appfinal123",
+    "storage_bucket": "appfinal123.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:419445208594:android:7a7f57aff74cb090f60acb",
+        "mobilesdk_app_id": "1:19481111391:android:08ad6255d36ed8b684e4ea",
         "android_client_info": {
           "package_name": "com.example.appproject"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAc-ZHC6u0ymwNIrarG6EawK3SzmzN9QGM"
+          "current_key": "AIzaSyAoUv7W5UtwHR3GEfFu9dSdtZlkYCfIBYo"
         }
       ],
       "services": {

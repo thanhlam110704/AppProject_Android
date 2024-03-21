@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("com.google.gms.google-services")
+
 }
 
 android {
@@ -33,9 +34,9 @@ android {
 }
 
 dependencies {
-
+    implementation ("com.google.firebase:firebase-auth:21.0.1")
     implementation ("com.google.android.material:material:1.5.0-alpha02")
-
+    implementation ("com.google.firebase:firebase-auth:22.3.1")
     implementation ("de.hdodenhof:circleimageview:3.1.0")
     implementation ("androidx.cardview:cardview:1.0.0")
     implementation ("androidx.recyclerview:recyclerview:1.3.2")
