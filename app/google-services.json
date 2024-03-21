@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "586055767755",
-    "project_id": "amogus-c397f",
-    "storage_bucket": "amogus-c397f.appspot.com"
+    "project_number": "419445208594",
+    "project_id": "adads-3addb",
+    "storage_bucket": "adads-3addb.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:586055767755:android:c5dd18c7c31e0c2b25ed4e",
+        "mobilesdk_app_id": "1:419445208594:android:7a7f57aff74cb090f60acb",
         "android_client_info": {
           "package_name": "com.example.appproject"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAAQki4SJjJxeTqgvcl_AEUpdO7HarumVk"
+          "current_key": "AIzaSyAc-ZHC6u0ymwNIrarG6EawK3SzmzN9QGM"
         }
       ],
       "services": {
