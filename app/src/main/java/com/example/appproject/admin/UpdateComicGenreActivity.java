@@ -25,28 +25,27 @@ public class UpdateComicGenreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_comic_genre);
         comicgenre_idcomic_input=findViewById(R.id.comicgenre_idcomic_input);
-        comicgenre_idcomic_input=findViewById(R.id.comicgenre_idgen_input);
+        comicgenre_idgen_input=findViewById(R.id.comicgenre_idgen_input);
         update_button=findViewById(R.id.update_button4);
         delete_button=findViewById(R.id.delete_button4);
 
         getandsetIntentData();
-        ActionBar ab= getSupportActionBar();
-        if(ab!=null)
-        {
-            ab.setTitle(id_comic+""+id_gen);
-        }
-        update_button.setOnClickListener(view -> {
-            String idComic = comicgenre_idcomic_input.getText().toString().trim();
-            String idGen = comicgenre_idgen_input.getText().toString().trim();
 
-            if (!idComic.isEmpty() && !idGen.isEmpty()) {
-                MyDatabaseHelper myDB = new MyDatabaseHelper(UpdateComicGenreActivity.this);
-                myDB.updateDatacomic_genre(id, idComic, idGen);
-                finish();
-            } else {
-                Toast.makeText(UpdateComicGenreActivity.this, "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+        update_button.setOnClickListener(view -> {
+            if (comicgenre_idcomic_input !=null && comicgenre_idgen_input !=null) {
+                String idComic = comicgenre_idcomic_input.getText().toString().trim();
+                String idGen = comicgenre_idgen_input.getText().toString().trim();
+
+                if (!idComic.isEmpty() && !idGen.isEmpty()) {
+                    MyDatabaseHelper myDB = new MyDatabaseHelper(UpdateComicGenreActivity.this);
+                    myDB.updateDatacomic_genre(id, idComic, idGen);
+                    finish();
+                } else {
+                    Toast.makeText(UpdateComicGenreActivity.this, "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
 
         delete_button.setOnClickListener(view -> confirmDialog());
     }

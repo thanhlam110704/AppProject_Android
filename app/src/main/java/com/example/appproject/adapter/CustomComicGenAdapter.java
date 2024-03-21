@@ -47,13 +47,15 @@ public class CustomComicGenAdapter extends RecyclerView.Adapter<CustomComicGenAd
         holder.comicgenre_idcomic_txt.setText(String.valueOf(comicgenre_idcomic.get(position)));
         holder.comicgenre_idgen_txt.setText(String.valueOf(comicgenre_idgen.get(position)));
         holder.mainLayout4.setOnClickListener(v -> {
-            Intent intent= new Intent((context), UpdateComicGenreActivity.class);
-            intent.putExtra("id",String.valueOf(comicgenre_id.get(position)));
-            intent.putExtra("idcomic",String.valueOf(comicgenre_idcomic.get(position)));
-            intent.putExtra("idgen",String.valueOf(comicgenre_idgen.get(position)));
+            Intent intent= new Intent(context, UpdateComicGenreActivity.class);
+            intent.putExtra("id", String.valueOf(comicgenre_id.get(position)));
+            intent.putExtra("idcomic", String.valueOf(comicgenre_idcomic.get(position)));
+            intent.putExtra("idgen", String.valueOf(comicgenre_idgen.get(position)));
             activity.startActivityForResult(intent,1);
         });
     }
+
+
 
 
     @Override
